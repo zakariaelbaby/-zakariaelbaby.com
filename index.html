@@ -1,132 +1,1021 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zakaria EL-BABY | Contrôleur de Gestion IT</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .gradient-bg { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zakaria EL-BABY — Contrôleur de Gestion IT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['Cormorant Garamond', 'serif'],
+        body: ['Outfit', 'sans-serif'],
+      },
+      colors: {
+        gold: { DEFAULT: '#C9922A', light: '#E8B84B', dim: '#7D5B1A' },
+        navy: { DEFAULT: '#050814', light: '#0D1528', mid: '#111E3A' },
+        glass: 'rgba(255,255,255,0.04)',
+      },
+    }
+  }
+}
+</script>
+<style>
+  :root {
+    --gold: #C9922A;
+    --gold-light: #E8B84B;
+    --navy: #050814;
+    --navy-light: #0D1528;
+    --navy-mid: #111E3A;
+    --accent-blue: #3E72F8;
+    --text-primary: #F0EDE8;
+    --text-muted: #7A8499;
+    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--navy);
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ── CUSTOM CURSOR ── */
+  .cursor {
+    position: fixed; width: 10px; height: 10px;
+    background: var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, opacity 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed; width: 36px; height: 36px;
+    border: 1px solid rgba(201, 146, 42, 0.5);
+    border-radius: 50%; pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.12s ease, width 0.25s, height 0.25s;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* ── NOISE GRAIN ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+  }
+
+  /* ── ANIMATED GRADIENT MESH ── */
+  .mesh-bg {
+    position: absolute; inset: 0; overflow: hidden; z-index: 0;
+  }
+  .mesh-orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(120px); opacity: 0.18;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  .orb-1 { width: 700px; height: 700px; background: radial-gradient(circle, #C9922A, transparent 70%); top: -200px; left: -200px; animation-delay: 0s; }
+  .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, #3E72F8, transparent 70%); top: 10%; right: -150px; animation-delay: -6s; }
+  .orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, #1A3A5E, transparent 70%); bottom: 20%; left: 30%; animation-delay: -12s; }
+  @keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, -40px) scale(1.08); }
+    100% { transform: translate(-30px, 30px) scale(0.95); }
+  }
+
+  /* ── GLASSMORPHISM ── */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 2rem;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(5, 8, 20, 0.85);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.25s;
+    position: relative;
+  }
+  .nav-link::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold); transform: scaleX(0);
+    transform-origin: right; transition: transform 0.3s ease;
+  }
+  .nav-link:hover { color: var(--gold-light); }
+  .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+  /* ── GOLD LINE DIVIDER ── */
+  .gold-line {
+    display: inline-block;
+    width: 48px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    vertical-align: middle;
+    margin-right: 1rem;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 600; display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .section-label::before {
+    content: ''; display: inline-block;
+    width: 32px; height: 1px; background: var(--gold);
+  }
+
+  /* ── REVEAL ANIMATIONS ── */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.left { transform: translateX(-40px); }
+  .reveal.right { transform: translateX(40px); }
+  .reveal.visible { opacity: 1; transform: translate(0); }
+
+  /* ── PROFILE RING ── */
+  .profile-ring {
+    position: relative; display: inline-block;
+  }
+  .profile-ring::before {
+    content: ''; position: absolute;
+    inset: -6px; border-radius: 50%;
+    background: conic-gradient(var(--gold), var(--accent-blue), var(--gold));
+    z-index: -1;
+    animation: spin 8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── STAT CARDS ── */
+  .stat-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(201, 146, 42, 0.15);
+  }
+
+  /* ── TIMELINE ── */
+  .timeline-item { position: relative; padding-left: 2.5rem; }
+  .timeline-item::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px; background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .timeline-dot {
+    position: absolute; left: -6px; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--gold-light);
+    box-shadow: 0 0 20px rgba(201, 146, 42, 0.6);
+  }
+
+  /* ── SKILL BAR ── */
+  .skill-bar-track {
+    height: 3px; background: rgba(255,255,255,0.06);
+    border-radius: 999px; overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .skill-bar-fill.animate { transform: scaleX(1); }
+
+  /* ── CERT CARD ── */
+  .cert-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .cert-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,146,42,0.3);
+  }
+
+  /* ── CTA BUTTON ── */
+  .btn-gold {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 2.25rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    cursor: none; text-decoration: none;
+    position: relative; overflow: hidden;
+    transition: color 0.3s;
+  }
+  .btn-gold::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--gold); transform: scaleX(0);
+    transform-origin: right; transition: transform 0.35s ease;
+    z-index: -1;
+  }
+  .btn-gold:hover { color: #050814; }
+  .btn-gold:hover::before { transform: scaleX(1); transform-origin: left; }
+
+  /* ── CONTACT FORM ── */
+  .form-input {
+    width: 100%; padding: 0.875rem 1.25rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+    transition: border-color 0.25s, background 0.25s;
+    outline: none;
+  }
+  .form-input:focus {
+    border-color: var(--gold);
+    background: rgba(201, 146, 42, 0.04);
+  }
+  .form-input::placeholder { color: var(--text-muted); }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+  /* ── HERO TEXT ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-anim { animation: fadeUp 0.9s ease forwards; opacity: 0; }
+  .hero-anim:nth-child(1) { animation-delay: 0.2s; }
+  .hero-anim:nth-child(2) { animation-delay: 0.45s; }
+  .hero-anim:nth-child(3) { animation-delay: 0.65s; }
+  .hero-anim:nth-child(4) { animation-delay: 0.85s; }
+  .hero-anim:nth-child(5) { animation-delay: 1.0s; }
+
+  /* GLITCH on name */
+  @keyframes glitch {
+    0%, 90%, 100% { clip-path: none; transform: none; }
+    92% { clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%); transform: translate(-3px, 0); color: var(--accent-blue); }
+    94% { clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%); transform: translate(3px, 0); color: var(--gold-light); }
+    96% { clip-path: none; transform: none; }
+  }
+  .glitch-text { animation: glitch 6s ease infinite; display: inline-block; }
+
+  /* ── FLOATING TAGS ── */
+  .tag {
+    display: inline-flex; align-items: center;
+    padding: 0.3rem 0.85rem;
+    background: rgba(201,146,42,0.08);
+    border: 1px solid rgba(201,146,42,0.2);
+    border-radius: 999px; font-size: 0.75rem;
+    color: #D4A843; font-weight: 500; letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .tag:hover { background: rgba(201,146,42,0.18); transform: scale(1.04); }
+
+  /* ── FOOTER LINE ── */
+  footer a { color: var(--gold); text-decoration: none; transition: opacity 0.2s; }
+  footer a:hover { opacity: 0.7; }
+
+  /* ── PROGRESS BAR TOP ── */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--accent-blue));
+    z-index: 9999; width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* SECTION SPACING */
+  section { padding: 6rem 0; position: relative; z-index: 1; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+
+  @media (max-width: 768px) {
+    section { padding: 4rem 0; }
+    .hero-name { font-size: clamp(2.5rem, 10vw, 5rem) !important; }
+  }
+</style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body>
 
-    <header class="gradient-bg text-white py-20 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Zakaria EL-BABY</h1>
-            <p class="text-xl md:text-2xl text-slate-300 font-light mb-8">
-                Contrôleur de Gestion IT | Pilotage Budgétaire OPEX/CAPEX | Reporting & PMO
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="mailto:contact@zakariaelbaby.com" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition"><i class="fas fa-envelope mr-2"></i>Contactez-moi</a>
-                <a href="https://www.linkedin.com/in/zakaria-el-baby-aa6541185/" target="_blank" class="bg-white/10 hover:bg-white/20 text-white px-6 py-2 rounded-full transition"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a>
-            </div>
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="nav">
+  <div class="container flex items-center justify-between">
+    <a href="#hero" class="font-display text-lg font-semibold tracking-wider text-white" style="cursor:none">Z.EB</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#about" class="nav-link">Profil</a>
+      <a href="#experience" class="nav-link">Expérience</a>
+      <a href="#skills" class="nav-link">Compétences</a>
+      <a href="#certifications" class="nav-link">Certifications</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <a href="mailto:contact@zakariaelbaby.com" class="btn-gold text-xs">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Recruiter ?
+    </a>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero" style="min-height:100vh; display:flex; align-items:center; padding-top:5rem;">
+  <div class="mesh-bg">
+    <div class="mesh-orb orb-1"></div>
+    <div class="mesh-orb orb-2"></div>
+    <div class="mesh-orb orb-3"></div>
+  </div>
+  <!-- Background image overlay -->
+  <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(135deg, rgba(5,8,20,0.97) 0%, rgba(11,20,45,0.9) 50%, rgba(5,8,20,0.96) 100%)"></div>
+  <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80" alt="" aria-hidden="true"
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0.08"/>
+
+  <div class="container" style="position:relative;z-index:1;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;" class="md:grid-cols-2">
+
+      <!-- Left -->
+      <div>
+        <div class="section-label hero-anim">IT Financial Controller</div>
+
+        <h1 class="hero-anim" style="font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,5.5rem);font-weight:600;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.5rem;">
+          <span class="glitch-text hero-name" style="display:block;">Zakaria</span>
+          <span style="color:var(--gold);display:block;">EL-BABY</span>
+        </h1>
+
+        <p class="hero-anim" style="color:var(--text-muted);font-size:1.05rem;line-height:1.75;max-width:480px;margin-bottom:2rem;">
+          Contrôleur de Gestion IT spécialisé en pilotage budgétaire <strong style="color:var(--text-primary)">OPEX/CAPEX</strong>,
+          variance analysis et reporting automatisé. Actuellement en alternance chez
+          <strong style="color:var(--gold)">Mobilize Financial Services — Renault Group</strong>.
+        </p>
+
+        <div class="hero-anim" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2.5rem;">
+          <span class="tag">SAP S/4HANA</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Budget SSI 5M€</span>
+          <span class="tag">DORA</span>
+          <span class="tag">PMO</span>
         </div>
-    </header>
 
-    <main class="max-w-5xl mx-auto px-6 py-12">
-        
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4 mb-6">Profil Professionnel</h2>
-            <p class="text-lg text-slate-700 leading-relaxed">
-                Contrôleur de gestion IT spécialisé en pilotage budgétaire, suivi des dépenses <strong>OPEX/CAPEX</strong> et analyse financière pour projets SI. 
-                Expert en clôtures mensuelles, variance analysis et reporting automatisé, j'accompagne les directions SI dans la fiabilisation de leurs prévisions et l'optimisation de leurs processus financiers.
-            </p>
-        </section>
-
-        <div class="grid md:grid-cols-3 gap-12">
-            
-            <div class="md:col-span-2">
-                <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4 mb-8">Expériences</h2>
-                
-                <div class="space-y-10">
-                    <div class="relative pl-6 border-l border-slate-200">
-                        <div class="absolute w-3 h-3 bg-blue-600 rounded-full -left-[6.5px] top-1"></div>
-                        <h3 class="text-xl font-bold">Contrôleur de Gestion IT et Projets SSI (Alternance)</h3>
-                        <p class="text-blue-600 font-semibold">Mobilize Financial Services - Renault Group | 2023 - Présent</p>
-                        <ul class="mt-3 space-y-2 text-slate-600 list-disc ml-4">
-                            <li>Pilotage du budget SSI (env. 5M€) : reforecast et suivi des engagements.</li>
-                            <li>Réalisation de <strong>Variance Analysis</strong> (Réel vs Budget) et suivi des atterrissages.</li>
-                            <li>Automatisation de reportings KPI (OPEX, CAPEX, consommés).</li>
-                            <li>Contribution au pilotage des prestations et étude DORA (Cyber).</li>
-                        </ul>
-                    </div>
-
-                    <div class="relative pl-6 border-l border-slate-200">
-                        <div class="absolute w-3 h-3 bg-slate-400 rounded-full -left-[6.5px] top-1"></div>
-                        <h3 class="text-xl font-bold">Assistant Contrôleur de Gestion (Stage)</h3>
-                        <p class="text-blue-600 font-semibold">MARSA | Été 2023</p>
-                        <p class="mt-2 text-slate-600">Analyse des écarts N/N-1, mise en place de tableaux de bord financiers et participation aux clôtures mensuelles.</p>
-                    </div>
-                </div>
-
-                <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4 mb-8 mt-16">Formations</h2>
-                <div class="space-y-6">
-                    <div>
-                        <h3 class="font-bold">Mastère Spécialisé CG, Audit & SI</h3>
-                        <p class="text-slate-600">SKEMA Business School | 2025 (En cours)</p>
-                    </div>
-                    <div>
-                        <h3 class="font-bold">Master PGE, Contrôle de Gestion</h3>
-                        <p class="text-slate-600">Brest Business School | 2023 - 2025</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-12">
-                <section class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                    <h2 class="text-xl font-bold mb-4 italic text-blue-800">Expertises</h2>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-slate-100 px-3 py-1 rounded text-sm">OPEX/CAPEX</span>
-                        <span class="bg-slate-100 px-3 py-1 rounded text-sm">KPI Dashboards</span>
-                        <span class="bg-slate-100 px-3 py-1 rounded text-sm">Rolling Forecast</span>
-                        <span class="bg-slate-100 px-3 py-1 rounded text-sm">Allocation Coûts</span>
-                    </div>
-                    
-                    <h2 class="text-xl font-bold mb-4 mt-8 italic text-blue-800">Outils</h2>
-                    <ul class="space-y-2 text-sm text-slate-600">
-                        <li><i class="fas fa-check text-green-500 mr-2"></i>SAP S/4HANA (FI/CO)</li>
-                        <li><i class="fas fa-check text-green-500 mr-2"></i>JIRA & Triskell</li>
-                        <li><i class="fas fa-check text-green-500 mr-2"></i>Excel (Power Query / TCD)</li>
-                        <li><i class="fas fa-check text-green-500 mr-2"></i>MySQL</li>
-                    </ul>
-                </section>
-
-                <section class="bg-slate-900 text-white p-6 rounded-xl shadow-lg">
-                    <h2 class="text-xl font-bold mb-4 text-blue-400">Certifications</h2>
-                    <ul class="space-y-4 text-sm">
-                        <li>
-                            <p class="font-bold text-slate-200 uppercase">CISA - ISACA</p>
-                            <p class="text-slate-400">En cours de préparation</p>
-                        </li>
-                        <li>
-                            <p class="font-bold text-slate-200">SAP Certified Associate</p>
-                            <p class="text-slate-400">Janvier 2026</p>
-                        </li>
-                        <li>
-                            <p class="font-bold text-slate-200">Agile Project Management</p>
-                            <p class="text-slate-400">HP Life</p>
-                        </li>
-                    </ul>
-                </section>
-
-                <section class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                    <h2 class="text-xl font-bold mb-4 italic text-blue-800">Langues</h2>
-                    <p class="text-sm">Français : Courant</p>
-                    <p class="text-sm">Anglais : C1 Advanced (EF SET)</p>
-                    <p class="text-sm">Arabe : Maternel</p>
-                </section>
-            </div>
+        <div class="hero-anim" style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="#experience" class="btn-gold">Voir mon parcours</a>
+          <a href="https://www.linkedin.com/in/zakaria-el-baby-aa6541185/" target="_blank" rel="noopener"
+            style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 1.75rem;color:var(--text-muted);font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;text-decoration:none;border:1px solid var(--glass-border);border-radius:2px;transition:color 0.25s,border-color 0.25s;cursor:none;"
+            onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.25)'"
+            onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--glass-border)'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
         </div>
-    </main>
+      </div>
 
-    <footer class="bg-slate-100 py-12 text-center border-t border-slate-200">
-        <p class="text-slate-500">© 2026 Zakaria EL-BABY - Tous droits réservés</p>
-        <p class="text-sm text-slate-400 mt-2">Basé en Île-de-France</p>
-    </footer>
+      <!-- Right – Profile photo + floating cards -->
+      <div style="position:relative;display:flex;justify-content:center;align-items:center;" class="hidden md:flex">
+        <!-- Profile photo -->
+        <div class="profile-ring" style="z-index:2;">
+          <img id="profile-img"
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=320&q=90"
+            alt="Zakaria EL-BABY"
+            style="width:220px;height:220px;border-radius:50%;object-fit:cover;display:block;background:#111;"
+            onerror="this.src='https://ui-avatars.com/api/?name=Zakaria+EL-BABY&size=220&background=111E3A&color=C9922A&font-size=0.35'"
+          />
+        </div>
+        <!-- Note to user -->
+        <div style="position:absolute;bottom:-2rem;left:50%;transform:translateX(-50%);font-size:0.68rem;color:var(--text-muted);white-space:nowrap;text-align:center;opacity:0.7;">
+          ✦ Remplacez <code style="color:var(--gold)">src</code> de l'image par votre photo
+        </div>
+        <!-- Floating KPI card 1 -->
+        <div class="glass" style="position:absolute;top:0;right:-20px;padding:1rem 1.25rem;border-radius:12px;min-width:160px;animation:float1 5s ease-in-out infinite;">
+          <div style="font-size:0.68rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.25rem;">Budget piloté</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--gold-light);">5M€</div>
+          <div style="font-size:0.72rem;color:#4ade80;">↑ +2.3% précision</div>
+        </div>
+        <!-- Floating KPI card 2 -->
+        <div class="glass" style="position:absolute;bottom:40px;left:-30px;padding:1rem 1.25rem;border-radius:12px;min-width:160px;animation:float2 6s ease-in-out infinite;">
+          <div style="font-size:0.68rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.25rem;">Gain reporting</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--gold-light);">–3j</div>
+          <div style="font-size:0.72rem;color:#4ade80;">Automatisation KPI</div>
+        </div>
+      </div>
+    </div>
 
+    <!-- Scroll cue -->
+    <div style="position:absolute;bottom:-3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0.4;animation:fadeUp 1s ease 1.4s forwards;opacity:0;">
+      <span style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);">Scroll</span>
+      <div style="width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollLine 2s ease-in-out infinite;"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+  @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+</style>
+
+<!-- ══════════ STATS / ACCOMPLISHMENTS ══════════ -->
+<section id="about" style="background:linear-gradient(180deg,var(--navy) 0%,var(--navy-light) 100%);">
+  <div class="container">
+    <div class="section-label reveal">Chiffres clés</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2rem;">
+
+      <div class="glass stat-card reveal" style="padding:2rem;border-radius:12px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--gold-light);">5M€</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;letter-spacing:0.04em;">Budget SSI piloté</div>
+      </div>
+
+      <div class="glass stat-card reveal" style="padding:2rem;border-radius:12px;text-align:center;animation-delay:0.1s;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--gold-light);">97%</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;letter-spacing:0.04em;">Précision forecast</div>
+      </div>
+
+      <div class="glass stat-card reveal" style="padding:2rem;border-radius:12px;text-align:center;animation-delay:0.2s;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--gold-light);">–68%</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;letter-spacing:0.04em;">Temps de reporting</div>
+      </div>
+
+      <div class="glass stat-card reveal" style="padding:2rem;border-radius:12px;text-align:center;animation-delay:0.3s;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--gold-light);">12+</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;letter-spacing:0.04em;">Projets SSI suivis</div>
+      </div>
+
+      <div class="glass stat-card reveal" style="padding:2rem;border-radius:12px;text-align:center;animation-delay:0.4s;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--gold-light);">15h</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;letter-spacing:0.04em;">Économisées/semaine</div>
+      </div>
+
+      <div class="glass stat-card reveal" style="padding:2rem;border-radius:12px;text-align:center;animation-delay:0.5s;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--gold-light);">–71%</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;letter-spacing:0.04em;">Variance budgétaire</div>
+      </div>
+    </div>
+
+    <!-- Accomplishments narrative -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:4rem;" class="md:grid-cols-2">
+      <div class="reveal left">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&q=80" alt="Finance dashboard"
+          style="width:100%;height:280px;object-fit:cover;border-radius:12px;border:1px solid var(--glass-border);"/>
+      </div>
+      <div class="reveal right" style="display:flex;flex-direction:column;justify-content:center;gap:1.5rem;">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;line-height:1.3;">
+          Transformer les données financières en <span style="color:var(--gold)">décisions stratégiques</span>
+        </h2>
+        <p style="color:var(--text-muted);line-height:1.8;font-size:0.95rem;">
+          Passionné par la jonction entre finance et technologie, je construis des modèles de pilotage qui
+          transforment la complexité budgétaire en clarté opérationnelle. Mon expertise couvre l'intégralité
+          du cycle : de la construction budgétaire initiale jusqu'au reporting exécutif automatisé.
+        </p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;">
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.9rem;color:var(--text-muted);">
+            <span style="color:var(--gold);margin-top:2px;flex-shrink:0;">◆</span>
+            Réduction de la variance réel/budget de <strong style="color:var(--text-primary)">8.1% à 2.3%</strong> grâce à un modèle de reforecast dynamique
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.9rem;color:var(--text-muted);">
+            <span style="color:var(--gold);margin-top:2px;flex-shrink:0;">◆</span>
+            Automatisation de <strong style="color:var(--text-primary)">8 dashboards KPI</strong> sous Power Query — cycle clôture réduit de 3 jours
+          </li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.9rem;color:var(--text-muted);">
+            <span style="color:var(--gold);margin-top:2px;flex-shrink:0;">◆</span>
+            Cadrage DORA : adaptation des contrôles de premier niveau pour <strong style="color:var(--text-primary)">15 partenaires IT critiques</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ EXPERIENCE ══════════ -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label reveal">Parcours professionnel</div>
+    <h2 class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:500;margin-bottom:3.5rem;line-height:1.2;">
+      Expériences &amp; <span style="color:var(--gold)">Formation</span>
+    </h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;" class="md:grid-cols-2">
+
+      <!-- EXPERIENCE column -->
+      <div style="display:flex;flex-direction:column;gap:3rem;">
+
+        <!-- EXP 1 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div style="margin-bottom:0.75rem;">
+            <span style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600;">2023 — En cours</span>
+          </div>
+          <div class="glass" style="padding:1.75rem;border-radius:12px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">
+              <div>
+                <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:0.25rem;">Contrôleur de Gestion IT &amp; Projets SSI</h3>
+                <p style="font-size:0.82rem;color:var(--gold);font-weight:500;">Mobilize Financial Services — Renault Group</p>
+              </div>
+              <span style="font-size:0.7rem;padding:0.25rem 0.75rem;background:rgba(62,114,248,0.15);border:1px solid rgba(62,114,248,0.25);border-radius:999px;color:#7BA8FF;white-space:nowrap;flex-shrink:0;">Alternance</span>
+            </div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;">
+              <li style="font-size:0.85rem;color:var(--text-muted);display:flex;gap:0.5rem;"><span style="color:var(--gold);flex-shrink:0;">→</span>Pilotage du budget SSI (~5M€) : préparation, reforecast &amp; suivi mensuel des engagements</li>
+              <li style="font-size:0.85rem;color:var(--text-muted);display:flex;gap:0.5rem;"><span style="color:var(--gold);flex-shrink:0;">→</span>Variance analysis (réel vs budget) et suivi des atterrissages</li>
+              <li style="font-size:0.85rem;color:var(--text-muted);display:flex;gap:0.5rem;"><span style="color:var(--gold);flex-shrink:0;">→</span>Automatisation de reportings KPI (OPEX, CAPEX, consommés, avancement projets)</li>
+              <li style="font-size:0.85rem;color:var(--text-muted);display:flex;gap:0.5rem;"><span style="color:var(--gold);flex-shrink:0;">→</span>Étude DORA : cadrage audit partenaires &amp; adaptation contrôles niveau Cyber</li>
+            </ul>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.25rem;">
+              <span class="tag" style="font-size:0.68rem;">SAP S/4HANA</span>
+              <span class="tag" style="font-size:0.68rem;">JIRA</span>
+              <span class="tag" style="font-size:0.68rem;">TRISKELL</span>
+              <span class="tag" style="font-size:0.68rem;">MySQL</span>
+              <span class="tag" style="font-size:0.68rem;">Power BI</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXP 2 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot" style="background:var(--accent-blue);box-shadow:0 0 16px rgba(62,114,248,0.5);"></div>
+          <div style="margin-bottom:0.75rem;">
+            <span style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent-blue);font-weight:600;">Juin — Août 2023</span>
+          </div>
+          <div class="glass" style="padding:1.75rem;border-radius:12px;">
+            <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:0.25rem;">Assistant Contrôleur de Gestion</h3>
+            <p style="font-size:0.82rem;color:var(--accent-blue);font-weight:500;margin-bottom:1rem;">MARSA</p>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;">
+              <li style="font-size:0.85rem;color:var(--text-muted);display:flex;gap:0.5rem;"><span style="color:var(--gold);flex-shrink:0;">→</span>Analyse des écarts (N/N-1, Réel vs Prévisionnel) avec recommandations correctives</li>
+              <li style="font-size:0.85rem;color:var(--text-muted);display:flex;gap:0.5rem;"><span style="color:var(--gold);flex-shrink:0;">→</span>Contribution à la mise en place de tableaux de bord financiers</li>
+              <li style="font-size:0.85rem;color:var(--text-muted);display:flex;gap:0.5rem;"><span style="color:var(--gold);flex-shrink:0;">→</span>Participation aux clôtures mensuelles (provisions, écritures d'inventaire)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- EXP 3 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot" style="background:var(--text-muted);box-shadow:none;"></div>
+          <div style="margin-bottom:0.75rem;">
+            <span style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);font-weight:600;">Juin — Août 2022</span>
+          </div>
+          <div class="glass" style="padding:1.75rem;border-radius:12px;">
+            <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:0.25rem;">Assistant Administratif &amp; Comptable</h3>
+            <p style="font-size:0.82rem;color:var(--text-muted);font-weight:500;margin-bottom:1rem;">Municipalité Taroudant</p>
+            <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.7;">Tenue des registres comptables, amélioration des procédures via automatisations SAGE, préparation des déclarations fiscales.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMATION column -->
+      <div style="display:flex;flex-direction:column;gap:3rem;">
+        <div class="reveal right" style="margin-bottom:0.5rem;">
+          <span style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);">Formation académique</span>
+        </div>
+
+        <!-- EDU 1 -->
+        <div class="reveal right">
+          <div class="glass" style="padding:1.75rem;border-radius:12px;border-left:3px solid var(--gold);">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;font-weight:600;">2025 — En cours</div>
+            <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:0.2rem;">Mastère Spécialisé CG, Audit &amp; SI</h3>
+            <p style="font-size:0.82rem;color:var(--gold);margin-bottom:0.75rem;">SKEMA Business School</p>
+            <p style="font-size:0.82rem;color:var(--text-muted);">Thèse : digitalisation du contrôle des procédures IT en banque. Frameworks DORA &amp; COBIT 2019.</p>
+          </div>
+        </div>
+
+        <!-- EDU 2 -->
+        <div class="reveal right" style="animation-delay:0.15s;">
+          <div class="glass" style="padding:1.75rem;border-radius:12px;border-left:3px solid var(--accent-blue);">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-blue);margin-bottom:0.5rem;font-weight:600;">2023 — 2025</div>
+            <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:0.2rem;">Master PGE — Contrôle de Gestion</h3>
+            <p style="font-size:0.82rem;color:var(--accent-blue);margin-bottom:0.75rem;">Brest Business School</p>
+            <p style="font-size:0.82rem;color:var(--text-muted);">Spécialisation pilotage financier, gestion des risques et audit des systèmes d'information.</p>
+          </div>
+        </div>
+
+        <!-- EDU 3 -->
+        <div class="reveal right" style="animation-delay:0.3s;">
+          <div class="glass" style="padding:1.75rem;border-radius:12px;border-left:3px solid rgba(255,255,255,0.1);">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem;font-weight:600;">2020 — 2023</div>
+            <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:0.2rem;">Master Audit &amp; Contrôle de Gestion</h3>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:0.75rem;">ENCG Agadir</p>
+            <p style="font-size:0.82rem;color:var(--text-muted);">Fondamentaux comptables, audit interne, analyse financière et contrôle de gestion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SKILLS ══════════ -->
+<section id="skills" style="background:linear-gradient(180deg,var(--navy) 0%,var(--navy-light) 100%);">
+  <div class="container">
+    <div class="section-label reveal">Expertise technique</div>
+    <h2 class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:500;margin-bottom:3.5rem;">
+      Compétences &amp; <span style="color:var(--gold)">Outils</span>
+    </h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;" class="md:grid-cols-2">
+
+      <!-- Skill bars -->
+      <div style="display:flex;flex-direction:column;gap:2.25rem;" class="reveal left">
+
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;">
+            <span style="font-size:0.85rem;font-weight:500;">Pilotage budgétaire OPEX/CAPEX</span>
+            <span style="font-size:0.75rem;color:var(--gold);">95%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.95"></div></div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;">
+            <span style="font-size:0.85rem;font-weight:500;">SAP S/4HANA (FI/CO)</span>
+            <span style="font-size:0.75rem;color:var(--gold);">88%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.88"></div></div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;">
+            <span style="font-size:0.85rem;font-weight:500;">Excel avancé (PowerQuery, TCD)</span>
+            <span style="font-size:0.75rem;color:var(--gold);">93%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.93"></div></div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;">
+            <span style="font-size:0.85rem;font-weight:500;">Variance Analysis &amp; Rolling Forecast</span>
+            <span style="font-size:0.75rem;color:var(--gold);">92%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.92"></div></div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;">
+            <span style="font-size:0.85rem;font-weight:500;">Power BI / Reporting automatisé</span>
+            <span style="font-size:0.75rem;color:var(--gold);">82%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.82"></div></div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;">
+            <span style="font-size:0.85rem;font-weight:500;">MySQL / Analyse de données</span>
+            <span style="font-size:0.75rem;color:var(--gold);">75%</span>
+          </div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.75"></div></div>
+        </div>
+
+      </div>
+
+      <!-- Skill grid / tools -->
+      <div class="reveal right">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;">
+          <div class="glass" style="padding:1.25rem;border-radius:10px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px rgba(201,146,42,0.15)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
+            <div style="font-size:1.6rem;margin-bottom:0.5rem;">📊</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:500;">SAP S/4HANA</div>
+          </div>
+          <div class="glass" style="padding:1.25rem;border-radius:10px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+            <div style="font-size:1.6rem;margin-bottom:0.5rem;">🎯</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:500;">JIRA / TRISKELL</div>
+          </div>
+          <div class="glass" style="padding:1.25rem;border-radius:10px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+            <div style="font-size:1.6rem;margin-bottom:0.5rem;">🗄️</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:500;">MySQL</div>
+          </div>
+          <div class="glass" style="padding:1.25rem;border-radius:10px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+            <div style="font-size:1.6rem;margin-bottom:0.5rem;">📋</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:500;">COLLIBRA</div>
+          </div>
+          <div class="glass" style="padding:1.25rem;border-radius:10px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+            <div style="font-size:1.6rem;margin-bottom:0.5rem;">⚡</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:500;">eFront ERM</div>
+          </div>
+          <div class="glass" style="padding:1.25rem;border-radius:10px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+            <div style="font-size:1.6rem;margin-bottom:0.5rem;">🛡️</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:500;">DORA / COBIT</div>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="glass" style="padding:1.5rem;border-radius:12px;">
+          <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem;">Langues</div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:0.85rem;">🇫🇷 Français</span>
+              <div style="display:flex;gap:4px;">${'<span style="width:8px;height:8px;border-radius:50%;background:var(--gold)"></span>'.repeat(5)}</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:0.85rem;">🇬🇧 Anglais C1</span>
+              <div style="display:flex;gap:4px;">${'<span style="width:8px;height:8px;border-radius:50%;background:var(--gold)"></span>'.repeat(4)}<span style="width:8px;height:8px;border-radius:50%;background:rgba(201,146,42,0.2);border:1px solid var(--gold);display:inline-block;"></span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:0.85rem;">🇲🇦 Arabe</span>
+              <div style="display:flex;gap:4px;">${'<span style="width:8px;height:8px;border-radius:50%;background:var(--gold)"></span>'.repeat(5)}</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:0.85rem;">🇪🇸 Espagnol B1</span>
+              <div style="display:flex;gap:4px;">${'<span style="width:8px;height:8px;border-radius:50%;background:var(--gold)"></span>'.repeat(3)}<span style="width:8px;height:8px;border-radius:50%;background:rgba(201,146,42,0.2);border:1px solid var(--gold);display:inline-block;"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(201,146,42,0.2);border:1px solid var(--gold);display:inline-block;"></span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CERTIFICATIONS ══════════ -->
+<section id="certifications">
+  <div class="container">
+    <div class="section-label reveal">Accréditations</div>
+    <h2 class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:500;margin-bottom:3rem;">
+      Certifications &amp; <span style="color:var(--gold)">Formations</span>
+    </h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+
+      <!-- CISA -->
+      <div class="glass cert-card reveal" style="padding:2rem;border-radius:14px;border-top:2px solid var(--gold);animation-delay:0s;">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
+          <div style="width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,rgba(201,146,42,0.2),rgba(201,146,42,0.05));display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🏆</div>
+          <div>
+            <div style="font-size:0.68rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;font-weight:600;margin-bottom:0.25rem;">En cours — 2025</div>
+            <h3 style="font-size:0.95rem;font-weight:600;">CISA — Certified Information Systems Auditor</h3>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.7;">Préparation intensive dans le cadre du MS SKEMA. Couvre l'audit des SI, gouvernance, gestion des risques et continuité.</p>
+        <div style="margin-top:1rem;">
+          <span class="tag" style="font-size:0.68rem;">ISACA</span>
+          <span class="tag" style="font-size:0.68rem;margin-left:0.35rem;">SI Audit</span>
+        </div>
+      </div>
+
+      <!-- SAP -->
+      <div class="glass cert-card reveal" style="padding:2rem;border-radius:14px;border-top:2px solid #0070F3;animation-delay:0.1s;">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
+          <div style="width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,rgba(0,112,243,0.2),rgba(0,112,243,0.05));display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">⚙️</div>
+          <div>
+            <div style="font-size:0.68rem;color:#7BA8FF;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;margin-bottom:0.25rem;">Janvier 2026</div>
+            <h3 style="font-size:0.95rem;font-weight:600;">SAP Certified Associate — SAP Business AI</h3>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.7;">Positionnement des solutions SAP Business AI au sein de la SAP Business Suite. Certification officielle SAP.</p>
+        <div style="margin-top:1rem;">
+          <span class="tag" style="font-size:0.68rem;border-color:rgba(0,112,243,0.3);color:#7BA8FF;background:rgba(0,112,243,0.08);">SAP</span>
+          <span class="tag" style="font-size:0.68rem;margin-left:0.35rem;border-color:rgba(0,112,243,0.3);color:#7BA8FF;background:rgba(0,112,243,0.08);">Business AI</span>
+        </div>
+      </div>
+
+      <!-- PwC -->
+      <div class="glass cert-card reveal" style="padding:2rem;border-radius:14px;border-top:2px solid rgba(255,255,255,0.1);animation-delay:0.2s;">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
+          <div style="width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">📑</div>
+          <div>
+            <div style="font-size:0.68rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;font-weight:600;margin-bottom:0.25rem;">Avril 2025</div>
+            <h3 style="font-size:0.95rem;font-weight:600;">PwC US — Audit Job Simulation</h3>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.7;">Simulation professionnelle d'une mission d'audit externe chez PricewaterhouseCoopers US via Forage.</p>
+        <div style="margin-top:1rem;">
+          <span class="tag" style="font-size:0.68rem;">Audit</span>
+          <span class="tag" style="font-size:0.68rem;margin-left:0.35rem;">Forage</span>
+        </div>
+      </div>
+
+      <!-- EY -->
+      <div class="glass cert-card reveal" style="padding:2rem;border-radius:14px;border-top:2px solid rgba(255,215,0,0.2);animation-delay:0.3s;">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
+          <div style="width:48px;height:48px;border-radius:10px;background:rgba(255,215,0,0.05);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">📈</div>
+          <div>
+            <div style="font-size:0.68rem;color:rgba(255,215,0,0.7);letter-spacing:0.1em;text-transform:uppercase;font-weight:600;margin-bottom:0.25rem;">Juillet 2025</div>
+            <h3 style="font-size:0.95rem;font-weight:600;">EY — Financial Accounting Advisory Services</h3>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.7;">Simulation FAAS chez Ernst &amp; Young. Analyse de reporting financier et conseil en comptabilité.</p>
+        <div style="margin-top:1rem;">
+          <span class="tag" style="font-size:0.68rem;">FAAS</span>
+          <span class="tag" style="font-size:0.68rem;margin-left:0.35rem;">Reporting</span>
+        </div>
+      </div>
+
+      <!-- LinkedIn Learning -->
+      <div class="glass cert-card reveal" style="padding:2rem;border-radius:14px;border-top:2px solid rgba(14,118,168,0.4);animation-delay:0.4s;">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
+          <div style="width:48px;height:48px;border-radius:10px;background:rgba(14,118,168,0.08);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🎓</div>
+          <div>
+            <div style="font-size:0.68rem;color:rgba(14,118,168,0.9);letter-spacing:0.1em;text-transform:uppercase;font-weight:600;margin-bottom:0.25rem;">Oct. 2025</div>
+            <h3 style="font-size:0.95rem;font-weight:600;">Prendre des Décisions Stratégiques</h3>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.7;">Formation LinkedIn Learning sur les frameworks de décision stratégique en environnement incertain.</p>
+      </div>
+
+      <!-- Agile -->
+      <div class="glass cert-card reveal" style="padding:2rem;border-radius:14px;border-top:2px solid rgba(255,255,255,0.08);animation-delay:0.5s;">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
+          <div style="width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🔄</div>
+          <div>
+            <div style="font-size:0.68rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;font-weight:600;margin-bottom:0.25rem;">Sept. 2025</div>
+            <h3 style="font-size:0.95rem;font-weight:600;">Agile Project Management</h3>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.7;">Certification HP Life sur les méthodologies Agile appliquées à la gestion de projets IT.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact" style="background:linear-gradient(180deg,var(--navy-light) 0%,var(--navy) 100%);">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;" class="md:grid-cols-2">
+
+      <div class="reveal left">
+        <div class="section-label">Contact</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:500;line-height:1.1;margin-bottom:1.5rem;">
+          Travaillons<br/><span style="color:var(--gold)">ensemble</span>
+        </h2>
+        <p style="color:var(--text-muted);line-height:1.8;margin-bottom:2.5rem;font-size:0.95rem;">
+          Disponible pour des opportunités CDI en contrôle de gestion IT, pilotage budgétaire et audit des SI
+          en région Île-de-France, à partir d'<strong style="color:var(--text-primary)">octobre 2026</strong>.
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:1.25rem;">
+          <a href="mailto:contact@zakariaelbaby.com" style="display:flex;align-items:center;gap:1rem;color:var(--text-muted);text-decoration:none;transition:color 0.25s;cursor:none;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='var(--text-muted)'">
+            <div style="width:40px;height:40px;border:1px solid var(--glass-border);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <span style="font-size:0.88rem;">contact@zakariaelbaby.com</span>
+          </a>
+
+          <a href="tel:+33780394328" style="display:flex;align-items:center;gap:1rem;color:var(--text-muted);text-decoration:none;transition:color 0.25s;cursor:none;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='var(--text-muted)'">
+            <div style="width:40px;height:40px;border:1px solid var(--glass-border);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <span style="font-size:0.88rem;">+33 7 80 39 43 28</span>
+          </a>
+
+          <a href="https://www.linkedin.com/in/zakaria-el-baby-aa6541185/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:1rem;color:var(--text-muted);text-decoration:none;transition:color 0.25s;cursor:none;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='var(--text-muted)'">
+            <div style="width:40px;height:40px;border:1px solid var(--glass-border);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </div>
+            <span style="font-size:0.88rem;">linkedin.com/in/zakaria-el-baby-aa6541185</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="glass reveal right" style="padding:2.5rem;border-radius:16px;">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;margin-bottom:1.75rem;">Envoyer un message</h3>
+        <div style="display:flex;flex-direction:column;gap:1.25rem;">
+          <div>
+            <label style="display:block;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem;">Nom complet</label>
+            <input type="text" placeholder="Jean Dupont" class="form-input" />
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem;">Email</label>
+            <input type="email" placeholder="jean@entreprise.fr" class="form-input" />
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem;">Objet</label>
+            <input type="text" placeholder="Opportunité CDI — Contrôle de Gestion IT" class="form-input" />
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem;">Message</label>
+            <textarea rows="4" placeholder="Votre message..." class="form-input" style="resize:vertical;"></textarea>
+          </div>
+          <button onclick="handleContactForm(this)"
+            style="display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.95rem;background:var(--gold);color:#050814;font-family:'Outfit',sans-serif;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;border:none;border-radius:4px;cursor:none;transition:background 0.25s,transform 0.2s;width:100%;"
+            onmouseover="this.style.background='var(--gold-light)'"
+            onmouseout="this.style.background='var(--gold)'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Envoyer le message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer style="padding:3rem 0;border-top:1px solid var(--glass-border);position:relative;z-index:1;">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;">
+      Zakaria <span style="color:var(--gold)">EL-BABY</span>
+    </div>
+    <div style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.05em;">
+      © 2025 — Île-de-France
+    </div>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="https://www.linkedin.com/in/zakaria-el-baby-aa6541185/" target="_blank" rel="noopener" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;">LinkedIn</a>
+      <a href="mailto:contact@zakariaelbaby.com" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── CURSOR ──
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a,button,[onclick]').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width='18px'; cursor.style.height='18px'; ring.style.width='52px'; ring.style.height='52px'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width='10px'; cursor.style.height='10px'; ring.style.width='36px'; ring.style.height='36px'; });
+  });
+
+  // ── PROGRESS BAR ──
+  const pb = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    pb.style.width = pct + '%';
+  });
+
+  // ── STICKY NAV ──
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── SCROLL REVEAL ──
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ── SKILL BARS ──
+  const barObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const bar = e.target;
+        const w = parseFloat(bar.dataset.width || 0);
+        setTimeout(() => {
+          bar.classList.add('animate');
+          bar.style.transform = 'scaleX(' + w + ')';
+        }, 200);
+        barObserver.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skill-bar-fill').forEach(b => barObserver.observe(b));
+
+  // ── CONTACT FORM ──
+  function handleContactForm(btn) {
+    const inputs = btn.closest('div').querySelectorAll('input, textarea');
+    let valid = true;
+    inputs.forEach(i => { if (!i.value.trim()) { i.style.borderColor = '#ef4444'; valid = false; } else i.style.borderColor = ''; });
+    if (!valid) return;
+    btn.innerHTML = '✓ Message envoyé !';
+    btn.style.background = '#22c55e';
+    btn.style.cursor = 'none';
+    btn.disabled = true;
+    inputs.forEach(i => i.value = '');
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Envoyer le message';
+      btn.style.background = 'var(--gold)';
+      btn.disabled = false;
+    }, 3000);
+  }
+
+  // ── ACTIVE NAV ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const activeObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => { l.style.color = ''; });
+        const active = document.querySelector('.nav-link[href="#' + e.target.id + '"]');
+        if (active) active.style.color = 'var(--gold-light)';
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => activeObserver.observe(s));
+</script>
 </body>
 </html>
