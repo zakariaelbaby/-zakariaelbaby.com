@@ -4,24 +4,23 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Zakaria EL-BABY — Contrôleur de Gestion IT</title>
-<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
-:root{--gold:#C9922A;--gold-light:#E8B84B;--navy:#0C0B0A;--navy-light:#141210;--navy-mid:#1C1916;--accent-blue:#FFFFFF;--text-primary:#F0EDE8;--text-muted:#7A8499;--glass-bg:rgba(255,255,255,.04);--glass-border:rgba(255,255,255,.08)}
+:root{--gold:#C9922A;--gold-light:#E8B84B;--navy:#050814;--navy-light:#0D1528;--navy-mid:#111E3A;--accent-blue:#3E72F8;--text-primary:#F0EDE8;--text-muted:#7A8499;--glass-bg:rgba(255,255,255,.04);--glass-border:rgba(255,255,255,.08)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--navy);color:var(--text-primary);font-family:'Outfit',sans-serif;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;z-index:0;opacity:.025;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-#progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),#FFFFFF);z-index:9999;width:0%;transition:width .1s linear}
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--accent-blue));z-index:9999;width:0%;transition:width .1s linear}
 @media(min-width:769px){body{cursor:none}.cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference}.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(201,146,42,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s}}
 @media(max-width:768px){.cursor,.cursor-ring{display:none}}
 .mesh-bg{position:absolute;inset:0;overflow:hidden;z-index:0}
 .mesh-orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.18;animation:drift 18s ease-in-out infinite alternate}
 .orb-1{width:700px;height:700px;background:radial-gradient(circle,#C9922A,transparent 70%);top:-200px;left:-200px}
-.orb-2{width:500px;height:500px;background:radial-gradient(circle,#8B4A0F,transparent 70%);top:10%;right:-150px;animation-delay:-6s}
-.orb-3{width:400px;height:400px;background:radial-gradient(circle,#2A1A0A,transparent 70%);bottom:20%;left:30%;animation-delay:-12s}
+.orb-2{width:500px;height:500px;background:radial-gradient(circle,#3E72F8,transparent 70%);top:10%;right:-150px;animation-delay:-6s}
+.orb-3{width:400px;height:400px;background:radial-gradient(circle,#1A3A5E,transparent 70%);bottom:20%;left:30%;animation-delay:-12s}
 @keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-40px) scale(1.08)}100%{transform:translate(-30px,30px) scale(.95)}}
 .glass{background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem 2rem;transition:background .4s}
@@ -64,7 +63,7 @@ section{padding:6rem 0;position:relative;z-index:1}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes spin360{to{transform:rotate(360deg)}}
 .profile-ring{position:relative;display:inline-block}
-.profile-ring::before{content:'';position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(var(--gold),rgba(255,255,255,0.6),var(--gold));z-index:-1;animation:spin 8s linear infinite}
+.profile-ring::before{content:'';position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(var(--gold),var(--accent-blue),var(--gold));z-index:-1;animation:spin 8s linear infinite}
 .tag{display:inline-flex;align-items:center;padding:.3rem .85rem;background:rgba(201,146,42,.08);border:1px solid rgba(201,146,42,.2);border-radius:999px;font-size:.75rem;color:#D4A843;font-weight:500;letter-spacing:.04em;transition:background .2s,transform .2s}
 .tag:hover{background:rgba(201,146,42,.18);transform:scale(1.04)}
 .stat-card{transition:transform .3s,box-shadow .3s}
@@ -101,7 +100,7 @@ body.light * {
   --navy: #F4F1EB;
   --navy-light: #EAE6DA;
   --navy-mid: #DDD8CC;
-  --accent-blue: #FFFFFF;
+  --accent-blue: #9A8B7A;
   --text-primary: #1C1A14;
   --text-muted: #6B6455;
   --glass-bg: rgba(255,255,255,0.72);
@@ -143,7 +142,7 @@ body.light .stat-card:hover { box-shadow:0 20px 60px rgba(168,114,14,.12) !impor
 body.light footer { border-top-color:rgba(0,0,0,.1) !important; }
 body.light ::-webkit-scrollbar-track { background:#F4F1EB; }
 body.light ::-webkit-scrollbar-thumb { background:#C9922A; }
-body.light .profile-ring::before { background:conic-gradient(var(--gold),rgba(255,255,255,0.6),var(--gold)) !important; }
+body.light .profile-ring::before { background:conic-gradient(var(--gold),var(--accent-blue),var(--gold)) !important; }
 body.light h1,body.light h2,body.light h3 { color: #1C1A14 !important; }
 body.light strong { color: #1C1A14 !important; }
 
@@ -289,12 +288,12 @@ body.light .form-input { color: #1C1A14 !important; }
 
 
 /* ── LIGHT MODE — BLEU → BLANC/NEUTRE ── */
-body.light { --accent-blue: #FFFFFF !important; }
+body.light { --accent-blue: #9A8B7A !important; }
 body.light [style*="color:#FFFFFF"],
 body.light [style*="color:#FFFFFF"],
 body.light [style*="color: var(--accent-blue)"] { color: #6B5E50 !important; }
 body.light [style*="border-left:3px solid rgba(255,255,255,.3)"] { border-left-color: #C4B49A !important; }
-body.light [style*="border-top:2px solid rgba(255,255,255,.4)"] { border-top-color: #C4B49A !important; }
+body.light [style*="border-top:2px solid #0070F3"] { border-top-color: #C4B49A !important; }
 body.light [style*="border-top:2px solid rgba(14,118,168"] { border-top-color: #C4B49A !important; }
 body.light [style*="background:rgba(62,114,248"],
 body.light [style*="background:rgba(0,112,243"],
@@ -311,12 +310,59 @@ body.light #hero { background: #F4F1EB !important; }
 body.light #hero .mesh-bg { display: none !important; }
 body.light #hero > div[style*="background:rgba(5,8,20"] { background: rgba(244,241,235,0.97) !important; }
 body.light #hero > img { display: none !important; }
+body.light #hero-graph-svg { display: none !important; }
 body.light #hero .container { position: relative; z-index: 2; }
 body.light #hero h1 span:first-child { color: #1C1A14 !important; }
 body.light #hero h1 span[style*="color:var(--gold)"] { color: var(--gold) !important; }
 body.light #hero p { color: #5A5448 !important; }
 body.light #hero strong { color: #1C1A14 !important; }
 body.light #hero strong[style*="color:var(--gold)"] { color: var(--gold) !important; }
+
+
+/* ── LIGHT MODE — image overlays ── */
+body.light .exp-banner-overlay { background: linear-gradient(135deg,rgba(244,241,235,.85) 0%,rgba(220,210,195,.6) 100%) !important; }
+body.light .exp-banner-overlay div[style*="color:#fff"] { color: #1C1A14 !important; }
+body.light .exp-banner-overlay div[style*="color:rgba(255"] { color: #6B6455 !important; }
+body.light #contact img[aria-hidden] { opacity: .03 !important; }
+body.light .skills-img-strip div[style*="background:rgba(5,8,20,.55)"] { background: rgba(244,241,235,.75) !important; }
+body.light .skills-img-strip span { color: #1C1A14 !important; }
+
+
+/* ── LIGHT MODE — suppression fond bleu partout ── */
+body.light #experience,
+body.light #certifications,
+body.light #experience section,
+body.light #certifications section { background: #F4F1EB !important; }
+
+/* Bannière expérience — overlay bleu → crème */
+body.light .exp-banner-overlay {
+  background: linear-gradient(135deg,rgba(244,241,235,.92) 0%,rgba(230,220,205,.8) 100%) !important;
+}
+body.light .exp-banner-overlay + div div { color: #1C1A14 !important; }
+body.light [style*="rgba(11,20,45"] { background: transparent !important; }
+body.light [style*="rgba(5,8,20"] { background: transparent !important; }
+
+/* Sections about/skills/contact fond bleu → crème */  
+body.light #about,
+body.light #skills,
+body.light #contact { background: linear-gradient(180deg,#F4F1EB 0%,#EAE6DA 100%) !important; }
+
+/* Strip images skills — overlay sombre → clair */
+body.light [style*="background:rgba(5,8,20,.55)"] {
+  background: rgba(244,241,235,0.82) !important;
+}
+body.light [style*="background:rgba(5,8,20,.55)"] span {
+  color: #1C1A14 !important;
+}
+
+/* Bannière texte blanc → sombre */
+body.light [style*="color:#fff"] { color: #1C1A14 !important; }
+body.light [style*="color:rgba(255,255,255,.6)"] { color: #6B6455 !important; }
+body.light [style*="color:rgba(255,255,255"] { color: #6B6455 !important; }
+
+/* Nav links fond clair */
+body.light nav { background: transparent !important; }
+body.light nav.scrolled { background: rgba(244,241,235,0.96) !important; }
 
 </style>
 </head>
@@ -354,8 +400,65 @@ body.light #hero strong[style*="color:var(--gold)"] { color: var(--gold) !import
 <!-- HERO -->
 <section id="hero" style="min-height:100vh;display:flex;align-items:center;padding-top:5rem;">
   <div class="mesh-bg"><div class="mesh-orb orb-1"></div><div class="mesh-orb orb-2"></div><div class="mesh-orb orb-3"></div></div>
-  <div style="position:absolute;inset:0;z-index:0;background:rgba(5,8,20,.96)"></div>
-  <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:.08"/>
+  <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,rgba(5,8,20,.97) 0%,rgba(11,20,45,.88) 50%,rgba(5,8,20,.96) 100%)"></div>
+  <!-- Background finance image -->
+  <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=1600&q=80" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:.13"/>
+  <!-- SVG graph overlay -->
+  <svg id="hero-graph-svg" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:0.07;pointer-events:none;" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+    <!-- Grid lines -->
+    <g stroke="#C9922A" stroke-width="0.5" opacity="0.4">
+      <line x1="0" y1="100" x2="1200" y2="100"/>
+      <line x1="0" y1="200" x2="1200" y2="200"/>
+      <line x1="0" y1="300" x2="1200" y2="300"/>
+      <line x1="0" y1="400" x2="1200" y2="400"/>
+      <line x1="0" y1="500" x2="1200" y2="500"/>
+      <line x1="0" y1="600" x2="1200" y2="600"/>
+      <line x1="200" y1="0" x2="200" y2="700"/>
+      <line x1="400" y1="0" x2="400" y2="700"/>
+      <line x1="600" y1="0" x2="600" y2="700"/>
+      <line x1="800" y1="0" x2="800" y2="700"/>
+      <line x1="1000" y1="0" x2="1000" y2="700"/>
+    </g>
+    <!-- Area chart filled -->
+    <path d="M0,580 L100,520 L200,480 L300,430 L400,390 L500,320 L600,280 L700,240 L800,200 L900,160 L1000,120 L1100,90 L1200,70 L1200,700 L0,700 Z"
+      fill="url(#areaGrad)" opacity="0.25"/>
+    <!-- Line chart 1 (gold) -->
+    <path d="M0,580 L100,520 L200,480 L300,430 L400,390 L500,320 L600,280 L700,240 L800,200 L900,160 L1000,120 L1100,90 L1200,70"
+      fill="none" stroke="#C9922A" stroke-width="2" opacity="0.7"/>
+    <!-- Line chart 2 (blue) -->
+    <path d="M0,620 L100,590 L200,560 L300,540 L400,500 L500,470 L600,430 L700,400 L800,370 L900,350 L1000,310 L1100,280 L1200,250"
+      fill="none" stroke="#3E72F8" stroke-width="1.5" opacity="0.5"/>
+    <!-- Candles bar chart -->
+    <g fill="#C9922A" opacity="0.3">
+      <rect x="50"  y="500" width="14" height="80"/>
+      <rect x="150" y="460" width="14" height="60"/>
+      <rect x="250" y="420" width="14" height="70"/>
+      <rect x="350" y="380" width="14" height="65"/>
+      <rect x="450" y="310" width="14" height="90"/>
+      <rect x="550" y="270" width="14" height="55"/>
+      <rect x="650" y="230" width="14" height="75"/>
+      <rect x="750" y="190" width="14" height="60"/>
+      <rect x="850" y="150" width="14" height="70"/>
+      <rect x="950" y="110" width="14" height="65"/>
+      <rect x="1050" y="80"  width="14" height="55"/>
+      <rect x="1150" y="60"  width="14" height="45"/>
+    </g>
+    <!-- Dots on gold line -->
+    <g fill="#E8B84B" opacity="0.8">
+      <circle cx="200"  cy="480" r="4"/>
+      <circle cx="400"  cy="390" r="4"/>
+      <circle cx="600"  cy="280" r="4"/>
+      <circle cx="800"  cy="200" r="4"/>
+      <circle cx="1000" cy="120" r="4"/>
+      <circle cx="1200" cy="70"  r="4"/>
+    </g>
+    <defs>
+      <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#C9922A" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#C9922A" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
   <div class="container" style="position:relative;z-index:1;width:100%">
     <div class="grid-2">
       <div>
@@ -414,7 +517,7 @@ body.light #hero strong[style*="color:var(--gold)"] { color: var(--gold) !import
       <div class="glass stat-card reveal" style="padding:1.75rem;border-radius:12px;text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:600;color:var(--gold-light);">–71%</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:.35rem;">Variance budget</div></div>
     </div>
     <div class="grid-2" style="margin-top:4rem;">
-      <div class="reveal left"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&q=80" alt="Finance dashboard" style="width:100%;height:260px;object-fit:cover;border-radius:12px;border:1px solid var(--glass-border);"/></div>
+      <div class="reveal left"><img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=640&q=80" alt="Finance dashboard" style="width:100%;height:260px;object-fit:cover;border-radius:12px;border:1px solid var(--glass-border);"/></div>
       <div class="reveal right" style="display:flex;flex-direction:column;justify-content:center;gap:1.5rem;">
         <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2rem);font-weight:500;line-height:1.3;">Transformer les données financières en <span style="color:var(--gold)">décisions stratégiques</span></h2>
         <p style="color:var(--text-muted);line-height:1.8;font-size:.92rem;">Passionné par la jonction entre finance et technologie, je construis des modèles de pilotage qui transforment la complexité budgétaire en clarté opérationnelle.</p>
@@ -432,6 +535,16 @@ body.light #hero strong[style*="color:var(--gold)"] { color: var(--gold) !import
 <section id="experience">
   <div class="container">
     <div class="section-label reveal">Parcours professionnel</div>
+    <!-- Experience banner image -->
+    <div class="reveal" style="margin-bottom:2.5rem;position:relative;border-radius:16px;overflow:hidden;height:200px;">
+      <img src="https://images.unsplash.com/photo-1553484771-371a605b060b?w=1200&q=80" alt="Office professionnel" 
+        style="width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;"/>
+      <div class="exp-banner-overlay" style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(5,8,20,.75) 0%,rgba(11,20,45,.5) 100%);"></div>
+      <div style="position:absolute;bottom:1.5rem;left:2rem;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:#fff;">Mobilize Financial Services</div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.6);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem;">Renault Group — Noisy-le-Grand</div>
+      </div>
+    </div>
     <h2 class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:500;margin-bottom:3rem;line-height:1.2;">Expériences &amp; <span style="color:var(--gold)">Formation</span></h2>
     <div class="grid-2-exp">
       <div style="display:flex;flex-direction:column;gap:2.5rem;">
@@ -441,7 +554,7 @@ body.light #hero strong[style*="color:var(--gold)"] { color: var(--gold) !import
           <div class="glass" style="padding:1.5rem;border-radius:12px;">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.75rem;flex-wrap:wrap;">
               <div><h3 style="font-size:1rem;font-weight:600;margin-bottom:.2rem;">Contrôleur de Gestion IT &amp; Projets SSI</h3><p style="font-size:.8rem;color:var(--gold);font-weight:500;">Mobilize Financial Services — Renault Group</p></div>
-              <span style="font-size:.68rem;padding:.2rem .65rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;color:#FFFFFF;white-space:nowrap;flex-shrink:0;">Alternance</span>
+              <span style="font-size:.68rem;padding:.2rem .65rem;background:rgba(62,114,248,.15);border:1px solid rgba(62,114,248,.25);border-radius:999px;color:#7BA8FF;white-space:nowrap;flex-shrink:0;">Alternance</span>
             </div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;">
               <li style="font-size:.83rem;color:var(--text-muted);display:flex;gap:.5rem;"><span style="color:var(--gold);flex-shrink:0;">→</span>Pilotage budget SSI (~5M€) : reforecast &amp; suivi mensuel</li>
@@ -453,7 +566,7 @@ body.light #hero strong[style*="color:var(--gold)"] { color: var(--gold) !import
           </div>
         </div>
         <div class="timeline-item reveal">
-          <div class="timeline-dot" style="background:#FFFFFF;box-shadow:0 0 16px rgba(255,255,255,.3);"></div>
+          <div class="timeline-dot" style="background:#3E72F8;box-shadow:0 0 16px rgba(62,114,248,.5);"></div>
           <div style="margin-bottom:.6rem;"><span style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#FFFFFF;font-weight:600;">Juin — Août 2023</span></div>
           <div class="glass" style="padding:1.5rem;border-radius:12px;">
             <h3 style="font-size:1rem;font-weight:600;margin-bottom:.2rem;">Assistant Contrôleur de Gestion</h3>
@@ -490,6 +603,27 @@ body.light #hero strong[style*="color:var(--gold)"] { color: var(--gold) !import
   <div class="container">
     <div class="section-label reveal">Expertise technique</div>
     <h2 class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:500;margin-bottom:3rem;">Compétences &amp; <span style="color:var(--gold)">Outils</span></h2>
+    <!-- Skills visual strip -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:3rem;" class="reveal">
+      <div style="position:relative;border-radius:12px;overflow:hidden;height:130px;">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80" alt="SAP Dashboard" style="width:100%;height:100%;object-fit:cover;"/>
+        <div style="position:absolute;inset:0;background:rgba(5,8,20,.55);display:flex;align-items:flex-end;padding:.75rem;">
+          <span style="font-size:.72rem;font-weight:600;color:#fff;letter-spacing:.08em;text-transform:uppercase;">SAP S/4HANA</span>
+        </div>
+      </div>
+      <div style="position:relative;border-radius:12px;overflow:hidden;height:130px;">
+        <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?w=500&q=80" alt="Power BI" style="width:100%;height:100%;object-fit:cover;"/>
+        <div style="position:absolute;inset:0;background:rgba(5,8,20,.55);display:flex;align-items:flex-end;padding:.75rem;">
+          <span style="font-size:.72rem;font-weight:600;color:#fff;letter-spacing:.08em;text-transform:uppercase;">Power BI</span>
+        </div>
+      </div>
+      <div style="position:relative;border-radius:12px;overflow:hidden;height:130px;">
+        <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=500&q=80" alt="Reporting" style="width:100%;height:100%;object-fit:cover;"/>
+        <div style="position:absolute;inset:0;background:rgba(5,8,20,.55);display:flex;align-items:flex-end;padding:.75rem;">
+          <span style="font-size:.72rem;font-weight:600;color:#fff;letter-spacing:.08em;text-transform:uppercase;">Reporting</span>
+        </div>
+      </div>
+    </div>
     <div class="grid-2">
       <div style="display:flex;flex-direction:column;gap:2rem;" class="reveal left">
         <div><div style="display:flex;justify-content:space-between;margin-bottom:.5rem;"><span style="font-size:.85rem;font-weight:500;">Pilotage budgétaire OPEX/CAPEX</span><span style="font-size:.75rem;color:var(--gold);">95%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.95"></div></div></div>
@@ -527,9 +661,28 @@ body.light #hero strong[style*="color:var(--gold)"] { color: var(--gold) !import
   <div class="container">
     <div class="section-label reveal">Accréditations</div>
     <h2 class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:500;margin-bottom:2.5rem;">Certifications &amp; <span style="color:var(--gold)">Formations</span></h2>
+    <!-- Cert logos strip -->
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:2.5rem;padding:1.25rem 1.5rem;border-radius:12px;" class="glass reveal">
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;border-right:1px solid var(--glass-border);">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/ISACA_logo.svg/200px-ISACA_logo.svg.png" alt="ISACA" style="height:28px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8;"/>
+        <span style="font-size:.72rem;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;">CISA</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;border-right:1px solid var(--glass-border);">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/SAP_2011_logo.svg/200px-SAP_2011_logo.svg.png" alt="SAP" style="height:24px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8;"/>
+        <span style="font-size:.72rem;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;">Certified</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;border-right:1px solid var(--glass-border);">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/PricewaterhouseCoopers_Logo.svg/250px-PricewaterhouseCoopers_Logo.svg.png" alt="PwC" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8;"/>
+        <span style="font-size:.72rem;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;">Audit Sim.</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/EY_logo_2019.svg/200px-EY_logo_2019.svg.png" alt="EY" style="height:24px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8;"/>
+        <span style="font-size:.72rem;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;">FAAS</span>
+      </div>
+    </div>
     <div class="cert-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.25rem;">
       <div class="glass cert-card reveal" style="padding:1.75rem;border-radius:14px;border-top:2px solid var(--gold);"><div style="display:flex;align-items:center;gap:.85rem;margin-bottom:1rem;"><div style="width:44px;height:44px;border-radius:10px;background:rgba(201,146,42,.12);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">🏆</div><div><div style="font-size:.65rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:.2rem;">En cours — 2025</div><h3 style="font-size:.92rem;font-weight:600;">CISA — Certified Information Systems Auditor</h3></div></div><p style="font-size:.78rem;color:var(--text-muted);line-height:1.7;">Préparation MS SKEMA. Couvre l'audit SI, gouvernance, risques et continuité.</p><div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.85rem;"><span class="tag" style="font-size:.66rem;">ISACA</span><span class="tag" style="font-size:.66rem;">SI Audit</span></div></div>
-      <div class="glass cert-card reveal" style="padding:1.75rem;border-radius:14px;border-top:2px solid rgba(255,255,255,.4);"><div style="display:flex;align-items:center;gap:.85rem;margin-bottom:1rem;"><div style="width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">⚙️</div><div><div style="font-size:.65rem;color:#FFFFFF;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:.2rem;">Janvier 2026</div><h3 style="font-size:.92rem;font-weight:600;">SAP Certified Associate — SAP Business AI</h3></div></div><p style="font-size:.78rem;color:var(--text-muted);line-height:1.7;">Positionnement des solutions SAP Business AI dans la SAP Business Suite.</p><div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.85rem;"><span class="tag" style="font-size:.66rem;border-color:rgba(255,255,255,.2);color:#FFFFFF;background:rgba(255,255,255,.08);">SAP</span><span class="tag" style="font-size:.66rem;border-color:rgba(255,255,255,.2);color:#FFFFFF;background:rgba(255,255,255,.08);">Business AI</span></div></div>
+      <div class="glass cert-card reveal" style="padding:1.75rem;border-radius:14px;border-top:2px solid #0070F3;"><div style="display:flex;align-items:center;gap:.85rem;margin-bottom:1rem;"><div style="width:44px;height:44px;border-radius:10px;background:rgba(0,112,243,.12);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">⚙️</div><div><div style="font-size:.65rem;color:#FFFFFF;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:.2rem;">Janvier 2026</div><h3 style="font-size:.92rem;font-weight:600;">SAP Certified Associate — SAP Business AI</h3></div></div><p style="font-size:.78rem;color:var(--text-muted);line-height:1.7;">Positionnement des solutions SAP Business AI dans la SAP Business Suite.</p><div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.85rem;"><span class="tag" style="font-size:.66rem;border-color:rgba(0,112,243,.3);color:#7BA8FF;background:rgba(0,112,243,.08);">SAP</span><span class="tag" style="font-size:.66rem;border-color:rgba(0,112,243,.3);color:#7BA8FF;background:rgba(0,112,243,.08);">Business AI</span></div></div>
       <div class="glass cert-card reveal" style="padding:1.75rem;border-radius:14px;border-top:2px solid rgba(255,255,255,.1);"><div style="display:flex;align-items:center;gap:.85rem;margin-bottom:1rem;"><div style="width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">📑</div><div><div style="font-size:.65rem;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:.2rem;">Avril 2025</div><h3 style="font-size:.92rem;font-weight:600;">PwC US — Audit Job Simulation</h3></div></div><p style="font-size:.78rem;color:var(--text-muted);line-height:1.7;">Simulation d'une mission d'audit externe chez PricewaterhouseCoopers US via Forage.</p><div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.85rem;"><span class="tag" style="font-size:.66rem;">Audit</span><span class="tag" style="font-size:.66rem;">Forage</span></div></div>
       <div class="glass cert-card reveal" style="padding:1.75rem;border-radius:14px;border-top:2px solid rgba(255,215,0,.2);"><div style="display:flex;align-items:center;gap:.85rem;margin-bottom:1rem;"><div style="width:44px;height:44px;border-radius:10px;background:rgba(255,215,0,.05);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">📈</div><div><div style="font-size:.65rem;color:rgba(255,215,0,.7);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:.2rem;">Juillet 2025</div><h3 style="font-size:.92rem;font-weight:600;">EY — Financial Accounting Advisory Services</h3></div></div><p style="font-size:.78rem;color:var(--text-muted);line-height:1.7;">Simulation FAAS chez Ernst &amp; Young. Analyse de reporting financier.</p><div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.85rem;"><span class="tag" style="font-size:.66rem;">FAAS</span><span class="tag" style="font-size:.66rem;">Reporting</span></div></div>
       <div class="glass cert-card reveal" style="padding:1.75rem;border-radius:14px;border-top:2px solid rgba(14,118,168,.4);"><div style="display:flex;align-items:center;gap:.85rem;margin-bottom:1rem;"><div style="width:44px;height:44px;border-radius:10px;background:rgba(14,118,168,.08);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">🎓</div><div><div style="font-size:.65rem;color:rgba(14,118,168,.9);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:.2rem;">Oct. 2025</div><h3 style="font-size:.92rem;font-weight:600;">Prendre des Décisions Stratégiques</h3></div></div><p style="font-size:.78rem;color:var(--text-muted);line-height:1.7;">LinkedIn Learning — Frameworks de décision en environnement incertain.</p></div>
@@ -539,7 +692,9 @@ body.light #hero strong[style*="color:var(--gold)"] { color: var(--gold) !import
 </section>
 
 <!-- CONTACT -->
-<section id="contact" style="background:linear-gradient(180deg,var(--navy-light) 0%,var(--navy) 100%);">
+<section id="contact" style="background:linear-gradient(180deg,var(--navy-light) 0%,var(--navy) 100%);position:relative;overflow:hidden;">
+  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=80" alt="" aria-hidden="true"
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.04;z-index:0;pointer-events:none;"/>
   <div class="container">
     <div class="grid-contact">
       <div class="reveal left">
