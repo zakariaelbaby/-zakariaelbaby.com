@@ -1010,101 +1010,50 @@ tailwind.config = {
   document.querySelectorAll('.skill-bar-fill').forEach(b => barObserver.observe(b));
 
 // ── CONTACT FORM (Formspree) ──
-  // ⚠️  Remplacez TON_ID_FORMSPREE par votre vrai ID Formspree (ex: xpzvgkdo)
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xykldbea';
- 
-  async function handleFormSubmit() {
-    const name    = document.getElementById('f-name');
-    const email   = document.getElementById('f-email');
-    const subject = document.getElementById('f-subject');
-    const message = document.getElementById('f-message');
-    const errBox  = document.getElementById('form-error');
-    const btn     = document.getElementById('submit-btn');
-    const btnText = document.getElementById('btn-text');
-    const btnIcon = document.getElementById('btn-icon');
- 
-    // Reset errors
-    errBox.style.display = 'none';
-    [name, email, subject, message].forEach(i => i.style.borderColor = '');
- 
-    // Validate
-    let valid = true;
-    [name, email, subject, message].forEach(i => {
-      if (!i.value.trim()) { i.style.borderColor = '#ef4444'; valid = false; }
-    });
-    if (!valid) {
-      errBox.textContent = 'Veuillez remplir tous les champs obligatoires.';
-      errBox.style.display = 'block';
-      return;
-    }
-    const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRx.test(email.value)) {
-      email.style.borderColor = '#ef4444';
-      errBox.textContent = 'Adresse email invalide.';
-      errBox.style.display = 'block';
-      return;
-    }
- 
-    // Check if Formspree ID has been configured
-if (FORMSPREE_ENDPOINT.includes('TON_ID_FORMSPREE')) {
-  errBox.innerHTML = '⚠️ Le formulaire n\'est pas encore configuré.<br>Écrivez-moi directement : <a href="mailto:contact@zakariaelbaby.com" style="color:var(--gold)">contact@zakariaelbaby.com</a>';
-      errBox.style.display = 'block';
-      return;
-    }
- 
-    // Loading state
-    btn.disabled = true;
-    btn.style.opacity = '0.7';
-    btnText.textContent = 'Envoi en cours…';
-    btnIcon.setAttribute('viewBox','0 0 24 24');
-    btnIcon.innerHTML = '<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.4" stroke-dashoffset="10" style="animation:spin360 0.8s linear infinite;transform-origin:center;display:block"/>';
- 
-    try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name:    name.value.trim(),
-          email:   email.value.trim(),
-          subject: subject.value.trim(),
-          message: message.value.trim()
-        })
-      });
- 
-      if (res.ok) {
-        // Show success
-        document.getElementById('contact-form-wrap').style.display = 'none';
-        const s = document.getElementById('form-success');
-        s.style.display = 'flex';
-      } else {
-        const data = await res.json();
-        throw new Error(data?.errors?.[0]?.message || 'Erreur serveur');
-      }
-    } catch (err) {
-      errBox.textContent = err.message === 'Failed to fetch'
-        ? 'Connexion impossible. Vérifiez votre connexion internet.'
-        : 'Erreur lors de l\'envoi : ' + err.message + '. Contactez-moi directement par email.';
-      errBox.style.display = 'block';
-      btn.disabled = false;
-      btn.style.opacity = '1';
-      btnText.textContent = 'Réessayer';
-      btnIcon.innerHTML = '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>';
-    }
-  }
- 
-  function resetContactForm() {
-    document.getElementById('form-success').style.display = 'none';
-    const wrap = document.getElementById('contact-form-wrap');
-    wrap.style.display = 'flex';
-    ['f-name','f-email','f-subject','f-message'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) { el.value = ''; el.style.borderColor = ''; }
-    });
-    const btn = document.getElementById('submit-btn');
-    btn.disabled = false; btn.style.opacity = '1';
-    document.getElementById('btn-text').textContent = 'Envoyer le message';
-    document.getElementById('btn-icon').innerHTML = '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>';
-  }
+<div style="position: relative;">
+        <div id="contact-form-wrap" class="glass reveal right" style="padding: 2.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 500; margin-bottom: 1.75rem; color: #fff;">Envoyer un message</h3>
+          
+          <div id="form-error" style="display:none; color: #ef4444; font-size: 0.85rem; margin-bottom: 1.25rem; padding: 0.75rem; background: rgba(239, 68, 68, 0.1); border-radius: 4px; border: 1px solid rgba(239, 68, 68, 0.2);"></div>
+
+          <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <div>
+              <label style="display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.5rem;">Nom complet</label>
+              <input type="text" id="f-name" placeholder="Jean Dupont" class="form-input" style="width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:4px; padding:0.8rem; color:white; outline:none;" />
+            </div>
+            
+            <div>
+              <label style="display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.5rem;">Email</label>
+              <input type="email" id="f-email" placeholder="jean@exemple.fr" class="form-input" style="width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:4px; padding:0.8rem; color:white; outline:none;" />
+            </div>
+            
+            <div>
+              <label style="display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.5rem;">Objet</label>
+              <input type="text" id="f-subject" placeholder="Opportunité de collaboration" class="form-input" style="width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:4px; padding:0.8rem; color:white; outline:none;" />
+            </div>
+            
+            <div>
+              <label style="display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.5rem;">Message</label>
+              <textarea id="f-message" rows="4" placeholder="Votre message..." class="form-input" style="width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:4px; padding:0.8rem; color:white; outline:none; resize:vertical;"></textarea>
+            </div>
+
+            <button id="submit-btn" onclick="handleFormSubmit()"
+              style="display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1rem; background: #C9922A; color: #050814; font-family: 'Outfit', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; border: none; border-radius: 4px; cursor: pointer; transition: all 0.3s ease; width: 100%;">
+              <svg id="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span id="btn-text">Envoyer le message</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="form-success" class="glass" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: 3rem; border-radius: 16px; text-align: center; position: absolute; inset: 0; z-index: 10; background: rgba(5, 8, 20, 0.95); border: 1px solid #C9922A;">
+          <div style="width: 60px; height: 60px; background: rgba(201, 146, 42, 0.1); color: #C9922A; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; color: #fff; margin-bottom: 0.75rem;">Message envoyé</h3>
+          <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 2rem; max-width: 250px;">Merci pour votre message. Je reviendrai vers vous rapidement.</p>
+          <button onclick="resetContactForm()" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.75rem 1.5rem; border-radius: 4px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer;">Envoyer un autre message</button>
+        </div>
+      </div>
   // ── ACTIVE NAV ──
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
