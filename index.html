@@ -1010,23 +1010,94 @@ tailwind.config = {
   document.querySelectorAll('.skill-bar-fill').forEach(b => barObserver.observe(b));
 
   // ── CONTACT FORM ──
-  function handleContactForm(btn) {
-    const inputs = btn.closest('div').querySelectorAll('input, textarea');
+    // ── CONTACT FORM (Formspree) ──
+  // ⚠️  Remplacez TON_ID_FORMSPREE par votre vrai ID Formspree (ex: xpzvgkdo)
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xykldbea';
+ 
+  async function handleFormSubmit() {
+    const name    = document.getElementById('f-name');
+    const email   = document.getElementById('f-email');
+    const subject = document.getElementById('f-subject');
+    const message = document.getElementById('f-message');
+    const errBox  = document.getElementById('form-error');
+    const btn     = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnIcon = document.getElementById('btn-icon');
+ 
+    // Reset errors
+    errBox.style.display = 'none';
+    [name, email, subject, message].forEach(i => i.style.borderColor = '');
+ 
+    // Validate
     let valid = true;
-    inputs.forEach(i => { if (!i.value.trim()) { i.style.borderColor = '#ef4444'; valid = false; } else i.style.borderColor = ''; });
-    if (!valid) return;
-    btn.innerHTML = '✓ Message envoyé !';
-    btn.style.background = '#22c55e';
-    btn.style.cursor = 'none';
+    [name, email, subject, message].forEach(i => {
+      if (!i.value.trim()) { i.style.borderColor = '#ef4444'; valid = false; }
+    });
+    if (!valid) {
+      errBox.textContent = 'Veuillez remplir tous les champs obligatoires.';
+      errBox.style.display = 'block';
+      return;
+    }
+    const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRx.test(email.value)) {
+      email.style.borderColor = '#ef4444';
+      errBox.textContent = 'Adresse email invalide.';
+      errBox.style.display = 'block';
+      return;
+    }
+ 
+    // Loading state
     btn.disabled = true;
-    inputs.forEach(i => i.value = '');
-    setTimeout(() => {
-      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Envoyer le message';
-      btn.style.background = 'var(--gold)';
+    btn.style.opacity = '0.7';
+    btnText.textContent = 'Envoi en cours…';
+    btnIcon.innerHTML = '<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.4" stroke-dashoffset="10" style="animation:spin360 0.8s linear infinite;transform-origin:center"/>';
+ 
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name:    name.value.trim(),
+          email:   email.value.trim(),
+          subject: subject.value.trim(),
+          message: message.value.trim()
+        })
+      });
+ 
+      if (res.ok) {
+        // Show success
+        document.getElementById('contact-form-wrap').style.display = 'none';
+        const s = document.getElementById('form-success');
+        s.style.display = 'flex';
+      } else {
+        const data = await res.json();
+        throw new Error(data?.errors?.[0]?.message || 'Erreur serveur');
+      }
+    } catch (err) {
+      errBox.textContent = err.message === 'Failed to fetch'
+        ? 'Connexion impossible. Vérifiez votre connexion internet.'
+        : 'Erreur lors de l\'envoi : ' + err.message + '. Contactez-moi directement par email.';
+      errBox.style.display = 'block';
       btn.disabled = false;
-    }, 3000);
+      btn.style.opacity = '1';
+      btnText.textContent = 'Réessayer';
+      btnIcon.innerHTML = '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>';
+    }
   }
-
+ 
+  function resetContactForm() {
+    document.getElementById('form-success').style.display = 'none';
+    const wrap = document.getElementById('contact-form-wrap');
+    wrap.style.display = 'flex';
+    ['f-name','f-email','f-subject','f-message'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.value = ''; el.style.borderColor = ''; }
+    });
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = false; btn.style.opacity = '1';
+    document.getElementById('btn-text').textContent = 'Envoyer le message';
+    document.getElementById('btn-icon').innerHTML = '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>';
+  }
   // ── ACTIVE NAV ──
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
