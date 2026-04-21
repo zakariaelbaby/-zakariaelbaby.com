@@ -1009,8 +1009,7 @@ tailwind.config = {
   }, { threshold: 0.3 });
   document.querySelectorAll('.skill-bar-fill').forEach(b => barObserver.observe(b));
 
-  // ── CONTACT FORM ──
-    // ── CONTACT FORM (Formspree) ──
+// ── CONTACT FORM (Formspree) ──
   // ⚠️  Remplacez TON_ID_FORMSPREE par votre vrai ID Formspree (ex: xpzvgkdo)
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xykldbea';
  
@@ -1046,11 +1045,19 @@ tailwind.config = {
       return;
     }
  
+    // Check if Formspree ID has been configured
+    if (FORMSPREE_ENDPOINT.includes('xykldbea')) {
+      errBox.innerHTML = '⚠️ Le formulaire n\'est pas encore configuré.<br>Écrivez-moi directement : <a href="mailto:contact@zakariaelbaby.com" style="color:var(--gold)">contact@zakariaelbaby.com</a>';
+      errBox.style.display = 'block';
+      return;
+    }
+ 
     // Loading state
     btn.disabled = true;
     btn.style.opacity = '0.7';
     btnText.textContent = 'Envoi en cours…';
-    btnIcon.innerHTML = '<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.4" stroke-dashoffset="10" style="animation:spin360 0.8s linear infinite;transform-origin:center"/>';
+    btnIcon.setAttribute('viewBox','0 0 24 24');
+    btnIcon.innerHTML = '<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.4" stroke-dashoffset="10" style="animation:spin360 0.8s linear infinite;transform-origin:center;display:block"/>';
  
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
