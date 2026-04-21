@@ -364,6 +364,9 @@ body.light [style*="color:rgba(255,255,255"] { color: #6B6455 !important; }
 body.light nav { background: transparent !important; }
 body.light nav.scrolled { background: rgba(244,241,235,0.96) !important; }
 
+
+body.light section[style*="var(--navy-mid)"] { background: #DDD8CC !important; }
+
 </style>
 </head>
 <body>
@@ -634,13 +637,45 @@ body.light nav.scrolled { background: rgba(244,241,235,0.96) !important; }
         <div><div style="display:flex;justify-content:space-between;margin-bottom:.5rem;"><span style="font-size:.85rem;font-weight:500;">MySQL / Analyse de données</span><span style="font-size:.75rem;color:var(--gold);">75%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="0.75"></div></div></div>
       </div>
       <div class="reveal right">
-        <div class="tools-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-bottom:1.5rem;">
-          <div class="glass" style="padding:1.1rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.4rem;margin-bottom:.4rem;">📊</div><div style="font-size:.7rem;color:var(--text-muted);font-weight:500;">SAP S/4HANA</div></div>
-          <div class="glass" style="padding:1.1rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.4rem;margin-bottom:.4rem;">🎯</div><div style="font-size:.7rem;color:var(--text-muted);font-weight:500;">JIRA / TRISKELL</div></div>
-          <div class="glass" style="padding:1.1rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.4rem;margin-bottom:.4rem;">🗄️</div><div style="font-size:.7rem;color:var(--text-muted);font-weight:500;">MySQL</div></div>
-          <div class="glass" style="padding:1.1rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.4rem;margin-bottom:.4rem;">📋</div><div style="font-size:.7rem;color:var(--text-muted);font-weight:500;">COLLIBRA</div></div>
-          <div class="glass" style="padding:1.1rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.4rem;margin-bottom:.4rem;">⚡</div><div style="font-size:.7rem;color:var(--text-muted);font-weight:500;">eFront ERM</div></div>
-          <div class="glass" style="padding:1.1rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.4rem;margin-bottom:.4rem;">🛡️</div><div style="font-size:.7rem;color:var(--text-muted);font-weight:500;">DORA / COBIT</div></div>
+        <!-- Tools categories -->
+        <div style="display:flex;flex-direction:column;gap:1.25rem;margin-bottom:1.5rem;">
+
+          <!-- ERP / SI -->
+          <div>
+            <div style="font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;font-weight:600;">ERP &amp; Systèmes SI</div>
+            <div class="tools-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;">
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">📊</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">SAP S/4HANA</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">🗄️</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">MySQL</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">📋</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">COLLIBRA</div></div>
+            </div>
+          </div>
+
+          <!-- Reporting & Bureautique -->
+          <div>
+            <div style="font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;font-weight:600;">Reporting &amp; Bureautique</div>
+            <div class="tools-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;">
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">📈</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">Power BI</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">🟩</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">Excel Avancé</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">📝</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">PowerPoint</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">🔵</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">Word</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">🔄</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">PowerQuery</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">📐</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">TCD / VBA</div></div>
+            </div>
+          </div>
+
+          <!-- Gestion de projets & Conformité -->
+          <div>
+            <div style="font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;font-weight:600;">Projets &amp; Conformité</div>
+            <div class="tools-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;">
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">🎯</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">JIRA</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">🗂️</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">TRISKELL</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">⚡</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">eFront ERM</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">🛡️</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">DORA</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">📌</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">COBIT 2019</div></div>
+              <div class="glass" style="padding:.9rem .6rem;border-radius:10px;text-align:center;transition:transform .25s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'"><div style="font-size:1.3rem;margin-bottom:.3rem;">📎</div><div style="font-size:.65rem;color:var(--text-muted);font-weight:500;">SAGE</div></div>
+            </div>
+          </div>
+
         </div>
         <div class="glass" style="padding:1.5rem;border-radius:12px;">
           <div style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem;">Langues</div>
@@ -662,23 +697,38 @@ body.light nav.scrolled { background: rgba(244,241,235,0.96) !important; }
     <div class="section-label reveal">Accréditations</div>
     <h2 class="reveal" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:500;margin-bottom:2.5rem;">Certifications &amp; <span style="color:var(--gold)">Formations</span></h2>
     <!-- Cert logos strip -->
-    <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:2.5rem;padding:1.25rem 1.5rem;border-radius:12px;" class="glass reveal">
-      <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;border-right:1px solid var(--glass-border);">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/ISACA_logo.svg/200px-ISACA_logo.svg.png" alt="ISACA" style="height:28px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8;"/>
-        <span style="font-size:.72rem;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;">CISA</span>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:stretch;margin-bottom:2.5rem;" class="reveal">
+
+      <div class="glass" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1.25rem;border-radius:10px;flex:1;min-width:160px;border-left:3px solid var(--gold);">
+        <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#C9922A,#E8B84B);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.75rem;color:#050814;flex-shrink:0;">CISA</div>
+        <div><div style="font-size:.8rem;font-weight:600;">CISA</div><div style="font-size:.7rem;color:var(--text-muted);">ISACA — En cours</div></div>
       </div>
-      <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;border-right:1px solid var(--glass-border);">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/SAP_2011_logo.svg/200px-SAP_2011_logo.svg.png" alt="SAP" style="height:24px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8;"/>
-        <span style="font-size:.72rem;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;">Certified</span>
+
+      <div class="glass" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1.25rem;border-radius:10px;flex:1;min-width:160px;border-left:3px solid #0070F3;">
+        <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#0070F3,#4DA3FF);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.7rem;color:#fff;flex-shrink:0;letter-spacing:-.5px;">SAP</div>
+        <div><div style="font-size:.8rem;font-weight:600;">SAP Certified</div><div style="font-size:.7rem;color:var(--text-muted);">Business AI — Jan. 2026</div></div>
       </div>
-      <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;border-right:1px solid var(--glass-border);">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/PricewaterhouseCoopers_Logo.svg/250px-PricewaterhouseCoopers_Logo.svg.png" alt="PwC" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8;"/>
-        <span style="font-size:.72rem;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;">Audit Sim.</span>
+
+      <div class="glass" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1.25rem;border-radius:10px;flex:1;min-width:160px;border-left:3px solid #D04A02;">
+        <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#D04A02,#FF7043);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.75rem;color:#fff;flex-shrink:0;">PwC</div>
+        <div><div style="font-size:.8rem;font-weight:600;">PwC Audit Sim.</div><div style="font-size:.7rem;color:var(--text-muted);">Forage — Avr. 2025</div></div>
       </div>
-      <div style="display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/EY_logo_2019.svg/200px-EY_logo_2019.svg.png" alt="EY" style="height:24px;object-fit:contain;filter:brightness(0) invert(1);opacity:.8;"/>
-        <span style="font-size:.72rem;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;">FAAS</span>
+
+      <div class="glass" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1.25rem;border-radius:10px;flex:1;min-width:160px;border-left:3px solid #FFE600;">
+        <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#2E2E38,#FFE600);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;color:#FFE600;flex-shrink:0;">EY</div>
+        <div><div style="font-size:.8rem;font-weight:600;">EY FAAS</div><div style="font-size:.7rem;color:var(--text-muted);">Forage — Juil. 2025</div></div>
       </div>
+
+      <div class="glass" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1.25rem;border-radius:10px;flex:1;min-width:160px;border-left:3px solid #0A66C2;">
+        <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#0A66C2,#5BA4E5);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🎓</div>
+        <div><div style="font-size:.8rem;font-weight:600;">Décisions Stratégiques</div><div style="font-size:.7rem;color:var(--text-muted);">LinkedIn Learning — Oct. 2025</div></div>
+      </div>
+
+      <div class="glass" style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1.25rem;border-radius:10px;flex:1;min-width:160px;border-left:3px solid rgba(255,255,255,.15);">
+        <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🔄</div>
+        <div><div style="font-size:.8rem;font-weight:600;">Agile PM</div><div style="font-size:.7rem;color:var(--text-muted);">HP Life — Sept. 2025</div></div>
+      </div>
+
     </div>
     <div class="cert-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.25rem;">
       <div class="glass cert-card reveal" style="padding:1.75rem;border-radius:14px;border-top:2px solid var(--gold);"><div style="display:flex;align-items:center;gap:.85rem;margin-bottom:1rem;"><div style="width:44px;height:44px;border-radius:10px;background:rgba(201,146,42,.12);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">🏆</div><div><div style="font-size:.65rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:.2rem;">En cours — 2025</div><h3 style="font-size:.92rem;font-weight:600;">CISA — Certified Information Systems Auditor</h3></div></div><p style="font-size:.78rem;color:var(--text-muted);line-height:1.7;">Préparation MS SKEMA. Couvre l'audit SI, gouvernance, risques et continuité.</p><div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.85rem;"><span class="tag" style="font-size:.66rem;">ISACA</span><span class="tag" style="font-size:.66rem;">SI Audit</span></div></div>
@@ -768,6 +818,62 @@ body.light nav.scrolled { background: rgba(244,241,235,0.96) !important; }
       </div>
       <!-- ═══════════════════════════════════════ -->
 
+    </div>
+  </div>
+</section>
+
+<!-- MÉTHODES & SOFTS SKILLS -->
+<section style="padding:3.5rem 0;background:var(--navy-mid);position:relative;z-index:1;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);">
+  <div class="container">
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;" class="reveal">
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">Clôtures mensuelles</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">Rolling Forecast</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">Refacturation interne</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">Analyse RFP</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">Audit interne</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">PMO — Portefeuille projets</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">Contrôle de gestion SI</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">Gestion des risques</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">Reporting exécutif</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">Conformité DORA</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">Communication C-Level</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:999px;">
+        <span style="color:var(--gold);font-size:.9rem;">◆</span>
+        <span style="font-size:.78rem;font-weight:500;letter-spacing:.03em;">International — 30+ pays</span>
+      </div>
     </div>
   </div>
 </section>
