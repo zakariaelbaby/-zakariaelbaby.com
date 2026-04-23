@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 
 <!-- ══ SEO META ══ -->
-<title>Zakaria EL-BABY — Contrôleur de Gestion IT | SAP S/4HANA | Audit & Reporting | Île-de-France</title>
+<title>Zakaria El Baby — Contrôleur de Gestion IT | SAP S/4HANA | Audit & Reporting | Île-de-France</title>
 <meta name="description" content="Zakaria El Baby, Contrôleur de Gestion IT spécialisé en pilotage budgétaire OPEX/CAPEX, SAP S/4HANA, audit interne et reporting automatisé. Expérience chez Mobilize Financial Services – Renault Group. Disponible octobre 2026."/>
 <meta name="keywords" content="contrôleur de gestion IT, SAP S4HANA, audit interne, pilotage budgétaire, OPEX CAPEX, reporting, Power BI, DORA, PMO, Île-de-France, finance IT, cybersécurité contrôle, Zakaria El Baby"/>
 <meta name="author" content="Zakaria EL-BABY"/>
@@ -199,47 +199,113 @@ footer a{color:var(--gold);text-decoration:none;transition:opacity .2s}footer a:
 /* ══════════════════════════════
    LIGHT MODE
 ══════════════════════════════ */
-body.light{background:#F4F1EB!important;color:#1C1A14!important}
-body.light,body.light *{--gold:#A8720E;--gold-light:#C9922A;--navy:#F4F1EB;--navy-light:#EAE6DA;--navy-mid:#DDD8CC;--accent-blue:#9A8B7A;--text-primary:#1C1A14;--text-muted:#6B6455;--glass-bg:rgba(255,255,255,.72);--glass-border:rgba(0,0,0,.09)}
-body.light::before{opacity:.04;filter:invert(1)}
-body.light #hero{background:#F4F1EB!important}
+/* ══════════════════════════════
+   LIGHT MODE — Slate Blue-Gray
+══════════════════════════════ */
+body.light{background:#EEF2F7!important;color:#1A2235!important}
+body.light,body.light *{
+  --gold:#B8860B;
+  --gold-light:#C9960E;
+  --navy:#EEF2F7;
+  --navy-light:#E0E8F2;
+  --navy-mid:#D0DCEC;
+  --accent-blue:#3558A0;
+  --text-primary:#1A2235;
+  --text-muted:#5A6880;
+  --glass-bg:rgba(255,255,255,.78);
+  --glass-border:rgba(58,90,160,.12)
+}
+body.light::before{opacity:.03;filter:invert(1)}
+/* HERO */
+body.light #hero{background:#EEF2F7!important}
 body.light #hero .mesh-bg,body.light #hero-graph-svg,body.light #hero>img{display:none!important}
-body.light #hero>div[style*="background"]:not(.container){background:rgba(244,241,235,.97)!important}
-body.light .glitch-text{animation:none!important;color:#1C1A14!important}
-body.light h1,body.light h2,body.light h3{color:#1C1A14!important}
-body.light h1 span[style*="color:var(--gold)"],body.light h2 span[style*="color:var(--gold)"]{color:var(--gold)!important}
-body.light p,body.light li,body.light span{color:inherit}
-body.light [style*="color:var(--text-muted)"]{color:#6B6455!important}
-body.light [style*="color:var(--text-primary)"]{color:#1C1A14!important}
+body.light #hero>div[style*="background"]:not(.container){background:rgba(238,242,247,.98)!important}
+body.light #hero p,
+body.light #hero p[style*="opacity"],
+body.light #hero p[style*="rgba(240,237,232"],
+body.light #hero p[style*="rgba(240"]{color:#5A6880!important;opacity:1!important}
+body.light #hero p[style*="color:var(--text-muted)"]{color:#5A6880!important}
+body.light .glitch-text{animation:none!important;color:#1A2235!important}
+/* HEADINGS */
+body.light h1,body.light h2,body.light h3{color:#1A2235!important}
+body.light h1 span[style*="color:var(--gold)"],
+body.light h2 span[style*="color:var(--gold)"]{color:var(--gold)!important}
+body.light strong{color:#1A2235!important}
+/* TEXT */
+body.light [style*="color:var(--text-muted)"]{color:#5A6880!important}
+body.light [style*="color:var(--text-primary)"]{color:#1A2235!important}
 body.light [style*="color:#4ade80"]{color:#16a34a!important}
-body.light [style*="color:#FFFFFF"]{color:#1C1A14}
-body.light .glass{background:rgba(255,255,255,.75)!important;border-color:rgba(0,0,0,.09)!important;box-shadow:0 2px 24px rgba(0,0,0,.07)}
-body.light .glass *{color:#1C1A14}
-body.light .glass span[style*="color:var(--gold)"],body.light .glass div[style*="color:var(--gold)"]{color:var(--gold)!important}
-body.light nav.scrolled{background:rgba(244,241,235,.95)!important;border-bottom:1px solid rgba(0,0,0,.08)}
-body.light .nav-logo{color:#1C1A14!important}
-body.light .nav-link{color:#6B6455!important}
+/* GLASS CARDS */
+body.light .glass{
+  background:rgba(255,255,255,.82)!important;
+  border-color:rgba(58,90,160,.12)!important;
+  box-shadow:0 2px 20px rgba(30,58,100,.08),inset 0 1px 0 rgba(255,255,255,.9)
+}
+body.light .glass *{color:#1A2235}
+body.light .glass span[style*="color:var(--gold)"],
+body.light .glass div[style*="color:var(--gold)"]{color:var(--gold)!important}
+body.light .glass span[style*="color:var(--text-muted)"],
+body.light .glass div[style*="color:var(--text-muted)"],
+body.light .glass p{color:#5A6880!important}
+/* NAV */
+body.light nav{background:transparent}
+body.light nav.scrolled{
+  background:rgba(238,242,247,.96)!important;
+  border-bottom:1px solid rgba(58,90,160,.12);
+  box-shadow:0 1px 20px rgba(30,58,100,.1)
+}
+body.light .nav-logo{color:#1A2235!important}
+body.light .nav-link{color:#5A6880!important}
 body.light .nav-link:hover{color:var(--gold)!important}
+body.light .nav-link::after{background:var(--gold)!important}
+/* BUTTONS */
 body.light .btn-gold{border-color:var(--gold)!important;color:var(--gold)!important}
 body.light .btn-gold:hover{color:#fff!important}
-body.light .btn-filled{background:var(--gold)!important;color:#fff!important}
-body.light .skill-bar-track{background:rgba(0,0,0,.08)!important}
-body.light .form-input{background:rgba(0,0,0,.04)!important;border-color:rgba(0,0,0,.13)!important;color:#1C1A14!important}
-body.light .form-input::placeholder{color:#9A9080!important}
-body.light .tag{background:rgba(168,114,14,.1)!important;border-color:rgba(168,114,14,.25)!important;color:#8A5E0A!important}
+body.light .btn-filled{background:var(--gold)!important;color:#fff!important;box-shadow:0 4px 18px rgba(184,134,11,.3)!important}
+body.light .btn-outline-white{border-color:rgba(26,34,53,.3)!important;color:#1A2235!important}
+body.light .btn-outline-white:hover{border-color:var(--gold)!important;background:rgba(184,134,11,.07)!important;color:var(--gold)!important}
+body.light .btn-outline-white svg{stroke:#1A2235!important}
+body.light .btn-outline-white:hover svg{stroke:var(--gold)!important}
+/* CTA BAND */
+body.light .cta-band{background:linear-gradient(135deg,#D0DCEC 0%,#E0E8F2 100%)!important}
+body.light .cta-band .btn-outline-white{border-color:rgba(26,34,53,.3)!important;color:#1A2235!important}
+body.light .cta-band .btn-outline-white:hover{border-color:var(--gold)!important;color:var(--gold)!important;background:rgba(184,134,11,.07)!important}
+body.light .cta-band .btn-outline-white svg{stroke:#1A2235!important}
+/* SECTIONS BG */
+body.light #about{background:linear-gradient(180deg,#EEF2F7 0%,#E0E8F2 100%)!important}
+body.light #skills{background:linear-gradient(180deg,#EEF2F7 0%,#E0E8F2 100%)!important}
+body.light #projects{background:linear-gradient(180deg,#E0E8F2 0%,#EEF2F7 100%)!important}
+body.light #value{background:linear-gradient(180deg,#E0E8F2 0%,#EEF2F7 100%)!important}
+body.light #certifications{background:linear-gradient(180deg,#EEF2F7 0%,#E0E8F2 100%)!important}
+body.light #contact{background:linear-gradient(180deg,#E0E8F2 0%,#EEF2F7 100%)!important}
+body.light #experience{background:#EEF2F7!important}
+body.light .methods-band{background:#D0DCEC!important;border-color:rgba(58,90,160,.1)!important}
+/* SKILLS */
+body.light .skill-bar-track{background:rgba(26,34,53,.08)!important}
+body.light .skill-bar-fill{background:linear-gradient(90deg,var(--gold),#C9960E)!important}
+/* TAGS */
+body.light .tag{background:rgba(184,134,11,.1)!important;border-color:rgba(184,134,11,.25)!important;color:#8B6508!important}
+/* SECTION LABELS */
 body.light .section-label{color:var(--gold)!important}
 body.light .section-label::before{background:var(--gold)!important}
-body.light #about,body.light #skills,body.light #projects,body.light #value,body.light #certifications,body.light #contact{background:linear-gradient(180deg,#F4F1EB 0%,#EAE6DA 100%)!important}
-body.light .skills-strip-img div[style*="rgba(5,8,20"]{background:rgba(244,241,235,.82)!important}
-body.light .skills-strip-img span{color:#1C1A14!important}
-body.light .exp-banner-overlay{background:linear-gradient(135deg,rgba(244,241,235,.92) 0%,rgba(220,210,195,.75) 100%)!important}
-body.light .exp-banner-overlay+div div{color:#1C1A14!important}
-body.light .cta-band{background:linear-gradient(135deg,#DDD8CC 0%,#EAE6DA 100%)!important}
-body.light .methods-band{background:#DDD8CC!important}
-body.light footer{border-top-color:rgba(0,0,0,.1)!important}
-body.light ::-webkit-scrollbar-track{background:#F4F1EB}
-body.light ::-webkit-scrollbar-thumb{background:#C9922A}
-body.light .profile-ring::before{background:conic-gradient(var(--gold),rgba(168,114,14,.4),var(--gold))!important}
+/* TIMELINE */
+body.light .timeline-item::before{background:linear-gradient(to bottom,var(--gold),transparent)!important}
+body.light .timeline-dot{background:var(--gold-light)!important;box-shadow:0 0 16px rgba(184,134,11,.4)!important}
+/* EXPERIENCE BANNER */
+body.light .exp-banner-overlay{background:linear-gradient(135deg,rgba(238,242,247,.9) 0%,rgba(208,220,236,.75) 100%)!important}
+/* IMAGE STRIPS */
+body.light .skills-strip-img div[style*="rgba(5,8,20"]{background:rgba(238,242,247,.88)!important}
+body.light .skills-strip-img span{color:#1A2235!important}
+/* FORM */
+body.light .form-input{background:rgba(255,255,255,.7)!important;border-color:rgba(58,90,160,.2)!important;color:#1A2235!important}
+body.light .form-input:focus{background:rgba(255,255,255,.95)!important;border-color:var(--gold)!important}
+body.light .form-input::placeholder{color:#8A9AB5!important}
+/* PROFILE RING */
+body.light .profile-ring::before{background:conic-gradient(var(--gold),#3558A0,var(--gold))!important}
+/* HOVER CARDS */
+body.light .stat-card:hover{box-shadow:0 20px 50px rgba(30,58,100,.15)!important;transform:translateY(-6px)}
+body.light .cert-card:hover{box-shadow:0 24px 56px rgba(30,58,100,.15),0 0 0 1px rgba(184,134,11,.3)!important}
+body.light .project-card:hover{box-shadow:0 20px 50px rgba(30,58,100,.15)!important}
 body.light .vp-card{border-top-color:var(--gold)!important}
 body.light .project-card:hover{box-shadow:0 20px 50px rgba(0,0,0,.12)}
 
@@ -259,6 +325,98 @@ html[lang="en"] h3.en,
 html[lang="en"] li.en,
 html[lang="en"] div.en{display:block!important}
 html[lang="en"] span.en{display:inline!important}
+
+/* ══════════════════════════════
+   DARK MODE ENHANCEMENTS
+══════════════════════════════ */
+body:not(.light) {
+  --navy: #08091A;
+  --navy-light: #0D1330;
+  --navy-mid: #101838;
+  --text-primary: #F0EDE8;
+  --text-muted: #8A96B0;
+  --glass-bg: rgba(255,255,255,.045);
+  --glass-border: rgba(255,255,255,.09);
+}
+body:not(.light) .glass {
+  background: rgba(255,255,255,.045);
+  border-color: rgba(255,255,255,.09);
+  box-shadow: 0 4px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.07);
+}
+body:not(.light) .stat-card:hover {
+  box-shadow: 0 20px 60px rgba(201,146,42,.18), 0 0 0 1px rgba(201,146,42,.12);
+}
+body:not(.light) .cert-card:hover {
+  box-shadow: 0 24px 56px rgba(0,0,0,.5), 0 0 0 1px rgba(201,146,42,.35);
+}
+body:not(.light) .project-card:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.06);
+}
+body:not(.light) nav.scrolled {
+  background: rgba(8,9,26,.88);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  box-shadow: 0 1px 24px rgba(0,0,0,.4);
+}
+body:not(.light) .section-label {
+  color: var(--gold-light);
+}
+body:not(.light) .section-label::before {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+}
+body:not(.light) .skill-bar-fill {
+  background: linear-gradient(90deg, var(--gold), #F0C46A);
+  box-shadow: 0 0 12px rgba(201,146,42,.4);
+}
+body:not(.light) .tag {
+  background: rgba(201,146,42,.1);
+  border-color: rgba(201,146,42,.25);
+  color: #E8C97A;
+}
+body:not(.light) .tag:hover {
+  background: rgba(201,146,42,.22);
+  border-color: rgba(201,146,42,.45);
+}
+body:not(.light) .timeline-dot {
+  box-shadow: 0 0 24px rgba(232,184,75,.7);
+}
+body:not(.light) .btn-gold {
+  box-shadow: inset 0 0 0 1px rgba(201,146,42,.6);
+}
+body:not(.light) .btn-filled {
+  box-shadow: 0 4px 24px rgba(201,146,42,.35);
+}
+body:not(.light) .profile-ring::before {
+  background: conic-gradient(var(--gold-light), var(--accent-blue), var(--gold));
+  filter: blur(0.5px);
+}
+body:not(.light) #progress-bar {
+  background: linear-gradient(90deg, var(--gold), #7BA8FF, var(--gold-light));
+  box-shadow: 0 0 8px rgba(201,146,42,.5);
+}
+body:not(.light) .vp-icon {
+  background: rgba(201,146,42,.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+body:not(.light) .vp-card {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  box-shadow: 0 2px 20px rgba(0,0,0,.25);
+}
+body:not(.light) .methods-band {
+  background: linear-gradient(135deg, #0C1228 0%, #101838 100%);
+  border-color: rgba(255,255,255,.07);
+}
+body:not(.light) .methods-band [style*="border:1px solid var(--glass-border)"] {
+  border-color: rgba(255,255,255,.1)!important;
+  background: rgba(255,255,255,.02);
+}
+body:not(.light) ::-webkit-scrollbar-thumb {
+  background: var(--gold-dim);
+  box-shadow: inset 0 0 4px rgba(201,146,42,.3);
+}
+
+
+
 </style>
 </head>
 <body>
