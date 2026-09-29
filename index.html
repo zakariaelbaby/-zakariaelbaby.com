@@ -690,286 +690,296 @@ body:not(.light) ::-webkit-scrollbar-thumb {
     <div class="journey-wrapper reveal">
 
       <!-- ═══ MAP ═══ -->
-      <div class="journey-map">
+      <!-- ═══ REAL MAP ═══ -->
+<div class="journey-map">
 
-        <div class="journey-map-label fr">PARCOURS ACADÉMIQUE</div>
-        <div class="journey-map-label en">ACADEMIC JOURNEY</div>
+  <div class="journey-map-label fr">PARCOURS ACADÉMIQUE</div>
+  <div class="journey-map-label en">ACADEMIC JOURNEY</div>
 
-        <svg
-          class="journey-svg"
-          viewBox="0 0 950 500"
-          role="img"
-          aria-label="Taroudant, Agadir, Brest et Paris">
+  <svg class="journey-svg journey-real-map"
+       viewBox="0 0 800 720"
+       role="img"
+       aria-label="Carte du parcours académique">
 
-          <defs>
+    <defs>
+      <pattern id="map-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M40 0 L0 0 0 40"
+              fill="none"
+              stroke="rgba(255,255,255,.025)"
+              stroke-width="1"/>
+      </pattern>
 
-            <pattern
-              id="journey-grid"
-              width="45"
-              height="45"
-              patternUnits="userSpaceOnUse">
+      <linearGradient id="map-route-gradient"
+                      x1="0%" y1="100%"
+                      x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#C9922A"/>
+        <stop offset="65%" stop-color="#E8B84B"/>
+        <stop offset="100%" stop-color="#3E72F8"/>
+      </linearGradient>
 
-              <path
-                d="M45 0 L0 0 0 45"
-                fill="none"
-                stroke="rgba(255,255,255,.035)"
-                stroke-width="1"/>
+      <filter id="map-glow">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
 
-            </pattern>
+    <rect width="800" height="720" fill="url(#map-grid)"/>
 
-            <linearGradient
-              id="journey-gradient"
-              x1="0%"
-              y1="100%"
-              x2="100%"
-              y2="0%">
-
-              <stop offset="0%" stop-color="#C9922A"/>
-              <stop offset="55%" stop-color="#E8B84B"/>
-              <stop offset="100%" stop-color="#3E72F8"/>
-
-            </linearGradient>
-
-          </defs>
-
-
-          <!-- Background grid -->
-          <rect
-            width="950"
-            height="500"
-            fill="url(#journey-grid)"/>
+    <!-- ATLANTIC -->
+    <text x="110" y="380"
+          transform="rotate(-75 110 380)"
+          class="map-ocean">
+      OCÉAN ATLANTIQUE
+    </text>
 
 
-          <!-- Morocco silhouette -->
-          <path
-            class="journey-country"
-            d="
-              M175 375
-              L205 345
-              L238 337
-              L263 310
-              L292 317
-              L306 346
-              L294 374
-              L280 402
-              L252 425
-              L225 411
-              L202 395
-              Z
-            "/>
+    <!-- FRANCE -->
+    <path class="map-country"
+      d="M382 83
+         L421 67
+         L470 73
+         L512 91
+         L544 123
+         L538 155
+         L557 184
+         L546 219
+         L518 239
+         L505 275
+         L469 296
+         L438 281
+         L410 294
+         L383 268
+         L351 260
+         L335 230
+         L347 197
+         L326 171
+         L344 143
+         L330 116
+         L356 101 Z"/>
+
+    <!-- BRETAGNE -->
+    <path class="map-country"
+      d="M344 143
+         L315 134
+         L285 141
+         L256 132
+         L228 143
+         L204 136
+         L184 149
+         L207 163
+         L239 160
+         L267 169
+         L297 158
+         L331 166 Z"/>
 
 
-          <!-- France silhouette -->
-          <path
-            class="journey-country"
-            d="
-              M585 92
-              L640 75
-              L699 94
-              L735 133
-              L728 183
-              L695 225
-              L644 247
-              L599 222
-              L568 180
-              Z
-            "/>
+    <!-- SPAIN -->
+    <path class="map-country"
+      d="M266 320
+         L312 306
+         L365 309
+         L416 320
+         L462 345
+         L480 372
+         L467 402
+         L436 421
+         L402 445
+         L359 440
+         L327 454
+         L288 440
+         L258 414
+         L246 379
+         L249 344 Z"/>
 
 
-          <!-- Route background -->
-          <path
-            class="journey-route-bg"
-            d="
-              M220 390
-              C235 375 245 362 260 350
-              C350 275 425 210 535 175
-              C570 164 595 158 615 150
-              C650 137 675 122 700 112
-            "/>
+    <!-- PORTUGAL -->
+    <path class="map-country"
+      d="M249 337
+         L274 333
+         L281 361
+         L274 391
+         L280 423
+         L263 438
+         L246 418
+         L239 386
+         L241 355 Z"/>
 
 
-          <!-- Animated route -->
-          <path
-            class="journey-route"
-            d="
-              M220 390
-              C235 375 245 362 260 350
-              C350 275 425 210 535 175
-              C570 164 595 158 615 150
-              C650 137 675 122 700 112
-            "/>
+    <!-- MOROCCO -->
+    <path class="map-country map-morocco"
+      d="M275 485
+         L314 466
+         L358 466
+         L399 476
+         L429 496
+         L441 520
+         L425 546
+         L401 561
+         L387 590
+         L364 610
+         L350 639
+         L325 667
+         L297 653
+         L279 624
+         L258 600
+         L246 570
+         L227 545
+         L238 516 Z"/>
 
 
-          <!-- ═══ TAROUDANT ═══ -->
-          <g
-            class="journey-point"
-            data-city="taroudant"
-            tabindex="0"
-            role="button"
-            aria-label="Taroudant">
+    <!-- COUNTRY LABELS -->
+    <text x="440" y="205"
+          text-anchor="middle"
+          class="map-country-name">
+      FRANCE
+    </text>
 
-            <circle
-              class="journey-pulse"
-              cx="220"
-              cy="390"
-              r="23"/>
+    <text x="363" y="378"
+          text-anchor="middle"
+          class="map-country-name">
+      ESPAGNE
+    </text>
 
-            <circle
-              class="journey-dot"
-              cx="220"
-              cy="390"
-              r="8"/>
-
-            <text
-              x="190"
-              y="445"
-              text-anchor="middle"
-              class="journey-city">
-              TAROUDANT
-            </text>
-
-            <text
-              x="190"
-              y="465"
-              text-anchor="middle"
-              class="journey-date">
-              2019 / 20
-            </text>
-
-          </g>
+    <text x="335" y="548"
+          text-anchor="middle"
+          class="map-country-name">
+      MAROC
+    </text>
 
 
-          <!-- ═══ AGADIR ═══ -->
-          <g
-            class="journey-point"
-            data-city="agadir"
-            tabindex="0"
-            role="button"
-            aria-label="Agadir">
+    <!-- ROUTE SHADOW -->
+    <path class="map-route-shadow"
+      d="M292 595
+         C280 582 268 572 256 564
+         C210 500 175 420 188 340
+         C198 275 198 205 211 150
+         C270 150 345 149 415 151"/>
 
-            <circle
-              class="journey-pulse"
-              cx="260"
-              cy="350"
-              r="23"/>
-
-            <circle
-              class="journey-dot"
-              cx="260"
-              cy="350"
-              r="8"/>
-
-            <text
-              x="310"
-              y="370"
-              text-anchor="start"
-              class="journey-city">
-              AGADIR
-            </text>
-
-            <text
-              x="310"
-              y="390"
-              text-anchor="start"
-              class="journey-date">
-              2020 / 21 — 2022 / 23
-            </text>
-
-          </g>
+    <!-- ROUTE -->
+    <path class="map-route"
+      d="M292 595
+         C280 582 268 572 256 564
+         C210 500 175 420 188 340
+         C198 275 198 205 211 150
+         C270 150 345 149 415 151"/>
 
 
-          <!-- ═══ BREST ═══ -->
-          <g
-            class="journey-point"
-            data-city="brest"
-            tabindex="0"
-            role="button"
-            aria-label="Brest">
+    <!-- TAROUDANT -->
+    <g class="journey-point"
+       data-city="taroudant"
+       tabindex="0"
+       role="button">
 
-            <circle
-              class="journey-pulse"
-              cx="535"
-              cy="175"
-              r="23"/>
+      <circle class="journey-pulse"
+              cx="292" cy="595" r="22"/>
 
-            <circle
-              class="journey-dot"
-              cx="535"
-              cy="175"
-              r="8"/>
+      <circle class="journey-dot"
+              cx="292" cy="595" r="8"/>
 
-            <text
-              x="500"
-              y="220"
-              text-anchor="middle"
-              class="journey-city">
-              BREST
-            </text>
+      <text x="320" y="600"
+            class="journey-city">
+        TAROUDANT
+      </text>
 
-            <text
-              x="500"
-              y="240"
-              text-anchor="middle"
-              class="journey-date">
-              2023 / 24 — 2024 / 25
-            </text>
-
-          </g>
+      <text x="320" y="619"
+            class="journey-date">
+        2019 / 20
+      </text>
+    </g>
 
 
-          <!-- ═══ PARIS ═══ -->
-          <g
-            class="journey-point active"
-            data-city="paris"
-            tabindex="0"
-            role="button"
-            aria-label="Paris">
+    <!-- AGADIR -->
+    <g class="journey-point"
+       data-city="agadir"
+       tabindex="0"
+       role="button">
 
-            <circle
-              class="journey-pulse"
-              cx="700"
-              cy="112"
-              r="23"/>
+      <circle class="journey-pulse"
+              cx="256" cy="564" r="22"/>
 
-            <circle
-              class="journey-dot"
-              cx="700"
-              cy="112"
-              r="8"/>
+      <circle class="journey-dot"
+              cx="256" cy="564" r="8"/>
 
-            <text
-              x="700"
-              y="65"
-              text-anchor="middle"
-              class="journey-city">
-              PARIS
-            </text>
+      <text x="215" y="545"
+            text-anchor="end"
+            class="journey-city">
+        AGADIR
+      </text>
 
-            <text
-              x="700"
-              y="84"
-              text-anchor="middle"
-              class="journey-date">
-              2025 / 26
-            </text>
-
-          </g>
-
-        </svg>
+      <text x="215" y="563"
+            text-anchor="end"
+            class="journey-date">
+        2020/21 — 2022/23
+      </text>
+    </g>
 
 
-        <div class="journey-route-name">
-          <span>TAROUDANT</span>
-          <span>→</span>
-          <span>AGADIR</span>
-          <span>→</span>
-          <span>BREST</span>
-          <span>→</span>
-          <span>PARIS</span>
-        </div>
+    <!-- BREST -->
+    <g class="journey-point"
+       data-city="brest"
+       tabindex="0"
+       role="button">
 
-      </div>
+      <circle class="journey-pulse"
+              cx="211" cy="150" r="22"/>
 
+      <circle class="journey-dot"
+              cx="211" cy="150" r="8"/>
+
+      <text x="205" y="105"
+            text-anchor="middle"
+            class="journey-city">
+        BREST
+      </text>
+
+      <text x="205" y="124"
+            text-anchor="middle"
+            class="journey-date">
+        2023/24 — 2024/25
+      </text>
+    </g>
+
+
+    <!-- PARIS -->
+    <g class="journey-point active"
+       data-city="paris"
+       tabindex="0"
+       role="button">
+
+      <circle class="journey-pulse"
+              cx="415" cy="151" r="22"/>
+
+      <circle class="journey-dot"
+              cx="415" cy="151" r="8"/>
+
+      <text x="445" y="135"
+            class="journey-city">
+        PARIS
+      </text>
+
+      <text x="445" y="154"
+            class="journey-date">
+        2025 / 26
+      </text>
+    </g>
+
+  </svg>
+
+
+  <div class="journey-route-name">
+    <span>🇲🇦 TAROUDANT</span>
+    <span>→</span>
+    <span>AGADIR</span>
+    <span>→</span>
+    <span>🇫🇷 BREST</span>
+    <span>→</span>
+    <span>PARIS</span>
+  </div>
+
+</div>
 
       <!-- ═══════════════════════
            INFORMATION PANEL
@@ -1614,6 +1624,107 @@ body:not(.light) ::-webkit-scrollbar-thumb {
 
 }
 
+/* ═══ REAL GEOGRAPHIC MAP ═══ */
+
+.journey-real-map{
+  width:100%;
+  height:auto;
+  max-height:620px;
+}
+
+.map-country{
+  fill:rgba(255,255,255,.035);
+  stroke:rgba(170,190,220,.32);
+  stroke-width:1.5;
+  stroke-linejoin:round;
+  transition:.3s ease;
+}
+
+.map-morocco{
+  fill:rgba(201,146,42,.045);
+}
+
+.map-country-name{
+  fill:rgba(150,165,195,.3);
+  font-family:'Outfit',sans-serif;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:5px;
+}
+
+.map-ocean{
+  fill:rgba(100,130,180,.25);
+  font-family:'Outfit',sans-serif;
+  font-size:9px;
+  letter-spacing:4px;
+}
+
+.map-route-shadow{
+  fill:none;
+  stroke:rgba(255,255,255,.08);
+  stroke-width:8;
+  stroke-linecap:round;
+}
+
+.map-route{
+  fill:none;
+  stroke:url(#map-route-gradient);
+  stroke-width:3;
+  stroke-linecap:round;
+  stroke-dasharray:8 10;
+  filter:url(#map-glow);
+  animation:mapTravel 9s linear infinite;
+}
+
+@keyframes mapTravel{
+  to{
+    stroke-dashoffset:-180;
+  }
+}
+
+.journey-real-map .journey-point{
+  cursor:pointer;
+}
+
+.journey-real-map .journey-point:hover .journey-dot,
+.journey-real-map .journey-point.active .journey-dot{
+  fill:var(--gold-light);
+  r:11;
+}
+
+.journey-real-map .journey-point.active .journey-pulse{
+  fill:rgba(201,146,42,.18);
+  stroke:rgba(232,184,75,.65);
+}
+
+body.light .map-country{
+  fill:rgba(53,88,160,.04);
+  stroke:rgba(53,88,160,.28);
+}
+
+body.light .map-country-name{
+  fill:rgba(53,88,160,.35);
+}
+
+body.light .map-ocean{
+  fill:rgba(53,88,160,.28);
+}
+
+@media(max-width:520px){
+  .journey-real-map{
+    min-height:390px;
+  }
+
+  .map-country-name{
+    font-size:8px;
+    letter-spacing:3px;
+  }
+
+  .map-ocean{
+    display:none;
+  }
+}
+  
 </style>
 
 
