@@ -1635,5 +1635,380 @@ function resetContactForm(){
   document.getElementById('btn-icon').innerHTML='<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>';
 }
 </script>
+  <!-- ================================
+     ZAKARIA AI PORTFOLIO ASSISTANT
+================================= -->
+<style>
+#zak-ai-btn{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  width:62px;
+  height:62px;
+  border:none;
+  border-radius:50%;
+  background:#c9a84c;
+  color:#111;
+  cursor:pointer;
+  z-index:99998;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 10px 35px rgba(0,0,0,.28);
+  transition:.25s ease;
+}
+#zak-ai-btn:hover{transform:translateY(-3px) scale(1.04)}
+#zak-ai-btn svg{width:27px;height:27px}
+
+#zak-ai-panel{
+  position:fixed;
+  right:24px;
+  bottom:100px;
+  width:min(390px,calc(100vw - 32px));
+  height:min(600px,calc(100vh - 140px));
+  background:#111;
+  border:1px solid rgba(201,168,76,.35);
+  border-radius:18px;
+  z-index:99999;
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 25px 70px rgba(0,0,0,.45);
+  font-family:Arial,sans-serif;
+}
+
+#zak-ai-panel.open{display:flex}
+
+#zak-ai-header{
+  padding:17px 18px;
+  background:#171717;
+  border-bottom:1px solid rgba(255,255,255,.09);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+#zak-ai-title{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  color:#fff;
+  font-weight:700;
+  font-size:15px;
+}
+
+#zak-ai-status{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#49c875;
+  box-shadow:0 0 10px rgba(73,200,117,.7);
+}
+
+#zak-ai-close{
+  background:none;
+  border:0;
+  color:#aaa;
+  font-size:25px;
+  cursor:pointer;
+  line-height:1;
+}
+
+#zak-ai-messages{
+  flex:1;
+  overflow-y:auto;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  scroll-behavior:smooth;
+}
+
+.zak-msg{
+  max-width:86%;
+  padding:11px 14px;
+  border-radius:14px;
+  line-height:1.5;
+  font-size:14px;
+  white-space:pre-wrap;
+  word-wrap:break-word;
+}
+
+.zak-bot{
+  align-self:flex-start;
+  background:#202020;
+  color:#eee;
+  border-bottom-left-radius:4px;
+}
+
+.zak-user{
+  align-self:flex-end;
+  background:#c9a84c;
+  color:#111;
+  border-bottom-right-radius:4px;
+}
+
+#zak-ai-thinking{
+  color:#999;
+  font-size:12px;
+  padding:0 18px 8px;
+  display:none;
+}
+
+#zak-ai-input-area{
+  display:flex;
+  gap:8px;
+  padding:12px;
+  border-top:1px solid rgba(255,255,255,.09);
+  background:#171717;
+}
+
+#zak-ai-input{
+  flex:1;
+  min-width:0;
+  border:1px solid #333;
+  background:#0d0d0d;
+  color:#fff;
+  border-radius:10px;
+  padding:12px;
+  outline:none;
+  font-size:14px;
+}
+
+#zak-ai-input:focus{border-color:#c9a84c}
+
+#zak-ai-send{
+  border:0;
+  background:#c9a84c;
+  color:#111;
+  border-radius:10px;
+  padding:0 15px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+#zak-ai-send:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+@media(max-width:600px){
+  #zak-ai-btn{
+    right:16px;
+    bottom:16px;
+    width:56px;
+    height:56px;
+  }
+
+  #zak-ai-panel{
+    right:12px;
+    left:12px;
+    bottom:84px;
+    width:auto;
+    height:calc(100vh - 110px);
+    max-height:650px;
+  }
+}
+</style>
+
+<button id="zak-ai-btn" aria-label="Assistant IA">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+  </svg>
+</button>
+
+<div id="zak-ai-panel">
+
+  <div id="zak-ai-header">
+    <div id="zak-ai-title">
+      <span id="zak-ai-status"></span>
+      Zakaria AI Assistant
+    </div>
+    <button id="zak-ai-close" aria-label="Fermer">&times;</button>
+  </div>
+
+  <div id="zak-ai-messages">
+    <div class="zak-msg zak-bot">
+Bonjour 👋 Je suis l'assistant IA du portfolio de Zakaria.
+
+Vous pouvez me poser des questions sur son parcours, ses expériences, ses compétences ou ses projets.
+    </div>
+  </div>
+
+  <div id="zak-ai-thinking">Assistant en cours de réponse...</div>
+
+  <div id="zak-ai-input-area">
+    <input
+      id="zak-ai-input"
+      type="text"
+      placeholder="Posez votre question..."
+      autocomplete="off"
+    >
+    <button id="zak-ai-send">Envoyer</button>
+  </div>
+
+</div>
+
+<script>
+(function(){
+
+const AI_URL="https://zakaria-ai.zakaziko012.workers.dev/api/chat";
+
+const btn=document.getElementById("zak-ai-btn");
+const panel=document.getElementById("zak-ai-panel");
+const close=document.getElementById("zak-ai-close");
+const input=document.getElementById("zak-ai-input");
+const send=document.getElementById("zak-ai-send");
+const messagesBox=document.getElementById("zak-ai-messages");
+const thinking=document.getElementById("zak-ai-thinking");
+
+let history=[];
+
+btn.addEventListener("click",()=>{
+  panel.classList.toggle("open");
+  if(panel.classList.contains("open")) input.focus();
+});
+
+close.addEventListener("click",()=>{
+  panel.classList.remove("open");
+});
+
+input.addEventListener("keydown",e=>{
+  if(e.key==="Enter" && !e.shiftKey){
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+send.addEventListener("click",sendMessage);
+
+function addMessage(text,type){
+  const el=document.createElement("div");
+  el.className="zak-msg "+(type==="user"?"zak-user":"zak-bot");
+  el.textContent=text;
+  messagesBox.appendChild(el);
+  messagesBox.scrollTop=messagesBox.scrollHeight;
+  return el;
+}
+
+async function sendMessage(){
+
+  const text=input.value.trim();
+
+  if(!text || send.disabled) return;
+
+  addMessage(text,"user");
+
+  history.push({
+    role:"user",
+    content:text
+  });
+
+  input.value="";
+  send.disabled=true;
+  thinking.style.display="block";
+
+  const botMessage=addMessage("","bot");
+
+  try{
+
+    const response=await fetch(AI_URL,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        messages:history
+      })
+    });
+
+    if(!response.ok){
+      throw new Error("HTTP "+response.status);
+    }
+
+    if(!response.body){
+      throw new Error("Streaming indisponible");
+    }
+
+    thinking.style.display="none";
+
+    const reader=response.body.getReader();
+    const decoder=new TextDecoder();
+
+    let buffer="";
+    let completeText="";
+
+    while(true){
+
+      const {value,done}=await reader.read();
+
+      if(done) break;
+
+      buffer+=decoder.decode(value,{stream:true});
+
+      const lines=buffer.split("\n");
+      buffer=lines.pop() || "";
+
+      for(const line of lines){
+
+        const trimmed=line.trim();
+
+        if(!trimmed.startsWith("data:")) continue;
+
+        const data=trimmed.slice(5).trim();
+
+        if(!data || data==="[DONE]") continue;
+
+        try{
+
+          const parsed=JSON.parse(data);
+
+          const piece=
+            parsed.response ||
+            parsed.token ||
+            parsed.content ||
+            parsed.choices?.[0]?.delta?.content ||
+            "";
+
+          if(piece){
+            completeText+=piece;
+            botMessage.textContent=completeText;
+            messagesBox.scrollTop=messagesBox.scrollHeight;
+          }
+
+        }catch(e){}
+      }
+    }
+
+    if(!completeText){
+      botMessage.textContent="Je n'ai pas pu générer de réponse. Veuillez réessayer.";
+    }else{
+      history.push({
+        role:"assistant",
+        content:completeText
+      });
+    }
+
+  }catch(error){
+
+    console.error("Zakaria AI:",error);
+
+    thinking.style.display="none";
+
+    botMessage.textContent=
+      "L'assistant est momentanément indisponible. Veuillez réessayer.";
+
+  }finally{
+
+    send.disabled=false;
+    input.focus();
+
+  }
+}
+
+})();
+</script>
+<!-- END ZAKARIA AI ASSISTANT -->
 </body>
 </html>
