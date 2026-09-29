@@ -1600,34 +1600,47 @@ body.light .map-ocean{
 
   if (!mapElement || !journey || typeof L === 'undefined') return;
 
-  /* Vraies coordonnées géographiques */
+  /* ═══════════════════════════════════════
+     VILLES — VRAIES COORDONNÉES
+  ═══════════════════════════════════════ */
   const cities = [
     {
       id: 'taroudant',
       name: 'Taroudant',
-      coords: [30.4703, -8.8770]
+      coords: [30.4703, -8.8770],
+      tooltipDirection: 'left',
+      tooltipOffset: [-18, 0]
     },
     {
       id: 'agadir',
       name: 'Agadir',
-      coords: [30.4278, -9.5981]
+      coords: [30.4278, -9.5981],
+      tooltipDirection: 'right',
+      tooltipOffset: [18, 0]
     },
     {
       id: 'brest',
       name: 'Brest',
-      coords: [48.3904, -4.4861]
+      coords: [48.3904, -4.4861],
+      tooltipDirection: 'left',
+      tooltipOffset: [-16, 0]
     },
     {
       id: 'paris',
       name: 'Paris',
-      coords: [48.8566, 2.3522]
+      coords: [48.8566, 2.3522],
+      tooltipDirection: 'right',
+      tooltipOffset: [16, 0]
     }
   ];
 
-  /* Création de la vraie carte */
+  /* ═══════════════════════════════════════
+     CRÉATION DE LA CARTE
+  ═══════════════════════════════════════ */
   const map = L.map('academic-map', {
     scrollWheelZoom: false,
-    zoomControl: true
+    zoomControl: true,
+    attributionControl: true
   });
 
   /* Fond cartographique réel */
@@ -1639,21 +1652,42 @@ body.light .map-ocean{
     }
   ).addTo(map);
 
-  /* Trajet académique */
-  const routeCoordinates = cities.map(city => city.coords);
+  /* ═══════════════════════════════════════
+     TRAJET ACADÉMIQUE
+  ═══════════════════════════════════════ */
+  const routeCoordinates = cities.map(function(city) {
+    return city.coords;
+  });
 
+  /* Halo très léger derrière la ligne */
+  const routeGlow = L.polyline(routeCoordinates, {
+    color: '#C9922A',
+    weight: 8,
+    opacity: 0.12,
+    lineCap: 'round',
+    lineJoin: 'round',
+    interactive: false
+  }).addTo(map);
+
+  /* Ligne principale — fine, continue et élégante */
   const route = L.polyline(routeCoordinates, {
     color: '#E8B84B',
-    weight: 3,
-    opacity: 0.9,
-    dashArray: '8 10'
+    weight: 2.5,
+    opacity: 0.95,
+    lineCap: 'round',
+    lineJoin: 'round',
+    interactive: false
   }).addTo(map);
 
   /* Afficher automatiquement tout le parcours */
   map.fitBounds(route.getBounds(), {
-    padding: [55, 55]
+    paddingTopLeft: [70, 80],
+    paddingBottomRight: [70, 70]
   });
 
+  /* ═══════════════════════════════════════
+     MARQUEURS
+  ═══════════════════════════════════════ */
   const markers = {};
 
   function markerIcon(cityId, active) {
@@ -1663,16 +1697,19 @@ body.light .map-ocean{
         '<div class="academic-marker ' +
         (active ? 'active' : '') +
         '" data-map-city="' + cityId + '">' +
-        '<div class="academic-marker-dot"></div>' +
+          '<div class="academic-marker-dot"></div>' +
         '</div>',
       iconSize: [26, 26],
       iconAnchor: [13, 13]
     });
   }
 
+  /* ═══════════════════════════════════════
+     SÉLECTION D'UNE VILLE
+  ═══════════════════════════════════════ */
   function selectCity(cityId) {
 
-    /* Changer la fiche à droite */
+    /* Changer la fiche affichée à droite */
     journey.querySelectorAll('.journey-card').forEach(function(card) {
       card.classList.toggle(
         'active',
@@ -1688,7 +1725,9 @@ body.light .map-ocean{
     });
   }
 
-  /* Ajouter les 4 villes */
+  /* ═══════════════════════════════════════
+     AJOUTER LES 4 VILLES
+  ═══════════════════════════════════════ */
   cities.forEach(function(city) {
 
     const marker = L.marker(
@@ -1697,20 +1736,30 @@ body.light .map-ocean{
         icon: markerIcon(
           city.id,
           city.id === 'paris'
-        )
+        ),
+        riseOnHover: true
       }
     ).addTo(map);
 
+    /*
+      Position différente pour chaque nom :
+      Taroudant ← point → Agadir
+      Brest     ← point → Paris
+
+      Cela évite les superpositions.
+    */
     marker.bindTooltip(
       city.name.toUpperCase(),
       {
         permanent: true,
-        direction: 'top',
-        offset: [0, -12],
-        className: 'academic-city-label'
+        direction: city.tooltipDirection,
+        offset: city.tooltipOffset,
+        className: 'academic-city-label',
+        opacity: 1
       }
     );
 
+    /* Cliquer sur une ville change la fiche à droite */
     marker.on('click', function() {
       selectCity(city.id);
     });
@@ -1718,8 +1767,21 @@ body.light .map-ocean{
     markers[city.id] = marker;
   });
 
-  /* Paris sélectionné au départ */
+  /* Paris sélectionné au chargement */
   selectCity('paris');
+
+  /*
+    Correction d'affichage Leaflet lorsque
+    la section apparaît après le chargement.
+  */
+  setTimeout(function() {
+    map.invalidateSize();
+
+    map.fitBounds(route.getBounds(), {
+      paddingTopLeft: [70, 80],
+      paddingBottomRight: [70, 70]
+    });
+  }, 300);
 
 })();
 </script>
