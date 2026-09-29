@@ -430,6 +430,25 @@ body:not(.light) ::-webkit-scrollbar-thumb {
 
 
 </style>
+
+<style>
+/* Academic Journey — responsive final */
+#academic-map{width:100%!important;min-width:0!important;}
+@media(max-width:900px){
+  #journey .journey-map-layout{grid-template-columns:1fr!important;}
+  #journey .journey-leaflet-wrap{min-height:460px!important;}
+  #academic-map{height:460px!important;min-height:460px!important;}
+  #journey .journey-panel{min-height:auto!important;}
+}
+@media(max-width:600px){
+  #journey .container{padding-left:12px!important;padding-right:12px!important;}
+  #journey .journey-leaflet-wrap{min-height:390px!important;}
+  #academic-map{height:390px!important;min-height:390px!important;}
+  .academic-city-label{font-size:9px!important;letter-spacing:.04em!important;padding:4px 6px!important;}
+  #journey .journey-card{padding:1.35rem!important;}
+}
+</style>
+
 </head>
 <body>
 
@@ -1594,191 +1613,92 @@ body.light .map-ocean{
 
 <script>
 (function(){
+  const mapElement=document.getElementById('academic-map');
+  const journey=document.getElementById('journey');
+  if(!mapElement||!journey||typeof L==='undefined')return;
 
-  const mapElement = document.getElementById('academic-map');
-  const journey = document.getElementById('journey');
-
-  if (!mapElement || !journey || typeof L === 'undefined') return;
-
-  const cities = [
-    { id:'taroudant', name:'Taroudant', coords:[30.4703,-8.8770], direction:'left',  offset:[-20,0] },
-    { id:'agadir',    name:'Agadir',    coords:[30.4278,-9.5981], direction:'right', offset:[20,0] },
-    { id:'brest',     name:'Brest',     coords:[48.3904,-4.4861], direction:'left',  offset:[-18,0] },
-    { id:'paris',     name:'Paris',     coords:[48.8566,2.3522],  direction:'right', offset:[18,0] }
+  const cities=[
+    {id:'taroudant',name:'Taroudant',coords:[30.4703,-8.8770],dir:'left',offset:[-18,0]},
+    {id:'agadir',name:'Agadir',coords:[30.4278,-9.5981],dir:'right',offset:[18,0]},
+    {id:'brest',name:'Brest',coords:[48.3904,-4.4861],dir:'left',offset:[-16,0]},
+    {id:'paris',name:'Paris',coords:[48.8566,2.3522],dir:'right',offset:[16,0]}
   ];
 
-  const map = L.map('academic-map', {
-    scrollWheelZoom:false,
-    zoomControl:true
+  const map=L.map('academic-map',{
+    scrollWheelZoom:false,zoomControl:true,dragging:true,
+    touchZoom:true,doubleClickZoom:true,boxZoom:true,keyboard:true
   });
 
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      maxZoom:19,
-      attribution:'&copy; OpenStreetMap contributors'
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    maxZoom:19,attribution:'&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const bounds=L.latLngBounds(cities.map(c=>c.coords));
+
+  function quadraticArc(a,b,bend,steps){
+    const p1=L.latLng(a),p2=L.latLng(b);
+    const ml=(p1.lat+p2.lat)/2,mg=(p1.lng+p2.lng)/2;
+    const dl=p2.lat-p1.lat,dg=p2.lng-p1.lng;
+    const len=Math.sqrt(dl*dl+dg*dg)||1;
+    const cl=ml+(-dg/len)*bend,cg=mg+(dl/len)*bend;
+    const pts=[];
+    for(let i=0;i<=steps;i++){
+      const t=i/steps,u=1-t;
+      pts.push([
+        u*u*p1.lat+2*u*t*cl+t*t*p2.lat,
+        u*u*p1.lng+2*u*t*cg+t*t*p2.lng
+      ]);
     }
-  ).addTo(map);
+    return pts;
+  }
 
-  /* ═══════════════════════════════════════
-     ARCS NATIFS — aucune bibliothèque externe
-     Les courbes sont recalculées quand la carte bouge/zoome.
-  ═══════════════════════════════════════ */
-  const routePane = map.createPane('academicRoutePane');
-  routePane.style.zIndex = '420';
-  routePane.style.pointerEvents = 'none';
-
-  const svgNS = 'http://www.w3.org/2000/svg';
-  const routeSvg = document.createElementNS(svgNS, 'svg');
-  routeSvg.setAttribute('aria-hidden', 'true');
-  routeSvg.style.position = 'absolute';
-  routeSvg.style.inset = '0';
-  routeSvg.style.width = '100%';
-  routeSvg.style.height = '100%';
-  routeSvg.style.overflow = 'visible';
-  routeSvg.style.pointerEvents = 'none';
-  routePane.appendChild(routeSvg);
-
-  const arcDefs = [
-    { from:'taroudant', to:'agadir', bend:38 },
-    { from:'agadir',    to:'brest',  bend:95 },
-    { from:'brest',     to:'paris',  bend:-58 }
-  ];
-
-  const arcNodes = arcDefs.map(function(def){
-    const glow = document.createElementNS(svgNS, 'path');
-    glow.setAttribute('fill','none');
-    glow.setAttribute('stroke','#C9922A');
-    glow.setAttribute('stroke-width','9');
-    glow.setAttribute('stroke-opacity','.16');
-    glow.setAttribute('stroke-linecap','round');
-
-    const path = document.createElementNS(svgNS, 'path');
-    path.setAttribute('fill','none');
-    path.setAttribute('stroke','#E8B84B');
-    path.setAttribute('stroke-width','3');
-    path.setAttribute('stroke-opacity','.96');
-    path.setAttribute('stroke-linecap','round');
-
-    routeSvg.appendChild(glow);
-    routeSvg.appendChild(path);
-    return { def:def, glow:glow, path:path };
+  [
+    quadraticArc(cities[0].coords,cities[1].coords,.28,36),
+    quadraticArc(cities[1].coords,cities[2].coords,4.2,80),
+    quadraticArc(cities[2].coords,cities[3].coords,-1.35,48)
+  ].forEach(function(points){
+    L.polyline(points,{color:'#C9922A',weight:10,opacity:.20,lineCap:'round',lineJoin:'round',interactive:false}).addTo(map);
+    L.polyline(points,{color:'#E8B84B',weight:3.2,opacity:1,lineCap:'round',lineJoin:'round',interactive:false}).addTo(map);
   });
 
-  function cityById(id){
-    return cities.find(function(city){ return city.id === id; });
-  }
-
-  function curvedPath(fromCoords, toCoords, bend){
-    const a = map.latLngToLayerPoint(fromCoords);
-    const b = map.latLngToLayerPoint(toCoords);
-
-    const dx = b.x - a.x;
-    const dy = b.y - a.y;
-    const length = Math.sqrt(dx*dx + dy*dy) || 1;
-
-    const mx = (a.x + b.x) / 2;
-    const my = (a.y + b.y) / 2;
-    const nx = -dy / length;
-    const ny = dx / length;
-
-    const cx = mx + nx * bend;
-    const cy = my + ny * bend;
-
-    return 'M ' + a.x + ' ' + a.y +
-           ' Q ' + cx + ' ' + cy +
-           ' ' + b.x + ' ' + b.y;
-  }
-
-  function redrawArcs(){
-    const size = map.getSize();
-    const origin = map.getPixelOrigin();
-
-    routeSvg.setAttribute('width', size.x);
-    routeSvg.setAttribute('height', size.y);
-    routeSvg.style.left = origin.x + 'px';
-    routeSvg.style.top = origin.y + 'px';
-
-    arcNodes.forEach(function(item){
-      const from = cityById(item.def.from);
-      const to = cityById(item.def.to);
-      const d = curvedPath(from.coords, to.coords, item.def.bend);
-      item.glow.setAttribute('d', d);
-      item.path.setAttribute('d', d);
-    });
-  }
-
-  const bounds = L.latLngBounds(cities.map(function(city){ return city.coords; }));
-
-  map.fitBounds(bounds, {
-    paddingTopLeft:[75,85],
-    paddingBottomRight:[75,75]
-  });
-
-  const markers = {};
-
-  function markerIcon(cityId, active){
+  const markers={};
+  function markerIcon(id,active){
     return L.divIcon({
       className:'academic-marker',
-      html:
-        '<div class="academic-marker ' +
-        (active ? 'active' : '') +
-        '" data-map-city="' + cityId + '">' +
-          '<div class="academic-marker-dot"></div>' +
-        '</div>',
-      iconSize:[26,26],
-      iconAnchor:[13,13]
+      html:'<div class="academic-marker '+(active?'active':'')+'" data-map-city="'+id+'"><div class="academic-marker-dot"></div></div>',
+      iconSize:[26,26],iconAnchor:[13,13]
     });
   }
 
-  function selectCity(cityId){
-    journey.querySelectorAll('.journey-card').forEach(function(card){
-      card.classList.toggle('active', card.dataset.card === cityId);
-    });
-
-    Object.keys(markers).forEach(function(id){
-      markers[id].setIcon(markerIcon(id, id === cityId));
-    });
+  function selectCity(id){
+    journey.querySelectorAll('.journey-card').forEach(card=>card.classList.toggle('active',card.dataset.card===id));
+    Object.keys(markers).forEach(key=>markers[key].setIcon(markerIcon(key,key===id)));
   }
 
   cities.forEach(function(city){
-    const marker = L.marker(city.coords, {
-      icon:markerIcon(city.id, city.id === 'paris'),
-      riseOnHover:true
-    }).addTo(map);
-
-    marker.bindTooltip(city.name.toUpperCase(), {
-      permanent:true,
-      direction:city.direction,
-      offset:city.offset,
-      className:'academic-city-label',
-      opacity:1
+    const marker=L.marker(city.coords,{icon:markerIcon(city.id,city.id==='paris'),riseOnHover:true}).addTo(map);
+    marker.bindTooltip(city.name.toUpperCase(),{
+      permanent:true,direction:city.dir,offset:city.offset,
+      className:'academic-city-label',opacity:1
     });
-
-    marker.on('click', function(){
-      selectCity(city.id);
-    });
-
-    markers[city.id] = marker;
+    marker.on('click',()=>selectCity(city.id));
+    markers[city.id]=marker;
   });
 
   selectCity('paris');
 
-  map.on('zoomend moveend resize viewreset', function(){
-    requestAnimationFrame(redrawArcs);
+  function refreshMap(){
+    map.invalidateSize({pan:false});
+    map.fitBounds(bounds,{padding:window.innerWidth<=768?[30,30]:[55,55]});
+  }
+  window.addEventListener('resize',function(){
+    clearTimeout(window.__academicResize);
+    window.__academicResize=setTimeout(refreshMap,120);
   });
-
-  setTimeout(function(){
-    map.invalidateSize();
-    map.fitBounds(bounds, {
-      paddingTopLeft:[75,85],
-      paddingBottomRight:[75,75]
-    });
-    requestAnimationFrame(redrawArcs);
-  }, 250);
-
-  requestAnimationFrame(redrawArcs);
-
+  if(window.ResizeObserver){
+    new ResizeObserver(()=>map.invalidateSize({pan:false})).observe(mapElement);
+  }
+  setTimeout(refreshMap,250);
 })();
 </script>
 <section id="experience" aria-label="Expérience professionnelle">
