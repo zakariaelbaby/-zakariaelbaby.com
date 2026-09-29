@@ -517,8 +517,17 @@ body:not(.light) ::-webkit-scrollbar-thumb {
 @keyframes routeDraw{to{stroke-dashoffset:0}}
 
 /* Markers + labels */
-.academic-marker{cursor:pointer!important;transition:transform .2s ease!important}
-.academic-marker:hover{transform:scale(1.2)!important}
+.academic-marker-shell{
+  background:transparent!important;
+  border:none!important;
+  /* IMPORTANT: aucun transform/transition ici — Leaflet contrôle sa position */
+}
+.academic-marker{
+  cursor:pointer!important;
+  transform:none!important;
+  transition:none!important;
+}
+.academic-marker:hover{transform:none!important}
 .academic-marker-dot{
   transition:transform .2s ease,box-shadow .2s ease,background .2s ease!important;
 }
@@ -561,6 +570,168 @@ body:not(.light) ::-webkit-scrollbar-thumb {
 }
 @media(prefers-reduced-motion:reduce){
   .academic-route{animation:none!important;stroke-dashoffset:0!important}
+}
+</style>
+
+
+<style id="creative-smooth-v3">
+/* =========================================================
+   FIX LEAFLET: the outer marker NEVER animates.
+   Only children animate, so coordinates stay perfectly fixed.
+   ========================================================= */
+.leaflet-marker-icon.academic-marker-shell{
+  transition:none!important;
+  animation:none!important;
+  will-change:auto!important;
+}
+.academic-marker-shell .academic-marker{
+  width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  transform:none!important;
+}
+.academic-marker-shell .academic-marker-dot{
+  transform:scale(1);
+  transition:transform .22s cubic-bezier(.2,.8,.2,1),
+             box-shadow .22s ease,background .22s ease!important;
+}
+.academic-marker-shell:hover .academic-marker-dot{
+  transform:scale(1.10)!important;
+  box-shadow:0 0 0 5px rgba(201,146,42,.14),
+             0 0 24px rgba(232,184,75,.75)!important;
+}
+.academic-marker-shell .academic-marker.active .academic-marker-dot{
+  transform:scale(1.14)!important;
+}
+.academic-marker-shell .academic-marker::after{
+  content:"";
+  position:absolute;
+  width:23px;height:23px;border-radius:50%;
+  border:1px solid rgba(232,184,75,.55);
+  opacity:0;transform:scale(.75);
+  pointer-events:none;
+}
+.academic-marker-shell .academic-marker.active::after{
+  animation:cityPulse 2s ease-out infinite;
+}
+@keyframes cityPulse{
+  0%{opacity:.65;transform:scale(.72)}
+  75%,100%{opacity:0;transform:scale(1.65)}
+}
+
+/* =========================================================
+   ROUTE: elegant base + a subtle light travelling continuously
+   ========================================================= */
+.academic-route{
+  filter:drop-shadow(0 0 4px rgba(232,184,75,.48));
+}
+.academic-route-glow{
+  filter:blur(1.8px);
+}
+.academic-route-flow{
+  stroke-dasharray:12 34!important;
+  animation:routeFlow 1.45s linear infinite!important;
+  filter:drop-shadow(0 0 5px rgba(255,242,181,.8));
+}
+@keyframes routeFlow{
+  to{stroke-dashoffset:-46}
+}
+
+/* =========================================================
+   SMOOTH DARK ↔ LIGHT THEME
+   ========================================================= */
+html,body,
+nav,section,footer,
+.glass,.project-card,.cert-card,.stat-card,.vp-card,
+.journey-map-layout,.journey-panel,.journey-card,
+.contact-card,.skill-card,.timeline-content,
+.btn-gold,.btn-filled,.btn-outline-white,
+.lang-toggle,.toggle-track,.toggle-thumb,
+h1,h2,h3,h4,p,span,a{
+  transition:
+    background-color .68s cubic-bezier(.2,.8,.2,1),
+    color .55s cubic-bezier(.2,.8,.2,1),
+    border-color .55s cubic-bezier(.2,.8,.2,1),
+    box-shadow .55s cubic-bezier(.2,.8,.2,1),
+    opacity .45s ease!important;
+}
+body.theme-changing::after{
+  content:"";
+  position:fixed;inset:0;z-index:99990;
+  pointer-events:none;
+  background:radial-gradient(circle at 88px 42px,
+    rgba(232,184,75,.10),transparent 38%);
+  animation:themeFlash .7s ease both;
+}
+@keyframes themeFlash{
+  0%{opacity:0}
+  35%{opacity:1}
+  100%{opacity:0}
+}
+.toggle-track{
+  overflow:hidden;
+}
+.toggle-thumb{
+  box-shadow:0 0 0 0 rgba(232,184,75,0);
+}
+body.light .toggle-thumb{
+  box-shadow:0 0 16px rgba(201,146,42,.38);
+}
+
+/* =========================================================
+   EXTRA CREATIVE MICRO-INTERACTIONS
+   ========================================================= */
+.section-label{
+  position:relative;
+}
+.section-label::after{
+  content:"";
+  display:inline-block;
+  width:20px;height:1px;margin-left:10px;
+  vertical-align:middle;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  transform-origin:left;
+  animation:labelBreath 2.8s ease-in-out infinite;
+}
+@keyframes labelBreath{
+  0%,100%{transform:scaleX(.65);opacity:.5}
+  50%{transform:scaleX(1.35);opacity:1}
+}
+.project-card,.cert-card,.stat-card,.vp-card{
+  transform-style:preserve-3d;
+}
+.project-card::after,.cert-card::after{
+  content:"";
+  position:absolute;inset:0;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 30%,rgba(232,184,75,.055) 48%,transparent 66%);
+  transform:translateX(-120%);
+  transition:transform .75s ease!important;
+}
+.project-card:hover::after,.cert-card:hover::after{
+  transform:translateX(120%);
+}
+
+/* Map labels: fixed, clean, never shake */
+.academic-city-label{
+  transition:background-color .3s ease,border-color .3s ease,
+             box-shadow .3s ease,color .3s ease!important;
+}
+.academic-city-label:hover{
+  transform:none!important;
+}
+
+/* Mobile: animations remain light and performant */
+@media(max-width:700px){
+  .academic-route-flow{animation-duration:1.7s!important}
+  .project-card:hover,.cert-card:hover,.stat-card:hover,.vp-card:hover{
+    transform:none!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .academic-route-flow,.academic-marker.active::after,.section-label::after{
+    animation:none!important;
+  }
 }
 </style>
 
@@ -1772,14 +1943,33 @@ body.light .map-ocean{
     quadraticArc(cities[1].coords,cities[2].coords,4.2,80),
     quadraticArc(cities[2].coords,cities[3].coords,-1.35,48)
   ].forEach(function(points){
-    L.polyline(points,{className:'academic-route-glow',color:'#C9922A',weight:10,opacity:.20,lineCap:'round',lineJoin:'round',interactive:false}).addTo(map);
-    L.polyline(points,{className:'academic-route',color:'#E8B84B',weight:3.2,opacity:1,lineCap:'round',lineJoin:'round',interactive:false}).addTo(map);
+    /* Halo */
+    L.polyline(points,{
+      className:'academic-route-glow',
+      color:'#C9922A',weight:10,opacity:.18,
+      lineCap:'round',lineJoin:'round',interactive:false
+    }).addTo(map);
+
+    /* Ligne principale propre */
+    L.polyline(points,{
+      className:'academic-route',
+      color:'#E8B84B',weight:3.2,opacity:.92,
+      lineCap:'round',lineJoin:'round',interactive:false
+    }).addTo(map);
+
+    /* Reflet lumineux qui voyage le long de la ligne */
+    L.polyline(points,{
+      className:'academic-route-flow',
+      color:'#FFF2B5',weight:2.2,opacity:.95,
+      dashArray:'12 34',
+      lineCap:'round',lineJoin:'round',interactive:false
+    }).addTo(map);
   });
 
   const markers={};
   function markerIcon(id,active){
     return L.divIcon({
-      className:'academic-marker',
+      className:'academic-marker-shell',
       html:'<div class="academic-marker '+(active?'active':'')+'" data-map-city="'+id+'"><div class="academic-marker-dot"></div></div>',
       iconSize:[26,26],iconAnchor:[13,13]
     });
@@ -2572,10 +2762,15 @@ function closeMenu(){
 
 // ── THEME ──
 function toggleTheme(){
+  document.body.classList.add('theme-changing');
   const isLight=document.body.classList.toggle('light');
   const icon=document.getElementById('toggle-icon');
   if(icon) icon.textContent=isLight?'☀️':'🌙';
   localStorage.setItem('theme',isLight?'light':'dark');
+  clearTimeout(window.__themeSmoothTimer);
+  window.__themeSmoothTimer=setTimeout(function(){
+    document.body.classList.remove('theme-changing');
+  },720);
 }
 (function(){
   if(localStorage.getItem('theme')==='light'){
@@ -3171,7 +3366,7 @@ async function sendMessage(){
 
 <script id="premium-v2-js">
 (function(){
-  const hot='a,button,.btn-gold,.btn-filled,.btn-outline-white,.tag,.project-card,.cert-card,.stat-card,.vp-card,.academic-marker';
+  const hot='a,button,.btn-gold,.btn-filled,.btn-outline-white,.tag,.project-card,.cert-card,.stat-card,.vp-card,.academic-marker-shell';
   document.addEventListener('mouseover',e=>{
     if(e.target.closest(hot)) document.body.classList.add('cursor-hot');
   });
