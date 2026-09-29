@@ -735,6 +735,149 @@ body.light .toggle-thumb{
 }
 </style>
 
+
+<style id="final-polish-v4">
+/* ===== CARDS: no jumping / no 3D tilt ===== */
+.project-card,.cert-card,.stat-card,.vp-card{
+  position:relative;
+  overflow:hidden;
+  transform:none!important;
+  isolation:isolate;
+}
+.project-card:hover,.cert-card:hover,.stat-card:hover,.vp-card:hover{
+  transform:translateY(-3px)!important;
+}
+.project-card::before,.cert-card::before,.stat-card::before,.vp-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:0;
+  background:
+    radial-gradient(
+      260px circle at var(--mx,50%) var(--my,50%),
+      rgba(232,184,75,.12),
+      transparent 62%
+    );
+  transition:opacity .28s ease!important;
+}
+.project-card:hover::before,.cert-card:hover::before,
+.stat-card:hover::before,.vp-card:hover::before{opacity:1}
+.project-card>*,
+.cert-card>*,
+.stat-card>*,
+.vp-card>*{position:relative;z-index:1}
+
+/* Disable the previous sweeping stripe */
+.project-card::after,.cert-card::after{
+  display:none!important;
+}
+
+/* A clean cursor-following border glow */
+.project-card,.cert-card,.stat-card,.vp-card{
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.02),
+    0 12px 34px rgba(0,0,0,.10);
+}
+.project-card:hover,.cert-card:hover,.stat-card:hover,.vp-card:hover{
+  box-shadow:
+    0 0 0 1px rgba(232,184,75,.20),
+    0 18px 42px rgba(0,0,0,.22)!important;
+}
+
+/* ===== MAP COLORS FOLLOW THE THEME ===== */
+#academic-map .leaflet-tile{
+  transition:filter .75s cubic-bezier(.2,.8,.2,1),
+             opacity .75s cubic-bezier(.2,.8,.2,1)!important;
+}
+body:not(.light) #academic-map .leaflet-tile{
+  filter:
+    brightness(.58)
+    saturate(.62)
+    contrast(1.12)
+    hue-rotate(178deg)
+    grayscale(.14)!important;
+}
+body.light #academic-map .leaflet-tile{
+  filter:
+    brightness(1.04)
+    saturate(.82)
+    contrast(.96)!important;
+}
+body:not(.light) .journey-leaflet-wrap{
+  background:#070B18!important;
+  box-shadow:0 28px 80px rgba(0,0,0,.38),
+             inset 0 0 0 1px rgba(232,184,75,.08)!important;
+}
+body.light .journey-leaflet-wrap{
+  background:#E7EDF4!important;
+  box-shadow:0 24px 60px rgba(43,59,83,.13),
+             inset 0 0 0 1px rgba(184,134,11,.12)!important;
+}
+body.light .academic-city-label{
+  background:rgba(255,255,255,.94)!important;
+  color:#1A2235!important;
+  border-color:rgba(184,134,11,.35)!important;
+  box-shadow:0 8px 22px rgba(42,56,76,.15)!important;
+}
+body.light .leaflet-tooltip-left.academic-city-label:before{
+  border-left-color:rgba(255,255,255,.94)!important;
+}
+body.light .leaflet-tooltip-right.academic-city-label:before{
+  border-right-color:rgba(255,255,255,.94)!important;
+}
+body.light #academic-map .leaflet-control-zoom a{
+  background:rgba(255,255,255,.94)!important;
+  color:#1A2235!important;
+}
+body:not(.light) #academic-map .leaflet-control-zoom a{
+  background:#091126!important;
+  color:#E8B84B!important;
+}
+
+/* ===== MOVING ROUTE: clean, constant, subtle ===== */
+.academic-route{
+  stroke-dasharray:none!important;
+  stroke-dashoffset:0!important;
+  animation:none!important;
+}
+.academic-route-flow{
+  stroke-dasharray:9 30!important;
+  animation:routeTravel 1.25s linear infinite!important;
+  filter:drop-shadow(0 0 5px rgba(255,242,181,.78));
+}
+@keyframes routeTravel{to{stroke-dashoffset:-39}}
+body.light .academic-route-flow{
+  stroke:#9A6B05!important;
+  opacity:.82!important;
+  filter:drop-shadow(0 0 3px rgba(184,134,11,.32));
+}
+
+/* ===== BIDIRECTIONAL THEME TRANSITION =====
+   View Transition crossfades BOTH dark→light and light→dark. */
+::view-transition-old(root),
+::view-transition-new(root){
+  animation-duration:.62s;
+  animation-timing-function:cubic-bezier(.22,.8,.22,1);
+}
+::view-transition-old(root){animation-name:themeOld}
+::view-transition-new(root){animation-name:themeNew}
+@keyframes themeOld{to{opacity:0}}
+@keyframes themeNew{from{opacity:0}}
+
+/* Keep map + UI transitions polished when View Transition is unavailable */
+body,nav,section,footer,.glass,.journey-panel,.journey-card,
+.project-card,.cert-card,.stat-card,.vp-card,
+.form-input,.tag,.toggle-track,.toggle-thumb{
+  transition:
+    background-color .62s cubic-bezier(.2,.8,.2,1),
+    border-color .62s cubic-bezier(.2,.8,.2,1),
+    color .52s ease,
+    box-shadow .62s ease!important;
+}
+</style>
+
 </head>
 <body>
 
@@ -2762,15 +2905,25 @@ function closeMenu(){
 
 // ── THEME ──
 function toggleTheme(){
-  document.body.classList.add('theme-changing');
-  const isLight=document.body.classList.toggle('light');
-  const icon=document.getElementById('toggle-icon');
-  if(icon) icon.textContent=isLight?'☀️':'🌙';
-  localStorage.setItem('theme',isLight?'light':'dark');
-  clearTimeout(window.__themeSmoothTimer);
-  window.__themeSmoothTimer=setTimeout(function(){
-    document.body.classList.remove('theme-changing');
-  },720);
+  const applyTheme=function(){
+    document.body.classList.add('theme-changing');
+    const isLight=document.body.classList.toggle('light');
+    const icon=document.getElementById('toggle-icon');
+    if(icon) icon.textContent=isLight?'☀️':'🌙';
+    localStorage.setItem('theme',isLight?'light':'dark');
+
+    clearTimeout(window.__themeSmoothTimer);
+    window.__themeSmoothTimer=setTimeout(function(){
+      document.body.classList.remove('theme-changing');
+    },700);
+  };
+
+  /* Smooth in BOTH directions on modern browsers */
+  if(document.startViewTransition){
+    document.startViewTransition(applyTheme);
+  }else{
+    applyTheme();
+  }
 }
 (function(){
   if(localStorage.getItem('theme')==='light'){
@@ -3393,6 +3546,23 @@ async function sendMessage(){
       card.addEventListener('mouseleave',()=>card.style.transform='');
     });
   }
+})();
+</script>
+
+
+<script id="card-light-follow-v4">
+(function(){
+  const cards=document.querySelectorAll(
+    '.project-card,.cert-card,.stat-card,.vp-card'
+  );
+
+  cards.forEach(function(card){
+    card.addEventListener('pointermove',function(e){
+      const r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',(e.clientX-r.left)+'px');
+      card.style.setProperty('--my',(e.clientY-r.top)+'px');
+    });
+  });
 })();
 </script>
 
