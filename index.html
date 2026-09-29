@@ -42,7 +42,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<!-- Leaflet — vraie carte géographique -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
 <style>
 /* ══ TOKENS ══ */
 :root{
@@ -689,285 +697,13 @@ body:not(.light) ::-webkit-scrollbar-thumb {
 
     <div class="journey-wrapper reveal">
 
-      <!-- ═══ MAP ═══ -->
-      <!-- ═══ REAL MAP ═══ -->
-<div class="journey-map">
+     <!-- ═══ REAL INTERACTIVE MAP ═══ -->
+<div class="journey-map journey-leaflet-wrap">
 
   <div class="journey-map-label fr">PARCOURS ACADÉMIQUE</div>
   <div class="journey-map-label en">ACADEMIC JOURNEY</div>
 
-  <svg class="journey-svg journey-real-map"
-       viewBox="0 0 800 720"
-       role="img"
-       aria-label="Carte du parcours académique">
-
-    <defs>
-      <pattern id="map-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-        <path d="M40 0 L0 0 0 40"
-              fill="none"
-              stroke="rgba(255,255,255,.025)"
-              stroke-width="1"/>
-      </pattern>
-
-      <linearGradient id="map-route-gradient"
-                      x1="0%" y1="100%"
-                      x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#C9922A"/>
-        <stop offset="65%" stop-color="#E8B84B"/>
-        <stop offset="100%" stop-color="#3E72F8"/>
-      </linearGradient>
-
-      <filter id="map-glow">
-        <feGaussianBlur stdDeviation="3" result="blur"/>
-        <feMerge>
-          <feMergeNode in="blur"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
-    </defs>
-
-    <rect width="800" height="720" fill="url(#map-grid)"/>
-
-    <!-- ATLANTIC -->
-    <text x="110" y="380"
-          transform="rotate(-75 110 380)"
-          class="map-ocean">
-      OCÉAN ATLANTIQUE
-    </text>
-
-
-    <!-- FRANCE -->
-    <path class="map-country"
-      d="M382 83
-         L421 67
-         L470 73
-         L512 91
-         L544 123
-         L538 155
-         L557 184
-         L546 219
-         L518 239
-         L505 275
-         L469 296
-         L438 281
-         L410 294
-         L383 268
-         L351 260
-         L335 230
-         L347 197
-         L326 171
-         L344 143
-         L330 116
-         L356 101 Z"/>
-
-    <!-- BRETAGNE -->
-    <path class="map-country"
-      d="M344 143
-         L315 134
-         L285 141
-         L256 132
-         L228 143
-         L204 136
-         L184 149
-         L207 163
-         L239 160
-         L267 169
-         L297 158
-         L331 166 Z"/>
-
-
-    <!-- SPAIN -->
-    <path class="map-country"
-      d="M266 320
-         L312 306
-         L365 309
-         L416 320
-         L462 345
-         L480 372
-         L467 402
-         L436 421
-         L402 445
-         L359 440
-         L327 454
-         L288 440
-         L258 414
-         L246 379
-         L249 344 Z"/>
-
-
-    <!-- PORTUGAL -->
-    <path class="map-country"
-      d="M249 337
-         L274 333
-         L281 361
-         L274 391
-         L280 423
-         L263 438
-         L246 418
-         L239 386
-         L241 355 Z"/>
-
-
-    <!-- MOROCCO -->
-    <path class="map-country map-morocco"
-      d="M275 485
-         L314 466
-         L358 466
-         L399 476
-         L429 496
-         L441 520
-         L425 546
-         L401 561
-         L387 590
-         L364 610
-         L350 639
-         L325 667
-         L297 653
-         L279 624
-         L258 600
-         L246 570
-         L227 545
-         L238 516 Z"/>
-
-
-    <!-- COUNTRY LABELS -->
-    <text x="440" y="205"
-          text-anchor="middle"
-          class="map-country-name">
-      FRANCE
-    </text>
-
-    <text x="363" y="378"
-          text-anchor="middle"
-          class="map-country-name">
-      ESPAGNE
-    </text>
-
-    <text x="335" y="548"
-          text-anchor="middle"
-          class="map-country-name">
-      MAROC
-    </text>
-
-
-    <!-- ROUTE SHADOW -->
-    <path class="map-route-shadow"
-      d="M292 595
-         C280 582 268 572 256 564
-         C210 500 175 420 188 340
-         C198 275 198 205 211 150
-         C270 150 345 149 415 151"/>
-
-    <!-- ROUTE -->
-    <path class="map-route"
-      d="M292 595
-         C280 582 268 572 256 564
-         C210 500 175 420 188 340
-         C198 275 198 205 211 150
-         C270 150 345 149 415 151"/>
-
-
-    <!-- TAROUDANT -->
-    <g class="journey-point"
-       data-city="taroudant"
-       tabindex="0"
-       role="button">
-
-      <circle class="journey-pulse"
-              cx="292" cy="595" r="22"/>
-
-      <circle class="journey-dot"
-              cx="292" cy="595" r="8"/>
-
-      <text x="320" y="600"
-            class="journey-city">
-        TAROUDANT
-      </text>
-
-      <text x="320" y="619"
-            class="journey-date">
-        2019 / 20
-      </text>
-    </g>
-
-
-    <!-- AGADIR -->
-    <g class="journey-point"
-       data-city="agadir"
-       tabindex="0"
-       role="button">
-
-      <circle class="journey-pulse"
-              cx="256" cy="564" r="22"/>
-
-      <circle class="journey-dot"
-              cx="256" cy="564" r="8"/>
-
-      <text x="215" y="545"
-            text-anchor="end"
-            class="journey-city">
-        AGADIR
-      </text>
-
-      <text x="215" y="563"
-            text-anchor="end"
-            class="journey-date">
-        2020/21 — 2022/23
-      </text>
-    </g>
-
-
-    <!-- BREST -->
-    <g class="journey-point"
-       data-city="brest"
-       tabindex="0"
-       role="button">
-
-      <circle class="journey-pulse"
-              cx="211" cy="150" r="22"/>
-
-      <circle class="journey-dot"
-              cx="211" cy="150" r="8"/>
-
-      <text x="205" y="105"
-            text-anchor="middle"
-            class="journey-city">
-        BREST
-      </text>
-
-      <text x="205" y="124"
-            text-anchor="middle"
-            class="journey-date">
-        2023/24 — 2024/25
-      </text>
-    </g>
-
-
-    <!-- PARIS -->
-    <g class="journey-point active"
-       data-city="paris"
-       tabindex="0"
-       role="button">
-
-      <circle class="journey-pulse"
-              cx="415" cy="151" r="22"/>
-
-      <circle class="journey-dot"
-              cx="415" cy="151" r="8"/>
-
-      <text x="445" y="135"
-            class="journey-city">
-        PARIS
-      </text>
-
-      <text x="445" y="154"
-            class="journey-date">
-        2025 / 26
-      </text>
-    </g>
-
-  </svg>
-
+  <div id="academic-map"></div>
 
   <div class="journey-route-name">
     <span>🇲🇦 TAROUDANT</span>
@@ -980,7 +716,6 @@ body:not(.light) ::-webkit-scrollbar-thumb {
   </div>
 
 </div>
-
       <!-- ═══════════════════════
            INFORMATION PANEL
       ═══════════════════════ -->
@@ -1724,100 +1459,267 @@ body.light .map-ocean{
     display:none;
   }
 }
-  
+  /* ═══ LEAFLET REAL MAP ═══ */
+
+.journey-leaflet-wrap{
+  position:relative;
+  overflow:hidden;
+  min-height:680px;
+}
+
+#academic-map{
+  width:100%;
+  height:620px;
+  background:#080b18;
+  z-index:1;
+}
+
+.journey-leaflet-wrap .journey-map-label{
+  position:absolute;
+  top:24px;
+  left:28px;
+  z-index:500;
+  background:rgba(5,8,20,.88);
+  border:1px solid rgba(201,146,42,.25);
+  backdrop-filter:blur(10px);
+  padding:9px 14px;
+  border-radius:4px;
+}
+
+.journey-leaflet-wrap .journey-route-name{
+  position:absolute;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:500;
+  width:max-content;
+  max-width:90%;
+  background:rgba(5,8,20,.9);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(12px);
+  padding:10px 18px;
+  border-radius:999px;
+}
+
+/* Carte sombre */
+#academic-map .leaflet-tile-pane{
+  filter:
+    brightness(.72)
+    saturate(.65)
+    contrast(1.12);
+}
+
+#academic-map .leaflet-control-zoom a{
+  background:#0D1528;
+  color:#E8B84B;
+  border-color:rgba(255,255,255,.1);
+}
+
+#academic-map .leaflet-control-zoom a:hover{
+  background:#111E3A;
+  color:#fff;
+}
+
+#academic-map .leaflet-control-attribution{
+  background:rgba(5,8,20,.75);
+  color:#7A8499;
+  font-size:9px;
+}
+
+#academic-map .leaflet-control-attribution a{
+  color:#C9922A;
+}
+
+/* Marqueurs */
+.academic-marker{
+  background:transparent;
+  border:none;
+}
+
+.academic-marker-dot{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#C9922A;
+  border:4px solid #080b18;
+  box-shadow:
+    0 0 0 2px rgba(232,184,75,.55),
+    0 0 22px rgba(201,146,42,.75);
+  transition:.25s ease;
+}
+
+.academic-marker.active .academic-marker-dot{
+  background:#E8B84B;
+  transform:scale(1.3);
+  box-shadow:
+    0 0 0 5px rgba(201,146,42,.18),
+    0 0 28px rgba(232,184,75,.9);
+}
+
+/* Noms des villes */
+.academic-city-label{
+  background:rgba(5,8,20,.9);
+  border:1px solid rgba(201,146,42,.3);
+  color:#F0EDE8;
+  box-shadow:0 5px 18px rgba(0,0,0,.35);
+  font-family:'Outfit',sans-serif;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.08em;
+  padding:5px 8px;
+}
+
+.academic-city-label:before{
+  border-top-color:rgba(5,8,20,.9);
+}
+
+/* Mobile */
+@media(max-width:768px){
+  .journey-leaflet-wrap{
+    min-height:520px;
+  }
+
+  #academic-map{
+    height:500px;
+  }
+
+  .journey-leaflet-wrap .journey-route-name{
+    font-size:.58rem;
+    gap:.4rem;
+    padding:8px 12px;
+  }
+}
 </style>
 
 
 <script>
 (function(){
 
+  const mapElement = document.getElementById('academic-map');
   const journey = document.getElementById('journey');
 
-  if(!journey) return;
+  if (!mapElement || !journey || typeof L === 'undefined') return;
 
+  /* Vraies coordonnées géographiques */
+  const cities = [
+    {
+      id: 'taroudant',
+      name: 'Taroudant',
+      coords: [30.4703, -8.8770]
+    },
+    {
+      id: 'agadir',
+      name: 'Agadir',
+      coords: [30.4278, -9.5981]
+    },
+    {
+      id: 'brest',
+      name: 'Brest',
+      coords: [48.3904, -4.4861]
+    },
+    {
+      id: 'paris',
+      name: 'Paris',
+      coords: [48.8566, 2.3522]
+    }
+  ];
 
-  const points =
-    journey.querySelectorAll('.journey-point');
+  /* Création de la vraie carte */
+  const map = L.map('academic-map', {
+    scrollWheelZoom: false,
+    zoomControl: true
+  });
 
-  const cards =
-    journey.querySelectorAll('.journey-card');
+  /* Fond cartographique réel */
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }
+  ).addTo(map);
 
+  /* Trajet académique */
+  const routeCoordinates = cities.map(city => city.coords);
 
-  function selectCity(city){
+  const route = L.polyline(routeCoordinates, {
+    color: '#E8B84B',
+    weight: 3,
+    opacity: 0.9,
+    dashArray: '8 10'
+  }).addTo(map);
 
-    points.forEach(function(point){
+  /* Afficher automatiquement tout le parcours */
+  map.fitBounds(route.getBounds(), {
+    padding: [55, 55]
+  });
 
-      const selected =
-        point.dataset.city === city;
+  const markers = {};
 
-      point.classList.toggle(
-        'active',
-        selected
-      );
-
-      point.setAttribute(
-        'aria-pressed',
-        selected ? 'true' : 'false'
-      );
-
+  function markerIcon(cityId, active) {
+    return L.divIcon({
+      className: 'academic-marker',
+      html:
+        '<div class="academic-marker ' +
+        (active ? 'active' : '') +
+        '" data-map-city="' + cityId + '">' +
+        '<div class="academic-marker-dot"></div>' +
+        '</div>',
+      iconSize: [26, 26],
+      iconAnchor: [13, 13]
     });
-
-
-    cards.forEach(function(card){
-
-      card.classList.toggle(
-        'active',
-        card.dataset.card === city
-      );
-
-    });
-
   }
 
+  function selectCity(cityId) {
 
-  points.forEach(function(point){
+    /* Changer la fiche à droite */
+    journey.querySelectorAll('.journey-card').forEach(function(card) {
+      card.classList.toggle(
+        'active',
+        card.dataset.card === cityId
+      );
+    });
 
-    point.setAttribute(
-      'aria-pressed',
-      point.classList.contains('active')
-        ? 'true'
-        : 'false'
-    );
+    /* Changer le marqueur actif */
+    Object.keys(markers).forEach(function(id) {
+      markers[id].setIcon(
+        markerIcon(id, id === cityId)
+      );
+    });
+  }
 
+  /* Ajouter les 4 villes */
+  cities.forEach(function(city) {
 
-    point.addEventListener(
-      'click',
-      function(){
+    const marker = L.marker(
+      city.coords,
+      {
+        icon: markerIcon(
+          city.id,
+          city.id === 'paris'
+        )
+      }
+    ).addTo(map);
 
-        selectCity(
-          point.dataset.city
-        );
-
+    marker.bindTooltip(
+      city.name.toUpperCase(),
+      {
+        permanent: true,
+        direction: 'top',
+        offset: [0, -12],
+        className: 'academic-city-label'
       }
     );
 
+    marker.on('click', function() {
+      selectCity(city.id);
+    });
 
-    point.addEventListener(
-      'keydown',
-      function(event){
-
-        if(
-          event.key === 'Enter' ||
-          event.key === ' '
-        ){
-
-          event.preventDefault();
-
-          selectCity(
-            point.dataset.city
-          );
-
-        }
-
-      }
-    );
-
+    markers[city.id] = marker;
   });
+
+  /* Paris sélectionné au départ */
+  selectCity('paris');
 
 })();
 </script>
