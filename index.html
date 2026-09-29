@@ -658,6 +658,1058 @@ body:not(.light) ::-webkit-scrollbar-thumb {
 <!-- ══════════════════════════════
      EXPERIENCE
 ══════════════════════════════ -->
+  <!-- ══════════════════════════════
+     ACADEMIC JOURNEY
+══════════════════════════════ -->
+<section id="journey" aria-label="Parcours académique">
+  <div class="container">
+
+    <div class="section-label reveal fr">Parcours académique</div>
+    <div class="section-label reveal en">Academic Journey</div>
+
+    <h2 class="reveal journey-title">
+      <span class="fr">
+        De <span style="color:var(--gold)">Taroudant à Paris</span>
+      </span>
+      <span class="en">
+        From <span style="color:var(--gold)">Taroudant to Paris</span>
+      </span>
+    </h2>
+
+    <p class="reveal journey-intro fr">
+      Quatre villes, quatre étapes académiques.
+      Cliquez sur une ville pour découvrir mon parcours.
+    </p>
+
+    <p class="reveal journey-intro en">
+      Four cities, four academic milestones.
+      Select a city to explore my journey.
+    </p>
+
+
+    <div class="journey-wrapper reveal">
+
+      <!-- ═══ MAP ═══ -->
+      <div class="journey-map">
+
+        <div class="journey-map-label fr">PARCOURS ACADÉMIQUE</div>
+        <div class="journey-map-label en">ACADEMIC JOURNEY</div>
+
+        <svg
+          class="journey-svg"
+          viewBox="0 0 950 500"
+          role="img"
+          aria-label="Taroudant, Agadir, Brest et Paris">
+
+          <defs>
+
+            <pattern
+              id="journey-grid"
+              width="45"
+              height="45"
+              patternUnits="userSpaceOnUse">
+
+              <path
+                d="M45 0 L0 0 0 45"
+                fill="none"
+                stroke="rgba(255,255,255,.035)"
+                stroke-width="1"/>
+
+            </pattern>
+
+            <linearGradient
+              id="journey-gradient"
+              x1="0%"
+              y1="100%"
+              x2="100%"
+              y2="0%">
+
+              <stop offset="0%" stop-color="#C9922A"/>
+              <stop offset="55%" stop-color="#E8B84B"/>
+              <stop offset="100%" stop-color="#3E72F8"/>
+
+            </linearGradient>
+
+          </defs>
+
+
+          <!-- Background grid -->
+          <rect
+            width="950"
+            height="500"
+            fill="url(#journey-grid)"/>
+
+
+          <!-- Morocco silhouette -->
+          <path
+            class="journey-country"
+            d="
+              M175 375
+              L205 345
+              L238 337
+              L263 310
+              L292 317
+              L306 346
+              L294 374
+              L280 402
+              L252 425
+              L225 411
+              L202 395
+              Z
+            "/>
+
+
+          <!-- France silhouette -->
+          <path
+            class="journey-country"
+            d="
+              M585 92
+              L640 75
+              L699 94
+              L735 133
+              L728 183
+              L695 225
+              L644 247
+              L599 222
+              L568 180
+              Z
+            "/>
+
+
+          <!-- Route background -->
+          <path
+            class="journey-route-bg"
+            d="
+              M220 390
+              C235 375 245 362 260 350
+              C350 275 425 210 535 175
+              C570 164 595 158 615 150
+              C650 137 675 122 700 112
+            "/>
+
+
+          <!-- Animated route -->
+          <path
+            class="journey-route"
+            d="
+              M220 390
+              C235 375 245 362 260 350
+              C350 275 425 210 535 175
+              C570 164 595 158 615 150
+              C650 137 675 122 700 112
+            "/>
+
+
+          <!-- ═══ TAROUDANT ═══ -->
+          <g
+            class="journey-point"
+            data-city="taroudant"
+            tabindex="0"
+            role="button"
+            aria-label="Taroudant">
+
+            <circle
+              class="journey-pulse"
+              cx="220"
+              cy="390"
+              r="23"/>
+
+            <circle
+              class="journey-dot"
+              cx="220"
+              cy="390"
+              r="8"/>
+
+            <text
+              x="190"
+              y="445"
+              text-anchor="middle"
+              class="journey-city">
+              TAROUDANT
+            </text>
+
+            <text
+              x="190"
+              y="465"
+              text-anchor="middle"
+              class="journey-date">
+              2019 / 20
+            </text>
+
+          </g>
+
+
+          <!-- ═══ AGADIR ═══ -->
+          <g
+            class="journey-point"
+            data-city="agadir"
+            tabindex="0"
+            role="button"
+            aria-label="Agadir">
+
+            <circle
+              class="journey-pulse"
+              cx="260"
+              cy="350"
+              r="23"/>
+
+            <circle
+              class="journey-dot"
+              cx="260"
+              cy="350"
+              r="8"/>
+
+            <text
+              x="310"
+              y="370"
+              text-anchor="start"
+              class="journey-city">
+              AGADIR
+            </text>
+
+            <text
+              x="310"
+              y="390"
+              text-anchor="start"
+              class="journey-date">
+              2020 / 21 — 2022 / 23
+            </text>
+
+          </g>
+
+
+          <!-- ═══ BREST ═══ -->
+          <g
+            class="journey-point"
+            data-city="brest"
+            tabindex="0"
+            role="button"
+            aria-label="Brest">
+
+            <circle
+              class="journey-pulse"
+              cx="535"
+              cy="175"
+              r="23"/>
+
+            <circle
+              class="journey-dot"
+              cx="535"
+              cy="175"
+              r="8"/>
+
+            <text
+              x="500"
+              y="220"
+              text-anchor="middle"
+              class="journey-city">
+              BREST
+            </text>
+
+            <text
+              x="500"
+              y="240"
+              text-anchor="middle"
+              class="journey-date">
+              2023 / 24 — 2024 / 25
+            </text>
+
+          </g>
+
+
+          <!-- ═══ PARIS ═══ -->
+          <g
+            class="journey-point active"
+            data-city="paris"
+            tabindex="0"
+            role="button"
+            aria-label="Paris">
+
+            <circle
+              class="journey-pulse"
+              cx="700"
+              cy="112"
+              r="23"/>
+
+            <circle
+              class="journey-dot"
+              cx="700"
+              cy="112"
+              r="8"/>
+
+            <text
+              x="700"
+              y="65"
+              text-anchor="middle"
+              class="journey-city">
+              PARIS
+            </text>
+
+            <text
+              x="700"
+              y="84"
+              text-anchor="middle"
+              class="journey-date">
+              2025 / 26
+            </text>
+
+          </g>
+
+        </svg>
+
+
+        <div class="journey-route-name">
+          <span>TAROUDANT</span>
+          <span>→</span>
+          <span>AGADIR</span>
+          <span>→</span>
+          <span>BREST</span>
+          <span>→</span>
+          <span>PARIS</span>
+        </div>
+
+      </div>
+
+
+      <!-- ═══════════════════════
+           INFORMATION PANEL
+      ═══════════════════════ -->
+      <div class="journey-info">
+
+
+        <!-- TAROUDANT -->
+        <article
+          class="journey-card"
+          data-card="taroudant">
+
+          <div class="journey-card-top">
+
+            <span class="journey-step">
+              01
+            </span>
+
+            <span class="journey-country-code">
+              🇲🇦 MAROC
+            </span>
+
+          </div>
+
+          <div class="journey-card-city">
+            Taroudant
+          </div>
+
+          <div class="journey-card-date">
+            2019 / 2020
+          </div>
+
+          <h3 class="fr">
+            Les premières fondations
+          </h3>
+
+          <h3 class="en">
+            The first foundations
+          </h3>
+
+          <div class="journey-school">
+            Baccalauréat
+          </div>
+
+          <p class="fr">
+            Sciences de Gestion Comptable.
+          </p>
+
+          <p class="en">
+            Accounting Management Sciences.
+          </p>
+
+          <div class="journey-tag fr">
+            Gestion · Comptabilité
+          </div>
+
+          <div class="journey-tag en">
+            Management · Accounting
+          </div>
+
+        </article>
+
+
+        <!-- AGADIR -->
+        <article
+          class="journey-card"
+          data-card="agadir">
+
+          <div class="journey-card-top">
+
+            <span class="journey-step">
+              02
+            </span>
+
+            <span class="journey-country-code">
+              🇲🇦 MAROC
+            </span>
+
+          </div>
+
+          <div class="journey-card-city">
+            Agadir
+          </div>
+
+          <div class="journey-card-date">
+            2020 / 21 — 2022 / 23
+          </div>
+
+          <h3 class="fr">
+            Construire une expertise financière
+          </h3>
+
+          <h3 class="en">
+            Building financial expertise
+          </h3>
+
+          <div class="journey-school">
+            ENCG Agadir
+          </div>
+
+          <p class="fr">
+            Formation en Audit &amp; Contrôle de Gestion,
+            avec un approfondissement des fondamentaux
+            financiers, comptables et du contrôle.
+          </p>
+
+          <p class="en">
+            Studies in Audit &amp; Management Control,
+            strengthening the foundations of finance,
+            accounting and management control.
+          </p>
+
+          <div class="journey-tag fr">
+            Audit · Finance · Contrôle de Gestion
+          </div>
+
+          <div class="journey-tag en">
+            Audit · Finance · Management Control
+          </div>
+
+        </article>
+
+
+        <!-- BREST -->
+        <article
+          class="journey-card"
+          data-card="brest">
+
+          <div class="journey-card-top">
+
+            <span class="journey-step">
+              03
+            </span>
+
+            <span class="journey-country-code">
+              🇫🇷 FRANCE
+            </span>
+
+          </div>
+
+          <div class="journey-card-city">
+            Brest
+          </div>
+
+          <div class="journey-card-date">
+            2023 / 24 — 2024 / 25
+          </div>
+
+          <h3 class="fr">
+            Une nouvelle dimension
+          </h3>
+
+          <h3 class="en">
+            A new dimension
+          </h3>
+
+          <div class="journey-school">
+            Brest Business School
+          </div>
+
+          <p class="fr">
+            Programme Grande École — spécialisation
+            en Contrôle de Gestion.
+          </p>
+
+          <p class="en">
+            Grande École Program — specialization
+            in Management Control.
+          </p>
+
+          <div class="journey-tag fr">
+            Contrôle de Gestion · Finance
+          </div>
+
+          <div class="journey-tag en">
+            Management Control · Finance
+          </div>
+
+        </article>
+
+
+        <!-- PARIS -->
+        <article
+          class="journey-card active"
+          data-card="paris">
+
+          <div class="journey-card-top">
+
+            <span class="journey-step">
+              04
+            </span>
+
+            <span class="journey-country-code">
+              🇫🇷 FRANCE
+            </span>
+
+          </div>
+
+          <div class="journey-card-city">
+            Paris
+          </div>
+
+          <div class="journey-card-date fr">
+            2025 / 26 · Terminé en septembre 2026
+          </div>
+
+          <div class="journey-card-date en">
+            2025 / 26 · Completed September 2026
+          </div>
+
+          <h3>
+            Finance × IT
+          </h3>
+
+          <div class="journey-school">
+            SKEMA Business School
+          </div>
+
+          <p class="fr">
+            Mastère Spécialisé en Contrôle de Gestion,
+            Audit &amp; Systèmes d'Information.
+          </p>
+
+          <p class="en">
+            Specialized Master's in Management Control,
+            Audit &amp; Information Systems.
+          </p>
+
+          <div class="journey-tag fr">
+            Finance · Audit · SI
+          </div>
+
+          <div class="journey-tag en">
+            Finance · Audit · IS
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+
+/* ══════════════════════════════
+   ACADEMIC JOURNEY
+══════════════════════════════ */
+
+#journey{
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+}
+
+.journey-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.8rem,4vw,2.5rem);
+  font-weight:500;
+  line-height:1.2;
+  margin-bottom:.8rem;
+}
+
+.journey-intro{
+  color:var(--text-muted);
+  max-width:650px;
+  line-height:1.8;
+  margin-bottom:2.5rem;
+}
+
+.journey-wrapper{
+  display:grid;
+  grid-template-columns:minmax(0,1.55fr) minmax(300px,.8fr);
+  gap:1.5rem;
+  align-items:stretch;
+}
+
+
+/* MAP */
+
+.journey-map{
+  position:relative;
+  min-width:0;
+  overflow:hidden;
+  padding:1rem;
+  border:1px solid var(--glass-border);
+  background:var(--glass-bg);
+  border-radius:16px;
+}
+
+.journey-map::before{
+  content:'';
+  position:absolute;
+  width:350px;
+  height:350px;
+  left:5%;
+  bottom:-150px;
+  border-radius:50%;
+  background:rgba(201,146,42,.08);
+  filter:blur(80px);
+  pointer-events:none;
+}
+
+.journey-map-label{
+  position:absolute;
+  top:1.3rem;
+  left:1.5rem;
+  z-index:2;
+  font-size:.58rem;
+  letter-spacing:.2em;
+  color:var(--text-muted);
+}
+
+.journey-svg{
+  display:block;
+  width:100%;
+  height:auto;
+  min-height:390px;
+}
+
+
+/* COUNTRIES */
+
+.journey-country{
+  fill:rgba(255,255,255,.025);
+  stroke:rgba(255,255,255,.12);
+  stroke-width:1.5;
+}
+
+
+/* ROUTE */
+
+.journey-route-bg{
+  fill:none;
+  stroke:rgba(255,255,255,.07);
+  stroke-width:8;
+  stroke-linecap:round;
+}
+
+.journey-route{
+  fill:none;
+  stroke:url(#journey-gradient);
+  stroke-width:2.5;
+  stroke-linecap:round;
+  stroke-dasharray:8 11;
+  animation:journey-route-animation 10s linear infinite;
+}
+
+@keyframes journey-route-animation{
+  to{
+    stroke-dashoffset:-190;
+  }
+}
+
+
+/* POINTS */
+
+.journey-point{
+  cursor:pointer;
+  outline:none;
+}
+
+.journey-dot{
+  fill:var(--gold);
+  stroke:var(--navy);
+  stroke-width:4;
+  transition:
+    r .25s ease,
+    fill .25s ease;
+}
+
+.journey-pulse{
+  fill:rgba(201,146,42,.09);
+  stroke:rgba(201,146,42,.3);
+  stroke-width:1;
+  transition:.3s ease;
+}
+
+.journey-point:hover .journey-dot,
+.journey-point.active .journey-dot{
+  fill:var(--gold-light);
+  r:11;
+}
+
+.journey-point:hover .journey-pulse,
+.journey-point.active .journey-pulse{
+  fill:rgba(201,146,42,.2);
+  stroke:rgba(232,184,75,.6);
+}
+
+.journey-point.active .journey-pulse{
+  animation:journey-pulse-animation 2s infinite;
+}
+
+@keyframes journey-pulse-animation{
+
+  0%,100%{
+    opacity:1;
+  }
+
+  50%{
+    opacity:.35;
+  }
+
+}
+
+.journey-point:focus-visible .journey-pulse{
+  stroke:var(--gold-light);
+  stroke-width:3;
+}
+
+
+/* MAP TEXT */
+
+.journey-city{
+  fill:var(--text-primary);
+  font-family:'Outfit',sans-serif;
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:2px;
+}
+
+.journey-date{
+  fill:var(--text-muted);
+  font-family:'Outfit',sans-serif;
+  font-size:10px;
+}
+
+.journey-route-name{
+  position:absolute;
+  left:1.5rem;
+  right:1.5rem;
+  bottom:1.2rem;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:.6rem;
+
+  color:var(--text-muted);
+  font-size:.58rem;
+  font-weight:500;
+  letter-spacing:.13em;
+}
+
+
+/* ═══ INFORMATION ═══ */
+
+.journey-info{
+  position:relative;
+  min-height:420px;
+  overflow:hidden;
+
+  padding:2rem;
+
+  border:1px solid var(--glass-border);
+  background:var(--glass-bg);
+  border-radius:16px;
+}
+
+.journey-info::after{
+  content:'';
+  position:absolute;
+  width:220px;
+  height:220px;
+  right:-100px;
+  bottom:-100px;
+  border-radius:50%;
+  background:rgba(62,114,248,.08);
+  filter:blur(65px);
+  pointer-events:none;
+}
+
+
+/* CARD */
+
+.journey-card{
+  display:none;
+  position:relative;
+  z-index:1;
+}
+
+.journey-card.active{
+  display:block;
+  animation:journey-card-in .4s ease;
+}
+
+@keyframes journey-card-in{
+
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+.journey-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:2rem;
+}
+
+.journey-step{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.8rem;
+  line-height:1;
+  color:rgba(201,146,42,.16);
+}
+
+.journey-country-code{
+  color:var(--text-muted);
+  font-size:.58rem;
+  letter-spacing:.15em;
+}
+
+.journey-card-city{
+  color:var(--gold-light);
+  font-size:.7rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-weight:600;
+  margin-bottom:.35rem;
+}
+
+.journey-card-date{
+  color:var(--text-muted);
+  font-size:.7rem;
+  margin-bottom:1.4rem;
+}
+
+.journey-card h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.75rem;
+  font-weight:500;
+  line-height:1.15;
+  color:var(--text-primary);
+  margin-bottom:1.2rem;
+}
+
+.journey-school{
+  color:var(--text-primary);
+  font-size:.88rem;
+  font-weight:500;
+  margin-bottom:.7rem;
+}
+
+.journey-card p{
+  color:var(--text-muted);
+  line-height:1.8;
+  font-size:.85rem;
+}
+
+.journey-tag{
+  display:inline-block;
+
+  margin-top:1.5rem;
+  padding:.45rem .75rem;
+
+  border:1px solid rgba(201,146,42,.25);
+  border-radius:999px;
+
+  background:rgba(201,146,42,.07);
+
+  color:var(--gold-light);
+
+  font-size:.58rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+
+/* TABLET */
+
+@media(max-width:800px){
+
+  .journey-wrapper{
+    grid-template-columns:1fr;
+  }
+
+  .journey-svg{
+    min-height:320px;
+  }
+
+  .journey-info{
+    min-height:340px;
+  }
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:520px){
+
+  .journey-map{
+    padding:.25rem;
+  }
+
+  .journey-svg{
+    min-height:270px;
+  }
+
+  .journey-info{
+    padding:1.5rem;
+    min-height:360px;
+  }
+
+  .journey-route-name{
+    display:none;
+  }
+
+  .journey-map-label{
+    top:1rem;
+    left:1rem;
+  }
+
+}
+
+
+/* ACCESSIBILITY */
+
+@media(prefers-reduced-motion:reduce){
+
+  .journey-route,
+  .journey-point.active .journey-pulse{
+    animation:none;
+  }
+
+  .journey-card.active{
+    animation:none;
+  }
+
+}
+
+</style>
+
+
+<script>
+(function(){
+
+  const journey = document.getElementById('journey');
+
+  if(!journey) return;
+
+
+  const points =
+    journey.querySelectorAll('.journey-point');
+
+  const cards =
+    journey.querySelectorAll('.journey-card');
+
+
+  function selectCity(city){
+
+    points.forEach(function(point){
+
+      const selected =
+        point.dataset.city === city;
+
+      point.classList.toggle(
+        'active',
+        selected
+      );
+
+      point.setAttribute(
+        'aria-pressed',
+        selected ? 'true' : 'false'
+      );
+
+    });
+
+
+    cards.forEach(function(card){
+
+      card.classList.toggle(
+        'active',
+        card.dataset.card === city
+      );
+
+    });
+
+  }
+
+
+  points.forEach(function(point){
+
+    point.setAttribute(
+      'aria-pressed',
+      point.classList.contains('active')
+        ? 'true'
+        : 'false'
+    );
+
+
+    point.addEventListener(
+      'click',
+      function(){
+
+        selectCity(
+          point.dataset.city
+        );
+
+      }
+    );
+
+
+    point.addEventListener(
+      'keydown',
+      function(event){
+
+        if(
+          event.key === 'Enter' ||
+          event.key === ' '
+        ){
+
+          event.preventDefault();
+
+          selectCity(
+            point.dataset.city
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+})();
+</script>
 <section id="experience" aria-label="Expérience professionnelle">
   <div class="container">
     <div class="section-label reveal fr">Parcours professionnel</div>
