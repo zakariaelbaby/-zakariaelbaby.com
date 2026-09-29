@@ -449,6 +449,121 @@ body:not(.light) ::-webkit-scrollbar-thumb {
 }
 </style>
 
+
+<style id="premium-v2">
+/* ===== PREMIUM REACTIVITY ===== */
+.btn-gold,.btn-filled,.btn-outline-white,.lang-toggle,.theme-toggle,.tag,
+.project-card,.cert-card,.stat-card,.vp-card{
+  will-change:transform;
+  transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s ease,
+             border-color .24s ease,background .24s ease,color .24s ease!important;
+}
+.btn-gold:hover,.btn-filled:hover,.btn-outline-white:hover{
+  transform:translateY(-3px) scale(1.025)!important;
+  box-shadow:0 14px 36px rgba(201,146,42,.23)!important;
+}
+.btn-gold:active,.btn-filled:active,.btn-outline-white:active{
+  transform:scale(.96)!important;
+}
+.project-card:hover,.cert-card:hover,.stat-card:hover,.vp-card:hover{
+  transform:translateY(-7px)!important;
+  border-color:rgba(232,184,75,.3)!important;
+}
+.tag:hover{transform:translateY(-2px) scale(1.045)!important}
+
+/* Cursor reacts to interactive elements */
+@media(min-width:769px){
+  .cursor,.cursor-ring{will-change:left,top,width,height}
+  body.cursor-hot .cursor{
+    width:7px!important;height:7px!important;background:#050814!important;
+  }
+  body.cursor-hot .cursor-ring{
+    width:58px!important;height:58px!important;
+    border-color:rgba(232,184,75,.95)!important;
+    background:rgba(232,184,75,.13)!important;
+    backdrop-filter:blur(2px);
+  }
+}
+
+/* ===== MAP POLISH ===== */
+.journey-leaflet-wrap{
+  overflow:hidden!important;
+  border-radius:18px!important;
+  box-shadow:0 28px 75px rgba(0,0,0,.30),inset 0 0 0 1px rgba(255,255,255,.06)!important;
+}
+#academic-map{
+  width:100%!important;min-width:0!important;background:#10182b!important;
+}
+#academic-map .leaflet-tile-pane{
+  filter:saturate(.74) contrast(.97) brightness(.88);
+}
+#academic-map .leaflet-control-zoom{
+  border:none!important;box-shadow:0 8px 26px rgba(0,0,0,.32)!important;
+}
+#academic-map .leaflet-control-zoom a{
+  transition:transform .18s ease,background .18s ease,color .18s ease!important;
+}
+#academic-map .leaflet-control-zoom a:hover{
+  transform:scale(1.08);background:#E8B84B!important;color:#050814!important;
+}
+
+/* Arc animation */
+.academic-route{
+  stroke-dasharray:1800;
+  stroke-dashoffset:1800;
+  animation:routeDraw 2.2s cubic-bezier(.2,.8,.2,1) .2s forwards;
+  filter:drop-shadow(0 0 5px rgba(232,184,75,.7));
+}
+@keyframes routeDraw{to{stroke-dashoffset:0}}
+
+/* Markers + labels */
+.academic-marker{cursor:pointer!important;transition:transform .2s ease!important}
+.academic-marker:hover{transform:scale(1.2)!important}
+.academic-marker-dot{
+  transition:transform .2s ease,box-shadow .2s ease,background .2s ease!important;
+}
+.academic-marker:hover .academic-marker-dot{
+  transform:scale(1.18);
+  box-shadow:0 0 0 6px rgba(201,146,42,.16),0 0 30px rgba(232,184,75,.95)!important;
+}
+.academic-city-label{
+  border-radius:6px!important;
+  backdrop-filter:blur(8px);
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease!important;
+}
+.academic-city-label:hover{
+  transform:translateY(-2px);
+  border-color:rgba(232,184,75,.8)!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.4)!important;
+}
+.leaflet-tooltip-left.academic-city-label:before{border-left-color:rgba(5,8,20,.9)!important}
+.leaflet-tooltip-right.academic-city-label:before{border-right-color:rgba(5,8,20,.9)!important}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1000px){
+  #journey .journey-map-layout{grid-template-columns:1fr!important;gap:1.25rem!important}
+  #journey .journey-leaflet-wrap{min-height:500px!important}
+  #academic-map{height:500px!important;min-height:500px!important}
+  #journey .journey-panel{min-height:0!important}
+}
+@media(max-width:700px){
+  section{overflow:hidden}
+  #journey .container{padding-left:12px!important;padding-right:12px!important}
+  #journey .journey-leaflet-wrap{min-height:420px!important;border-radius:14px!important}
+  #academic-map{height:420px!important;min-height:420px!important}
+  .academic-city-label{font-size:9px!important;letter-spacing:.04em!important;padding:4px 6px!important}
+  #journey .journey-card{padding:1.35rem!important}
+  .btn-gold,.btn-filled,.btn-outline-white{min-height:44px}
+}
+@media(max-width:480px){
+  #journey .journey-leaflet-wrap{min-height:365px!important}
+  #academic-map{height:365px!important;min-height:365px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .academic-route{animation:none!important;stroke-dashoffset:0!important}
+}
+</style>
+
 </head>
 <body>
 
@@ -1618,8 +1733,8 @@ body.light .map-ocean{
   if(!mapElement||!journey||typeof L==='undefined')return;
 
   const cities=[
-    {id:'taroudant',name:'Taroudant',coords:[30.4703,-8.8770],dir:'left',offset:[-18,0]},
-    {id:'agadir',name:'Agadir',coords:[30.4278,-9.5981],dir:'right',offset:[18,0]},
+    {id:'taroudant',name:'Taroudant',coords:[30.4703,-8.8770],dir:'right',offset:[20,0]},
+    {id:'agadir',name:'Agadir',coords:[30.4278,-9.5981],dir:'left',offset:[-20,0]},
     {id:'brest',name:'Brest',coords:[48.3904,-4.4861],dir:'left',offset:[-16,0]},
     {id:'paris',name:'Paris',coords:[48.8566,2.3522],dir:'right',offset:[16,0]}
   ];
@@ -1657,8 +1772,8 @@ body.light .map-ocean{
     quadraticArc(cities[1].coords,cities[2].coords,4.2,80),
     quadraticArc(cities[2].coords,cities[3].coords,-1.35,48)
   ].forEach(function(points){
-    L.polyline(points,{color:'#C9922A',weight:10,opacity:.20,lineCap:'round',lineJoin:'round',interactive:false}).addTo(map);
-    L.polyline(points,{color:'#E8B84B',weight:3.2,opacity:1,lineCap:'round',lineJoin:'round',interactive:false}).addTo(map);
+    L.polyline(points,{className:'academic-route-glow',color:'#C9922A',weight:10,opacity:.20,lineCap:'round',lineJoin:'round',interactive:false}).addTo(map);
+    L.polyline(points,{className:'academic-route',color:'#E8B84B',weight:3.2,opacity:1,lineCap:'round',lineJoin:'round',interactive:false}).addTo(map);
   });
 
   const markers={};
@@ -3053,5 +3168,38 @@ async function sendMessage(){
 })();
 </script>
 <!-- END ZAKARIA AI ASSISTANT -->
+
+<script id="premium-v2-js">
+(function(){
+  const hot='a,button,.btn-gold,.btn-filled,.btn-outline-white,.tag,.project-card,.cert-card,.stat-card,.vp-card,.academic-marker';
+  document.addEventListener('mouseover',e=>{
+    if(e.target.closest(hot)) document.body.classList.add('cursor-hot');
+  });
+  document.addEventListener('mouseout',e=>{
+    if(e.target.closest(hot)) document.body.classList.remove('cursor-hot');
+  });
+
+  if(matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.btn-gold,.btn-filled,.btn-outline-white').forEach(btn=>{
+      btn.addEventListener('mousemove',e=>{
+        const r=btn.getBoundingClientRect();
+        const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+        btn.style.transform=`translate(${x*.07}px,${y*.09}px) translateY(-3px) scale(1.025)`;
+      });
+      btn.addEventListener('mouseleave',()=>btn.style.transform='');
+    });
+
+    document.querySelectorAll('.project-card,.cert-card,.stat-card,.vp-card').forEach(card=>{
+      card.addEventListener('mousemove',e=>{
+        const r=card.getBoundingClientRect();
+        const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+        card.style.transform=`perspective(900px) rotateX(${-y*3}deg) rotateY(${x*3}deg) translateY(-6px)`;
+      });
+      card.addEventListener('mouseleave',()=>card.style.transform='');
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
